@@ -3,8 +3,8 @@ package gist.unican.com.encuestaapp.data.encuesta;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
-import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
@@ -20,5 +20,5 @@ public interface ResourcesSurvey {
 
     Observable<SurveyQualityVariables> getSurveyQuality();
 
-    Observable<Void> setSurveyFinished(RequestBody body);
+    Observable<Void> setSurveyFinished(SurveyObjectSend body);
 }

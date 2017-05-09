@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -70,7 +71,7 @@ public class ResourcesDataSurvey implements ResourcesSurvey {
     }
 
     @Override
-    public Observable<Void> setSurveyFinished(RequestBody body) {
+    public Observable<Void> setSurveyFinished(SurveyObjectSend body) {
         return service.sendSurveyAnswers(body);
     }
 }

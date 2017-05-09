@@ -3,8 +3,8 @@ package gist.unican.com.encuestaapp.data.encuesta;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -31,7 +31,7 @@ public interface ApiResourcesSurvey {
 
     @Headers("Content-Type: application/json")
     @POST("URL")
-    Observable<Void> sendSurveyAnswers(@Body RequestBody body);
+    Observable<Void> sendSurveyAnswers(@Body SurveyObjectSend body);
 
     @Headers("Content-Type: application/json")
     @GET

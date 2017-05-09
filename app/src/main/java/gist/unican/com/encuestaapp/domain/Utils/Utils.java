@@ -1,4 +1,4 @@
-package gist.unican.com.encuestaapp.domain;
+package gist.unican.com.encuestaapp.domain.Utils;
 
 /**
  * Created by andres on 08/05/2017.
