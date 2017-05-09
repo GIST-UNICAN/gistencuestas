@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EncuestaApp.iml" filepath="$PROJECT_DIR$/EncuestaApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/GISTEncuestas.iml" filepath="$PROJECT_DIR$/GISTEncuestas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
