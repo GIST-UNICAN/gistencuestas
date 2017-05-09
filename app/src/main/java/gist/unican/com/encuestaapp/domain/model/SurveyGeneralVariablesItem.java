@@ -1,15 +1,14 @@
 package gist.unican.com.encuestaapp.domain.model;
 
-import com.abubusoft.kripton.annotation.BindType;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.siimkinks.sqlitemagic.annotation.Table;
 
 /**
  * Created by andres on 08/05/2017.
  */
-@BindType
+@Table(persistAll = true)
 public class SurveyGeneralVariablesItem {
-    public long id;
 
     public SurveyGeneralVariablesItem() {
     }

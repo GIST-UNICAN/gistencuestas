@@ -2,12 +2,13 @@ package gist.unican.com.encuestaapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.siimkinks.sqlitemagic.annotation.Table;
 
+@Table(persistAll = true)
 public class SurveyObjectSend {
-    public long id;
 
-    public SurveyObjectSend(String encuestador) {
-        this.encuestador = encuestador;
+    public SurveyObjectSend() {
+
     }
 
     @SerializedName("ID")

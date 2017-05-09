@@ -1,6 +1,5 @@
 package gist.unican.com.encuestaapp.domain.model;
 
-import com.abubusoft.kripton.annotation.BindType;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * Created by andres on 08/05/2017.
  */
-@BindType
+
 public class SurveyGeneralVariables {
     public SurveyGeneralVariables() {
     }

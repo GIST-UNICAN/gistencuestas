@@ -2,12 +2,15 @@ package gist.unican.com.encuestaapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.siimkinks.sqlitemagic.annotation.Id;
+import com.siimkinks.sqlitemagic.annotation.Table;
 
 /**
  * Created by andres on 08/05/2017.
  */
-
+@Table(persistAll = true)
 public class BusLinesObjectItem {
+    @Id(autoIncrement = true)
     public long id;
     @SerializedName("dc:identifier")
     @Expose
@@ -25,8 +28,7 @@ public class BusLinesObjectItem {
     @Expose
     public String uri;
 
-    public BusLinesObjectItem() {
-    }
+
 
     public String getDcIdentifier() {
         return dcIdentifier;

@@ -1,13 +1,17 @@
 package gist.unican.com.encuestaapp.ui;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.siimkinks.sqlitemagic.SqliteMagic;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        SurveyObjectSend sob=new SurveyObjectSend("ENCUESTADOR");
+        SurveyObjectSend sob=new SurveyObjectSend();
         String variable= "setAcoBe";
         try {
            Method metodo= sob.getClass().getMethod(variable,String.class);
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        Context context = getApplicationContext();
+        SqliteMagic.init((Application) context);
     }
 
 

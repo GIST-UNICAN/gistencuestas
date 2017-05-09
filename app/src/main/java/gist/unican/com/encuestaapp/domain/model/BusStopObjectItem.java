@@ -2,58 +2,58 @@ package gist.unican.com.encuestaapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.siimkinks.sqlitemagic.annotation.Table;
 
 /**
  * Created by andres on 09/05/2017.
  */
-
+@Table(persistAll = true)
 public class BusStopObjectItem {
     public BusStopObjectItem() {
     }
 
-    public long id;
     @SerializedName("ayto:Ruta")
     @Expose
-    private String aytoRuta;
+    public String aytoRuta;
     @SerializedName("ayto:PuntoKM")
     @Expose
-    private String aytoPuntoKM;
+    public String aytoPuntoKM;
     @SerializedName("ayto:NParada")
     @Expose
-    private String aytoNParada;
+    public String aytoNParada;
     @SerializedName("dc:EtiquetaLinea")
     @Expose
-    private String dcEtiquetaLinea;
+    public String dcEtiquetaLinea;
     @SerializedName("dc:modified")
     @Expose
-    private String dcModified;
+    public String dcModified;
     @SerializedName("ayto:Linea")
     @Expose
-    private String aytoLinea;
+    public String aytoLinea;
     @SerializedName("ayto:Seccion")
     @Expose
-    private String aytoSeccion;
+    public String aytoSeccion;
     @SerializedName("ayto:SentidoRuta")
     @Expose
-    private String aytoSentidoRuta;
+    public String aytoSentidoRuta;
     @SerializedName("dc:identifier")
     @Expose
-    private String dcIdentifier;
+    public String dcIdentifier;
     @SerializedName("ayto:NombreSublinea")
     @Expose
-    private String aytoNombreSublinea;
+    public String aytoNombreSublinea;
     @SerializedName("ayto:NombreParada")
     @Expose
-    private String aytoNombreParada;
+    public String aytoNombreParada;
     @SerializedName("ayto:PosX")
     @Expose
-    private String aytoPosX;
+    public String aytoPosX;
     @SerializedName("ayto:PosY")
     @Expose
-    private String aytoPosY;
+    public String aytoPosY;
     @SerializedName("uri")
     @Expose
-    private String uri;
+    public String uri;
 
     public String getAytoRuta() {
         return aytoRuta;

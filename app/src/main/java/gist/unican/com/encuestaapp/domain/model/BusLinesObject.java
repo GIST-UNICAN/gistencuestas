@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created by andres on 08/05/2017.
  */
-
 public class BusLinesObject {
     @SerializedName("results")
     @Expose

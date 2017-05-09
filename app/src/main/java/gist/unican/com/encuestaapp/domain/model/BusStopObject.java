@@ -8,14 +8,13 @@ import java.util.List;
 /**
  * Created by andres on 09/05/2017.
  */
-
 public class BusStopObject {
     public BusStopObject() {
     }
 
     @SerializedName("resources")
     @Expose
-    private List<BusStopObjectItem> resources = null;
+    public List<BusStopObjectItem> resources = null;
 
 
     public List<BusStopObjectItem> getResources() {

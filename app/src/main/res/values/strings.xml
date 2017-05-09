@@ -4,4 +4,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="preference_file_key">archivo_preferencias</string>
+    <string name="PREFERENCES_TOKEN">preferencias_token</string>
+    <string name="PREFERENCES_USER">preferencias_user</string>
+    <string name="PREFERENCES_EXPIRATION">preferencias_expiracion</string>
+    <string name="motivo_casa">Casa</string>
+    <string name="motivo_trabajo">Trabajo</string>
+    <string name="motivo_estudios">Estudios</string>
+    <string name="motivo_sanidad">Sanidad</string>
+    <string name="motivo_compras">Compras</string>
+    <string name="motivo_ocio">Ocio</string>
+    <string name="motivo_otros">Otros</string>
 </resources>
