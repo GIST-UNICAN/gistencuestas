@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import gist.unican.com.encuestaapp.R;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +32,21 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        SurveyObjectSend sob=new SurveyObjectSend("ENCUESTADOR");
+        String variable= "setAcoBe";
+        try {
+           Method metodo= sob.getClass().getMethod(variable,String.class);
+            metodo.invoke("string");
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
