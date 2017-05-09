@@ -16,9 +16,11 @@ import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 public interface UserAnswerDao {
     @BindSqlInsert(includePrimaryKey = true)
     void insert(SurveyObjectSend bean);
+
     @BindSqlSelect(orderBy = "id asc")
     List<SurveyObjectSend> selectAll();
-    @BindSqlDelete(where="id=${bean.id}")
+
+    @BindSqlDelete(where = "id=${bean.id}")
     void deleteOne(SurveyObjectSend bean);
 
 }

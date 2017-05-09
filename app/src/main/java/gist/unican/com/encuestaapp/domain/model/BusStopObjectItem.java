@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class BusStopObjectItem {
+    public BusStopObjectItem() {
+    }
+
     public long id;
     @SerializedName("ayto:Ruta")
     @Expose

@@ -15,6 +15,7 @@ import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 public interface QualityVariablesDao {
     @BindSqlInsert(includePrimaryKey = true)
     void insert(SurveyQualityVariables bean);
+
     @BindSqlSelect(orderBy = "iD asc")
     List<SurveyQualityVariables> selectAll();
 }

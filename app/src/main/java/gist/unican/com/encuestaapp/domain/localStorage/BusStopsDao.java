@@ -15,6 +15,7 @@ import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 public interface BusStopsDao {
     @BindSqlInsert(includePrimaryKey = true)
     void insert(BusStopObjectItem bean);
+
     @BindSqlSelect(orderBy = "id asc")
     List<BusStopObjectItem> selectAll();
 }

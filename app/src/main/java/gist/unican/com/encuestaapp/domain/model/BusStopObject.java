@@ -10,6 +10,9 @@ import java.util.List;
  */
 
 public class BusStopObject {
+    public BusStopObject() {
+    }
+
     @SerializedName("resources")
     @Expose
     private List<BusStopObjectItem> resources = null;
@@ -22,4 +25,5 @@ public class BusStopObject {
     public void setResources(List<BusStopObjectItem> resources) {
         this.resources = resources;
     }
+
 }

@@ -3,6 +3,7 @@ package gist.unican.com.encuestaapp.data.encuesta;
 import java.util.concurrent.TimeUnit;
 
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
+import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import okhttp3.OkHttpClient;
@@ -49,8 +50,13 @@ public class ResourcesDataSurvey implements ResourcesSurvey {
     }
 
     @Override
-    public Observable<BusLinesObject> getBusLines() {
-        return service.getBusLines();
+    public Observable<BusLinesObject> getBusLines(String url) {
+        return service.getBusLines(url);
+    }
+
+    @Override
+    public Observable<BusStopObject> getBusStops(String url) {
+        return service.getBusStops(url);
     }
 
     @Override
