@@ -14,46 +14,46 @@ public class BusStopObjectItem {
 
     @SerializedName("ayto:Ruta")
     @Expose
-    public String aytoRuta;
+    private String aytoRuta;
     @SerializedName("ayto:PuntoKM")
     @Expose
-    public String aytoPuntoKM;
+    private String aytoPuntoKM;
     @SerializedName("ayto:NParada")
     @Expose
-    public String aytoNParada;
+    private String aytoNParada;
     @SerializedName("dc:EtiquetaLinea")
     @Expose
-    public String dcEtiquetaLinea;
+    private String dcEtiquetaLinea;
     @SerializedName("dc:modified")
     @Expose
-    public String dcModified;
+    private String dcModified;
     @SerializedName("ayto:Linea")
     @Expose
-    public String aytoLinea;
+    private String aytoLinea;
     @SerializedName("ayto:Seccion")
     @Expose
-    public String aytoSeccion;
+    private String aytoSeccion;
     @SerializedName("ayto:SentidoRuta")
     @Expose
-    public String aytoSentidoRuta;
+    private String aytoSentidoRuta;
     @SerializedName("dc:identifier")
     @Expose
-    public String dcIdentifier;
+    private String dcIdentifier;
     @SerializedName("ayto:NombreSublinea")
     @Expose
-    public String aytoNombreSublinea;
+    private String aytoNombreSublinea;
     @SerializedName("ayto:NombreParada")
     @Expose
-    public String aytoNombreParada;
+    private String aytoNombreParada;
     @SerializedName("ayto:PosX")
     @Expose
-    public String aytoPosX;
+    private String aytoPosX;
     @SerializedName("ayto:PosY")
     @Expose
-    public String aytoPosY;
+    private String aytoPosY;
     @SerializedName("uri")
     @Expose
-    public String uri;
+    private String uri;
 
     public String getAytoRuta() {
         return aytoRuta;

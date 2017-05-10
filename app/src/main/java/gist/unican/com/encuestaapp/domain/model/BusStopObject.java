@@ -14,7 +14,7 @@ public class BusStopObject {
 
     @SerializedName("resources")
     @Expose
-    public List<BusStopObjectItem> resources = null;
+    private List<BusStopObjectItem> resources = null;
 
 
     public List<BusStopObjectItem> getResources() {

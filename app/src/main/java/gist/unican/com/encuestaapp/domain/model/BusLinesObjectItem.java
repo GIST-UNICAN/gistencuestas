@@ -11,22 +11,22 @@ import com.siimkinks.sqlitemagic.annotation.Table;
 @Table(persistAll = true)
 public class BusLinesObjectItem {
     @Id(autoIncrement = true)
-    public long id;
+    private long id;
     @SerializedName("dc:identifier")
     @Expose
-    public String dcIdentifier;
+    private String dcIdentifier;
     @SerializedName("dc:modified")
     @Expose
-    public String dcModified;
+    private String dcModified;
     @SerializedName("ayto:numero")
     @Expose
-    public String aytoNumero;
+    private String aytoNumero;
     @SerializedName("dc:name")
     @Expose
-    public String dcName;
+    private String dcName;
     @SerializedName("uri")
     @Expose
-    public String uri;
+    private String uri;
 
 
 

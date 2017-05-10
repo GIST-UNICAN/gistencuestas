@@ -11,7 +11,7 @@ import java.util.List;
 public class BusLinesObject {
     @SerializedName("results")
     @Expose
-    public List<BusLinesObjectItem> results = null;
+    private List<BusLinesObjectItem> results = null;
 
     public BusLinesObject() {
     }

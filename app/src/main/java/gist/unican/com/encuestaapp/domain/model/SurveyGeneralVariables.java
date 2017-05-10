@@ -15,7 +15,7 @@ public class SurveyGeneralVariables {
 
     @SerializedName("results")
     @Expose
-    public List<SurveyGeneralVariablesItem> surveyGeneralVariablesItems = null;
+    private List<SurveyGeneralVariablesItem> surveyGeneralVariablesItems = null;
 
     public List<SurveyGeneralVariablesItem> getSurveyGeneralVariablesItems() {
         return surveyGeneralVariablesItems;

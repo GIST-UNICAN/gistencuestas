@@ -13,7 +13,7 @@ public class SurveyObjectSend {
 
     @SerializedName("ID")
     @Expose
-    public Integer iD;
+    private Integer iD;
     @SerializedName("encuestador")
     @Expose
     public String encuestador;

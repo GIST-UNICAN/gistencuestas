@@ -6,29 +6,18 @@ import com.siimkinks.sqlitemagic.annotation.Column;
 import com.siimkinks.sqlitemagic.annotation.Table;
 
 /**
- * Created by andres on 08/05/2017.
+ * Created by andres on 10/05/2017.
  */
 @Table(persistAll = true)
-public class SurveyGeneralVariablesItem {
-
-    public SurveyGeneralVariablesItem() {
-    }
+public class SurveyQualityVariablesItem {
     @Column(useAccessMethods = true)
     @SerializedName("ID")
     @Expose
     private String iD;
     @Column(useAccessMethods = true)
-    @SerializedName("Orden")
-    @Expose
-    private String orden;
-    @Column(useAccessMethods = true)
     @SerializedName("NOMBRE")
     @Expose
     private String nOMBRE;
-    @Column(useAccessMethods = true)
-    @SerializedName("ITEMS")
-    @Expose
-    private String iTEMS;
     @Column(useAccessMethods = true)
     @SerializedName("abreviatura")
     @Expose
@@ -42,28 +31,12 @@ public class SurveyGeneralVariablesItem {
         this.iD = iD;
     }
 
-    public String getOrden() {
-        return orden;
-    }
-
-    public void setOrden(String orden) {
-        this.orden = orden;
-    }
-
     public String getNOMBRE() {
         return nOMBRE;
     }
 
     public void setNOMBRE(String nOMBRE) {
         this.nOMBRE = nOMBRE;
-    }
-
-    public String getITEMS() {
-        return iTEMS;
-    }
-
-    public void setITEMS(String iTEMS) {
-        this.iTEMS = iTEMS;
     }
 
     public String getAbreviatura() {
