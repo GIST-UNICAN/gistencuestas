@@ -15,6 +15,9 @@ import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
  */
 
 public class SaveInLocalDatabase {
+    public SaveInLocalDatabase() {
+    }
+
     public void saveLocalBusLines(BusLinesObject busLinesObject) throws Exception {
         for (BusLinesObjectItem busLinesObjectItem : busLinesObject.getResults()) {
             long id = 0;

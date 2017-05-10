@@ -2,6 +2,7 @@ package gist.unican.com.encuestaapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.siimkinks.sqlitemagic.annotation.Column;
 import com.siimkinks.sqlitemagic.annotation.Table;
 
 /**
@@ -11,46 +12,59 @@ import com.siimkinks.sqlitemagic.annotation.Table;
 public class BusStopObjectItem {
     public BusStopObjectItem() {
     }
-
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:Ruta")
     @Expose
     private String aytoRuta;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:PuntoKM")
     @Expose
     private String aytoPuntoKM;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:NParada")
     @Expose
     private String aytoNParada;
+    @Column(useAccessMethods = true)
     @SerializedName("dc:EtiquetaLinea")
     @Expose
     private String dcEtiquetaLinea;
+    @Column(useAccessMethods = true)
     @SerializedName("dc:modified")
     @Expose
     private String dcModified;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:Linea")
     @Expose
     private String aytoLinea;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:Seccion")
     @Expose
     private String aytoSeccion;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:SentidoRuta")
     @Expose
     private String aytoSentidoRuta;
+    @Column(useAccessMethods = true)
     @SerializedName("dc:identifier")
     @Expose
     private String dcIdentifier;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:NombreSublinea")
     @Expose
     private String aytoNombreSublinea;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:NombreParada")
     @Expose
     private String aytoNombreParada;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:PosX")
     @Expose
     private String aytoPosX;
+    @Column(useAccessMethods = true)
     @SerializedName("ayto:PosY")
     @Expose
     private String aytoPosY;
+    @Column(useAccessMethods = true)
     @SerializedName("uri")
     @Expose
     private String uri;

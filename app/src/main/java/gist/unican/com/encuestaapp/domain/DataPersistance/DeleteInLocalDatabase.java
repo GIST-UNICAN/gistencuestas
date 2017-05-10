@@ -11,6 +11,9 @@ import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
  */
 
 public class DeleteInLocalDatabase {
+    public DeleteInLocalDatabase() {
+    }
+
     public void deleteBusLinesTable() throws Exception {
         Integer deleteTable = 0;
         deleteTable = BusLinesObjectItem.deleteTable().execute();

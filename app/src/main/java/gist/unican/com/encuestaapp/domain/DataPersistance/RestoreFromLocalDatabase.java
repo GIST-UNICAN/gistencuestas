@@ -7,8 +7,8 @@ import java.util.List;
 import static com.siimkinks.sqlitemagic.BusLinesObjectItemTable.BUS_LINES_OBJECT_ITEM;
 import static com.siimkinks.sqlitemagic.BusStopObjectItemTable.BUS_STOP_OBJECT_ITEM;
 import static com.siimkinks.sqlitemagic.SurveyGeneralVariablesItemTable.SURVEY_GENERAL_VARIABLES_ITEM;
-import static com.siimkinks.sqlitemagic.SurveyQualityVariablesItemTable.SURVEY_QUALITY_VARIABLES_ITEM;
 import static com.siimkinks.sqlitemagic.SurveyObjectSendTable.SURVEY_OBJECT_SEND;
+import static com.siimkinks.sqlitemagic.SurveyQualityVariablesItemTable.SURVEY_QUALITY_VARIABLES_ITEM;
 
 /**
  * Created by andres on 10/05/2017.
@@ -16,6 +16,9 @@ import static com.siimkinks.sqlitemagic.SurveyObjectSendTable.SURVEY_OBJECT_SEND
  */
 
 public class RestoreFromLocalDatabase {
+    public RestoreFromLocalDatabase() {
+    }
+
     public List busLines() throws Exception {
         List vuelta_item = Select.from(BUS_LINES_OBJECT_ITEM).execute();
         if (vuelta_item == null) {

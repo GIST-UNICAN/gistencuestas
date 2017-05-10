@@ -2,6 +2,7 @@ package gist.unican.com.encuestaapp.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.siimkinks.sqlitemagic.annotation.Column;
 import com.siimkinks.sqlitemagic.annotation.Table;
 
 @Table(persistAll = true)
@@ -10,970 +11,1432 @@ public class SurveyObjectSend {
     public SurveyObjectSend() {
 
     }
-
+    @Column(useAccessMethods = true)
     @SerializedName("ID")
     @Expose
-    private Integer iD;
+    private String iD;
+    @Column(useAccessMethods = true)
     @SerializedName("encuestador")
     @Expose
-    public String encuestador;
+    private String encuestador;
+    @Column(useAccessMethods = true)
     @SerializedName("hora")
     @Expose
-    public String hora;
+    private String hora;
+    @Column(useAccessMethods = true)
     @SerializedName("sexo_hombre")
     @Expose
-    public Integer sexoHombre;
+    private Integer sexoHombre;
+    @Column(useAccessMethods = true)
     @SerializedName("sexo_mujer")
     @Expose
-    public Integer sexoMujer;
+    private Integer sexoMujer;
+    @Column(useAccessMethods = true)
     @SerializedName("edad_25")
     @Expose
-    public Integer edad25;
+    private Integer edad25;
+    @Column(useAccessMethods = true)
     @SerializedName("edad_2534")
     @Expose
-    public Integer edad2534;
+    private Integer edad2534;
+    @Column(useAccessMethods = true)
     @SerializedName("edad_3544")
     @Expose
-    public Integer edad3544;
+    private Integer edad3544;
+    @Column(useAccessMethods = true)
     @SerializedName("edad_4554")
     @Expose
-    public Integer edad4554;
+    private Integer edad4554;
+    @Column(useAccessMethods = true)
     @SerializedName("edad_5564")
     @Expose
-    public Integer edad5564;
+    private Integer edad5564;
+    @Column(useAccessMethods = true)
     @SerializedName("edad_65")
     @Expose
-    public Integer edad65;
+    private Integer edad65;
+    @Column(useAccessMethods = true)
     @SerializedName("trabajo_trabajador")
     @Expose
-    public Integer trabajoTrabajador;
+    private Integer trabajoTrabajador;
+    @Column(useAccessMethods = true)
     @SerializedName("trabajo_desempleado")
     @Expose
-    public Integer trabajoDesempleado;
+    private Integer trabajoDesempleado;
+    @Column(useAccessMethods = true)
     @SerializedName("trabajo_estudiante")
     @Expose
-    public Integer trabajoEstudiante;
+    private Integer trabajoEstudiante;
+    @Column(useAccessMethods = true)
     @SerializedName("trabajo_jubilado")
     @Expose
-    public Integer trabajoJubilado;
+    private Integer trabajoJubilado;
+    @Column(useAccessMethods = true)
     @SerializedName("carnet_si")
     @Expose
-    public Integer carnetSi;
+    private Integer carnetSi;
+    @Column(useAccessMethods = true)
     @SerializedName("carnet_no")
     @Expose
-    public Integer carnetNo;
+    private Integer carnetNo;
+    @Column(useAccessMethods = true)
     @SerializedName("vehiculo_si")
     @Expose
-    public Integer vehiculoSi;
+    private Integer vehiculoSi;
+    @Column(useAccessMethods = true)
     @SerializedName("vehiculo_no")
     @Expose
-    public Integer vehiculoNo;
+    private Integer vehiculoNo;
+    @Column(useAccessMethods = true)
     @SerializedName("linea")
     @Expose
-    public String linea;
+    private Integer linea;
+    @Column(useAccessMethods = true)
     @SerializedName("motivo_inicio")
     @Expose
-    public Integer motivoInicio;
+    private Integer motivoInicio;
+    @Column(useAccessMethods = true)
     @SerializedName("motivo_fin")
     @Expose
-    public Integer motivoFin;
+    private Integer motivoFin;
+    @Column(useAccessMethods = true)
     @SerializedName("viajes_5")
     @Expose
-    public Integer viajes5;
+    private Integer viajes5;
+    @Column(useAccessMethods = true)
     @SerializedName("viajes_515")
     @Expose
-    public Integer viajes515;
+    private Integer viajes515;
+    @Column(useAccessMethods = true)
     @SerializedName("viajes_1530")
     @Expose
-    public Integer viajes1530;
+    private Integer viajes1530;
+    @Column(useAccessMethods = true)
     @SerializedName("viajes_30")
     @Expose
-    public Integer viajes30;
+    private Integer viajes30;
+    @Column(useAccessMethods = true)
     @SerializedName("pago_tarjeta")
     @Expose
-    public Integer pagoTarjeta;
+    private Integer pagoTarjeta;
+    @Column(useAccessMethods = true)
     @SerializedName("pago_efectivo")
     @Expose
-    public Integer pagoEfectivo;
+    private Integer pagoEfectivo;
+    @Column(useAccessMethods = true)
     @SerializedName("ingreso_900")
     @Expose
-    public Integer ingreso900;
+    private Integer ingreso900;
+    @Column(useAccessMethods = true)
     @SerializedName("ingreso_9001500")
     @Expose
-    public Integer ingreso9001500;
+    private Integer ingreso9001500;
+    @Column(useAccessMethods = true)
     @SerializedName("ingreso_15002500")
     @Expose
-    public Integer ingreso15002500;
+    private Integer ingreso15002500;
+    @Column(useAccessMethods = true)
     @SerializedName("ingreso_2500")
     @Expose
-    public Integer ingreso2500;
+    private Integer ingreso2500;
+    @Column(useAccessMethods = true)
     @SerializedName("ingreso_nsnc")
     @Expose
-    public Integer ingresoNsnc;
+    private Integer ingresoNsnc;
+    @Column(useAccessMethods = true)
     @SerializedName("valoriacion_muymal")
     @Expose
-    public Integer valoriacionMuymal;
+    private Integer valoriacionMuymal;
+    @Column(useAccessMethods = true)
     @SerializedName("valoracion_mal")
     @Expose
-    public Integer valoracionMal;
+    private Integer valoracionMal;
+    @Column(useAccessMethods = true)
     @SerializedName("valoracion_normal")
     @Expose
-    public Integer valoracionNormal;
+    private Integer valoracionNormal;
+    @Column(useAccessMethods = true)
     @SerializedName("valoracion_bien")
     @Expose
-    public Integer valoracionBien;
+    private Integer valoracionBien;
+    @Column(useAccessMethods = true)
     @SerializedName("valoracion_muybien")
     @Expose
-    public Integer valoracionMuybien;
+    private Integer valoracionMuybien;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_mm")
     @Expose
-    public Integer thpMm;
+    private Integer thpMm;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_ma")
     @Expose
-    public Integer thpMa;
+    private Integer thpMa;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_no")
     @Expose
-    public Integer thpNo;
+    private Integer thpNo;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_bi")
     @Expose
-    public Integer thpBi;
+    private Integer thpBi;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_mb")
     @Expose
-    public Integer thpMb;
+    private Integer thpMb;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_ns")
     @Expose
-    public Integer thpNs;
+    private Integer thpNs;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_be")
     @Expose
-    public Integer thpBe;
+    private Integer thpBe;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_wo")
     @Expose
-    public Integer thpWo;
+    private Integer thpWo;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_mi")
     @Expose
-    public Integer thpMi;
+    private Integer thpMi;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_li")
     @Expose
-    public Integer thpLi;
+    private Integer thpLi;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_mm")
     @Expose
-    public Integer tepMm;
+    private Integer tepMm;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_ma")
     @Expose
-    public Integer tepMa;
+    private Integer tepMa;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_no")
     @Expose
-    public Integer tepNo;
+    private Integer tepNo;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_bi")
     @Expose
-    public Integer tepBi;
+    private Integer tepBi;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_mb")
     @Expose
-    public Integer tepMb;
+    private Integer tepMb;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_ns")
     @Expose
-    public Integer tepNs;
+    private Integer tepNs;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_be")
     @Expose
-    public Integer tepBe;
+    private Integer tepBe;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_wo")
     @Expose
-    public Integer tepWo;
+    private Integer tepWo;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_mi")
     @Expose
-    public Integer tepMi;
+    private Integer tepMi;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_li")
     @Expose
-    public Integer tepLi;
+    private Integer tepLi;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_mm")
     @Expose
-    public Integer tvMm;
+    private Integer tvMm;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_ma")
     @Expose
-    public Integer tvMa;
+    private Integer tvMa;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_no")
     @Expose
-    public Integer tvNo;
+    private Integer tvNo;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_bi")
     @Expose
-    public Integer tvBi;
+    private Integer tvBi;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_mb")
     @Expose
-    public Integer tvMb;
+    private Integer tvMb;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_ns")
     @Expose
-    public Integer tvNs;
+    private Integer tvNs;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_be")
     @Expose
-    public Integer tvBe;
+    private Integer tvBe;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_wo")
     @Expose
-    public Integer tvWo;
+    private Integer tvWo;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_mi")
     @Expose
-    public Integer tvMi;
+    private Integer tvMi;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_li")
     @Expose
-    public Integer tvLi;
+    private Integer tvLi;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_mm")
     @Expose
-    public Integer tpdMm;
+    private Integer tpdMm;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_ma")
     @Expose
-    public Integer tpdMa;
+    private Integer tpdMa;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_no")
     @Expose
-    public Integer tpdNo;
+    private Integer tpdNo;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_bi")
     @Expose
-    public Integer tpdBi;
+    private Integer tpdBi;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_mb")
     @Expose
-    public Integer tpdMb;
+    private Integer tpdMb;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_ns")
     @Expose
-    public Integer tpdNs;
+    private Integer tpdNs;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_be")
     @Expose
-    public Integer tpdBe;
+    private Integer tpdBe;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_wo")
     @Expose
-    public Integer tpdWo;
+    private Integer tpdWo;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_mi")
     @Expose
-    public Integer tpdMi;
+    private Integer tpdMi;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_li")
     @Expose
-    public Integer tpdLi;
+    private Integer tpdLi;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_mm")
     @Expose
-    public Integer pvMm;
+    private Integer pvMm;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_ma")
     @Expose
-    public Integer pvMa;
+    private Integer pvMa;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_no")
     @Expose
-    public Integer pvNo;
+    private Integer pvNo;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_bi")
     @Expose
-    public Integer pvBi;
+    private Integer pvBi;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_mb")
     @Expose
-    public Integer pvMb;
+    private Integer pvMb;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_ns")
     @Expose
-    public Integer pvNs;
+    private Integer pvNs;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_be")
     @Expose
-    public Integer pvBe;
+    private Integer pvBe;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_wo")
     @Expose
-    public Integer pvWo;
+    private Integer pvWo;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_mi")
     @Expose
-    public Integer pvMi;
+    private Integer pvMi;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_li")
     @Expose
-    public Integer pvLi;
+    private Integer pvLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_mm")
     @Expose
-    public Integer ftMm;
+    private Integer ftMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_ma")
     @Expose
-    public Integer ftMa;
+    private Integer ftMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_no")
     @Expose
-    public Integer ftNo;
+    private Integer ftNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_bi")
     @Expose
-    public Integer ftBi;
+    private Integer ftBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_mb")
     @Expose
-    public Integer ftMb;
+    private Integer ftMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_ns")
     @Expose
-    public Integer ftNs;
+    private Integer ftNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_be")
     @Expose
-    public Integer ftBe;
+    private Integer ftBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_wo")
     @Expose
-    public Integer ftWo;
+    private Integer ftWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_mi")
     @Expose
-    public Integer ftMi;
+    private Integer ftMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_li")
     @Expose
-    public Integer ftLi;
+    private Integer ftLi;
+    @Column(useAccessMethods = true)
     @SerializedName("so_mm")
     @Expose
-    public Integer soMm;
+    private Integer soMm;
+    @Column(useAccessMethods = true)
     @SerializedName("so_ma")
     @Expose
-    public Integer soMa;
+    private Integer soMa;
+    @Column(useAccessMethods = true)
     @SerializedName("so_no")
     @Expose
-    public Integer soNo;
+    private Integer soNo;
+    @Column(useAccessMethods = true)
     @SerializedName("so_bi")
     @Expose
-    public Integer soBi;
+    private Integer soBi;
+    @Column(useAccessMethods = true)
     @SerializedName("so_mb")
     @Expose
-    public Integer soMb;
+    private Integer soMb;
+    @Column(useAccessMethods = true)
     @SerializedName("so_ns")
     @Expose
-    public Integer soNs;
+    private Integer soNs;
+    @Column(useAccessMethods = true)
     @SerializedName("so_be")
     @Expose
-    public Integer soBe;
+    private Integer soBe;
+    @Column(useAccessMethods = true)
     @SerializedName("so_wo")
     @Expose
-    public Integer soWo;
+    private Integer soWo;
+    @Column(useAccessMethods = true)
     @SerializedName("so_mi")
     @Expose
-    public Integer soMi;
+    private Integer soMi;
+    @Column(useAccessMethods = true)
     @SerializedName("so_li")
     @Expose
-    public Integer soLi;
+    private Integer soLi;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_mm")
     @Expose
-    public Integer fsMm;
+    private Integer fsMm;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_ma")
     @Expose
-    public Integer fsMa;
+    private Integer fsMa;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_no")
     @Expose
-    public Integer fsNo;
+    private Integer fsNo;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_bi")
     @Expose
-    public Integer fsBi;
+    private Integer fsBi;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_mb")
     @Expose
-    public Integer fsMb;
+    private Integer fsMb;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_ns")
     @Expose
-    public Integer fsNs;
+    private Integer fsNs;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_be")
     @Expose
-    public Integer fsBe;
+    private Integer fsBe;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_wo")
     @Expose
-    public Integer fsWo;
+    private Integer fsWo;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_mi")
     @Expose
-    public Integer fsMi;
+    private Integer fsMi;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_li")
     @Expose
-    public Integer fsLi;
+    private Integer fsLi;
+    @Column(useAccessMethods = true)
     @SerializedName("le_mm")
     @Expose
-    public Integer leMm;
+    private Integer leMm;
+    @Column(useAccessMethods = true)
     @SerializedName("le_ma")
     @Expose
-    public Integer leMa;
+    private Integer leMa;
+    @Column(useAccessMethods = true)
     @SerializedName("le_no")
     @Expose
-    public Integer leNo;
+    private Integer leNo;
+    @Column(useAccessMethods = true)
     @SerializedName("le_bi")
     @Expose
-    public Integer leBi;
+    private Integer leBi;
+    @Column(useAccessMethods = true)
     @SerializedName("le_mb")
     @Expose
-    public Integer leMb;
+    private Integer leMb;
+    @Column(useAccessMethods = true)
     @SerializedName("le_ns")
     @Expose
-    public Integer leNs;
+    private Integer leNs;
+    @Column(useAccessMethods = true)
     @SerializedName("le_be")
     @Expose
-    public Integer leBe;
+    private Integer leBe;
+    @Column(useAccessMethods = true)
     @SerializedName("le_wo")
     @Expose
-    public Integer leWo;
+    private Integer leWo;
+    @Column(useAccessMethods = true)
     @SerializedName("le_mi")
     @Expose
-    public Integer leMi;
+    private Integer leMi;
+    @Column(useAccessMethods = true)
     @SerializedName("le_li")
     @Expose
-    public Integer leLi;
+    private Integer leLi;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_mm")
     @Expose
-    public Integer snMm;
+    private Integer snMm;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_ma")
     @Expose
-    public Integer snMa;
+    private Integer snMa;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_no")
     @Expose
-    public Integer snNo;
+    private Integer snNo;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_bi")
     @Expose
-    public Integer snBi;
+    private Integer snBi;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_mb")
     @Expose
-    public Integer snMb;
+    private Integer snMb;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_ns")
     @Expose
-    public Integer snNs;
+    private Integer snNs;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_be")
     @Expose
-    public Integer snBe;
+    private Integer snBe;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_wo")
     @Expose
-    public Integer snWo;
+    private Integer snWo;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_mi")
     @Expose
-    public Integer snMi;
+    private Integer snMi;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_li")
     @Expose
-    public Integer snLi;
+    private Integer snLi;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_mm")
     @Expose
-    public Integer sfsMm;
+    private Integer sfsMm;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_ma")
     @Expose
-    public Integer sfsMa;
+    private Integer sfsMa;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_no")
     @Expose
-    public Integer sfsNo;
+    private Integer sfsNo;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_bi")
     @Expose
-    public Integer sfsBi;
+    private Integer sfsBi;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_mb")
     @Expose
-    public Integer sfsMb;
+    private Integer sfsMb;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_ns")
     @Expose
-    public Integer sfsNs;
+    private Integer sfsNs;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_be")
     @Expose
-    public Integer sfsBe;
+    private Integer sfsBe;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_wo")
     @Expose
-    public Integer sfsWo;
+    private Integer sfsWo;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_mi")
     @Expose
-    public Integer sfsMi;
+    private Integer sfsMi;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_li")
     @Expose
-    public Integer sfsLi;
+    private Integer sfsLi;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_mm")
     @Expose
-    public Integer clMm;
+    private Integer clMm;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_ma")
     @Expose
-    public Integer clMa;
+    private Integer clMa;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_no")
     @Expose
-    public Integer clNo;
+    private Integer clNo;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_bi")
     @Expose
-    public Integer clBi;
+    private Integer clBi;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_mb")
     @Expose
-    public Integer clMb;
+    private Integer clMb;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_ns")
     @Expose
-    public Integer clNs;
+    private Integer clNs;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_be")
     @Expose
-    public Integer clBe;
+    private Integer clBe;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_wo")
     @Expose
-    public Integer clWo;
+    private Integer clWo;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_mi")
     @Expose
-    public Integer clMi;
+    private Integer clMi;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_li")
     @Expose
-    public Integer clLi;
+    private Integer clLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_mm")
     @Expose
-    public Integer ipiMm;
+    private Integer ipiMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_ma")
     @Expose
-    public Integer ipiMa;
+    private Integer ipiMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_no")
     @Expose
-    public Integer ipiNo;
+    private Integer ipiNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_bi")
     @Expose
-    public Integer ipiBi;
+    private Integer ipiBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_mb")
     @Expose
-    public Integer ipiMb;
+    private Integer ipiMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_ns")
     @Expose
-    public Integer ipiNs;
+    private Integer ipiNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_be")
     @Expose
-    public Integer ipiBe;
+    private Integer ipiBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_wo")
     @Expose
-    public Integer ipiWo;
+    private Integer ipiWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_mi")
     @Expose
-    public Integer ipiMi;
+    private Integer ipiMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_li")
     @Expose
-    public Integer ipiLi;
+    private Integer ipiLi;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_mm")
     @Expose
-    public Integer isiMm;
+    private Integer isiMm;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_ma")
     @Expose
-    public Integer isiMa;
+    private Integer isiMa;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_no")
     @Expose
-    public Integer isiNo;
+    private Integer isiNo;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_bi")
     @Expose
-    public Integer isiBi;
+    private Integer isiBi;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_mb")
     @Expose
-    public Integer isiMb;
+    private Integer isiMb;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_ns")
     @Expose
-    public Integer isiNs;
+    private Integer isiNs;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_be")
     @Expose
-    public Integer isiBe;
+    private Integer isiBe;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_wo")
     @Expose
-    public Integer isiWo;
+    private Integer isiWo;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_mi")
     @Expose
-    public Integer isiMi;
+    private Integer isiMi;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_li")
     @Expose
-    public Integer isiLi;
+    private Integer isiLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_mm")
     @Expose
-    public Integer imaMm;
+    private Integer imaMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_ma")
     @Expose
-    public Integer imaMa;
+    private Integer imaMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_no")
     @Expose
-    public Integer imaNo;
+    private Integer imaNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_bi")
     @Expose
-    public Integer imaBi;
+    private Integer imaBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_mb")
     @Expose
-    public Integer imaMb;
+    private Integer imaMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_ns")
     @Expose
-    public Integer imaNs;
+    private Integer imaNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_be")
     @Expose
-    public Integer imaBe;
+    private Integer imaBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_wo")
     @Expose
-    public Integer imaWo;
+    private Integer imaWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_mi")
     @Expose
-    public Integer imaMi;
+    private Integer imaMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_li")
     @Expose
-    public Integer imaLi;
+    private Integer imaLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_mm")
     @Expose
-    public Integer ocuMm;
+    private Integer ocuMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_ma")
     @Expose
-    public Integer ocuMa;
+    private Integer ocuMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_no")
     @Expose
-    public Integer ocuNo;
+    private Integer ocuNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_bi")
     @Expose
-    public Integer ocuBi;
+    private Integer ocuBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_mb")
     @Expose
-    public Integer ocuMb;
+    private Integer ocuMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_ns")
     @Expose
-    public Integer ocuNs;
+    private Integer ocuNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_be")
     @Expose
-    public Integer ocuBe;
+    private Integer ocuBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_wo")
     @Expose
-    public Integer ocuWo;
+    private Integer ocuWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_mi")
     @Expose
-    public Integer ocuMi;
+    private Integer ocuMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_li")
     @Expose
-    public Integer ocuLi;
+    private Integer ocuLi;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_mm")
     @Expose
-    public Integer cacMm;
+    private Integer cacMm;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_ma")
     @Expose
-    public Integer cacMa;
+    private Integer cacMa;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_no")
     @Expose
-    public Integer cacNo;
+    private Integer cacNo;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_bi")
     @Expose
-    public Integer cacBi;
+    private Integer cacBi;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_mb")
     @Expose
-    public Integer cacMb;
+    private Integer cacMb;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_ns")
     @Expose
-    public Integer cacNs;
+    private Integer cacNs;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_be")
     @Expose
-    public Integer cacBe;
+    private Integer cacBe;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_wo")
     @Expose
-    public Integer cacWo;
+    private Integer cacWo;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_mi")
     @Expose
-    public Integer cacMi;
+    private Integer cacMi;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_li")
     @Expose
-    public Integer cacLi;
+    private Integer cacLi;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_mm")
     @Expose
-    public Integer pmrMm;
+    private Integer pmrMm;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_ma")
     @Expose
-    public Integer pmrMa;
+    private Integer pmrMa;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_no")
     @Expose
-    public Integer pmrNo;
+    private Integer pmrNo;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_bi")
     @Expose
-    public Integer pmrBi;
+    private Integer pmrBi;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_mb")
     @Expose
-    public Integer pmrMb;
+    private Integer pmrMb;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_ns")
     @Expose
-    public Integer pmrNs;
+    private Integer pmrNs;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_be")
     @Expose
-    public Integer pmrBe;
+    private Integer pmrBe;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_wo")
     @Expose
-    public Integer pmrWo;
+    private Integer pmrWo;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_mi")
     @Expose
-    public Integer pmrMi;
+    private Integer pmrMi;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_li")
     @Expose
-    public Integer pmrLi;
+    private Integer pmrLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_mm")
     @Expose
-    public Integer ccfMm;
+    private Integer ccfMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_ma")
     @Expose
-    public Integer ccfMa;
+    private Integer ccfMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_no")
     @Expose
-    public Integer ccfNo;
+    private Integer ccfNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_bi")
     @Expose
-    public Integer ccfBi;
+    private Integer ccfBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_mb")
     @Expose
-    public Integer ccfMb;
+    private Integer ccfMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_ns")
     @Expose
-    public Integer ccfNs;
+    private Integer ccfNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_be")
     @Expose
-    public Integer ccfBe;
+    private Integer ccfBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_wo")
     @Expose
-    public Integer ccfWo;
+    private Integer ccfWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_mi")
     @Expose
-    public Integer ccfMi;
+    private Integer ccfMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_li")
     @Expose
-    public Integer ccfLi;
+    private Integer ccfLi;
+    @Column(useAccessMethods = true)
     @SerializedName("la_mm")
     @Expose
-    public Integer laMm;
+    private Integer laMm;
+    @Column(useAccessMethods = true)
     @SerializedName("la_ma")
     @Expose
-    public Integer laMa;
+    private Integer laMa;
+    @Column(useAccessMethods = true)
     @SerializedName("la_no")
     @Expose
-    public Integer laNo;
+    private Integer laNo;
+    @Column(useAccessMethods = true)
     @SerializedName("la_bi")
     @Expose
-    public Integer laBi;
+    private Integer laBi;
+    @Column(useAccessMethods = true)
     @SerializedName("la_mb")
     @Expose
-    public Integer laMb;
+    private Integer laMb;
+    @Column(useAccessMethods = true)
     @SerializedName("la_ns")
     @Expose
-    public Integer laNs;
+    private Integer laNs;
+    @Column(useAccessMethods = true)
     @SerializedName("la_be")
     @Expose
-    public Integer laBe;
+    private Integer laBe;
+    @Column(useAccessMethods = true)
     @SerializedName("la_wo")
     @Expose
-    public Integer laWo;
+    private Integer laWo;
+    @Column(useAccessMethods = true)
     @SerializedName("la_mi")
     @Expose
-    public Integer laMi;
+    private Integer laMi;
+    @Column(useAccessMethods = true)
     @SerializedName("la_li")
     @Expose
-    public Integer laLi;
+    private Integer laLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_mm")
     @Expose
-    public Integer ppoMm;
+    private Integer ppoMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_ma")
     @Expose
-    public Integer ppoMa;
+    private Integer ppoMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_no")
     @Expose
-    public Integer ppoNo;
+    private Integer ppoNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_bi")
     @Expose
-    public Integer ppoBi;
+    private Integer ppoBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_mb")
     @Expose
-    public Integer ppoMb;
+    private Integer ppoMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_ns")
     @Expose
-    public Integer ppoNs;
+    private Integer ppoNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_be")
     @Expose
-    public Integer ppoBe;
+    private Integer ppoBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_wo")
     @Expose
-    public Integer ppoWo;
+    private Integer ppoWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_mi")
     @Expose
-    public Integer ppoMi;
+    private Integer ppoMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_li")
     @Expose
-    public Integer ppoLi;
+    private Integer ppoLi;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_mm")
     @Expose
-    public Integer fcMm;
+    private Integer fcMm;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_ma")
     @Expose
-    public Integer fcMa;
+    private Integer fcMa;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_no")
     @Expose
-    public Integer fcNo;
+    private Integer fcNo;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_bi")
     @Expose
-    public Integer fcBi;
+    private Integer fcBi;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_mb")
     @Expose
-    public Integer fcMb;
+    private Integer fcMb;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_ns")
     @Expose
-    public Integer fcNs;
+    private Integer fcNs;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_be")
     @Expose
-    public Integer fcBe;
+    private Integer fcBe;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_wo")
     @Expose
-    public Integer fcWo;
+    private Integer fcWo;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_mi")
     @Expose
-    public Integer fcMi;
+    private Integer fcMi;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_li")
     @Expose
-    public Integer fcLi;
+    private Integer fcLi;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_mm")
     @Expose
-    public Integer acoMm;
+    private Integer acoMm;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_ma")
     @Expose
-    public Integer acoMa;
+    private Integer acoMa;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_no")
     @Expose
-    public Integer acoNo;
+    private Integer acoNo;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_bi")
     @Expose
-    public Integer acoBi;
+    private Integer acoBi;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_mb")
     @Expose
-    public Integer acoMb;
+    private Integer acoMb;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_ns")
     @Expose
-    public Integer acoNs;
+    private Integer acoNs;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_be")
     @Expose
-    public Integer acoBe;
+    private Integer acoBe;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_wo")
     @Expose
-    public Integer acoWo;
+    private Integer acoWo;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_mi")
     @Expose
-    public Integer acoMi;
+    private Integer acoMi;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_li")
     @Expose
-    public Integer acoLi;
+    private Integer acoLi;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_mm")
     @Expose
-    public Integer ibhMm;
+    private Integer ibhMm;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_ma")
     @Expose
-    public Integer ibhMa;
+    private Integer ibhMa;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_no")
     @Expose
-    public Integer ibhNo;
+    private Integer ibhNo;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_bi")
     @Expose
-    public Integer ibhBi;
+    private Integer ibhBi;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_mb")
     @Expose
-    public Integer ibhMb;
+    private Integer ibhMb;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_ns")
     @Expose
-    public Integer ibhNs;
+    private Integer ibhNs;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_be")
     @Expose
-    public Integer ibhBe;
+    private Integer ibhBe;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_wo")
     @Expose
-    public Integer ibhWo;
+    private Integer ibhWo;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_mi")
     @Expose
-    public Integer ibhMi;
+    private Integer ibhMi;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_li")
     @Expose
-    public Integer ibhLi;
+    private Integer ibhLi;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_mm")
     @Expose
-    public Integer casMm;
+    private Integer casMm;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_ma")
     @Expose
-    public Integer casMa;
+    private Integer casMa;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_no")
     @Expose
-    public Integer casNo;
+    private Integer casNo;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_bi")
     @Expose
-    public Integer casBi;
+    private Integer casBi;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_mb")
     @Expose
-    public Integer casMb;
+    private Integer casMb;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_ns")
     @Expose
-    public Integer casNs;
+    private Integer casNs;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_be")
     @Expose
-    public Integer casBe;
+    private Integer casBe;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_wo")
     @Expose
-    public Integer casWo;
+    private Integer casWo;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_mi")
     @Expose
-    public Integer casMi;
+    private Integer casMi;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_li")
     @Expose
-    public Integer casLi;
+    private Integer casLi;
+    @Column(useAccessMethods = true)
     @SerializedName("vgs_mm")
     @Expose
-    public Integer vgsMm;
+    private Integer vgsMm;
+    @Column(useAccessMethods = true)
     @SerializedName("vgs_ma")
     @Expose
-    public Integer vgsMa;
+    private Integer vgsMa;
+    @Column(useAccessMethods = true)
     @SerializedName("vgs_no")
     @Expose
-    public Integer vgsNo;
+    private Integer vgsNo;
+    @Column(useAccessMethods = true)
     @SerializedName("vgs_bi")
     @Expose
-    public Integer vgsBi;
+    private Integer vgsBi;
+    @Column(useAccessMethods = true)
     @SerializedName("vgs_mb")
     @Expose
-    public Integer vgsMb;
+    private Integer vgsMb;
+    @Column(useAccessMethods = true)
     @SerializedName("thp_group")
     @Expose
-    public Integer thpGroup;
+    private Integer thpGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("tep_group")
     @Expose
-    public Integer tepGroup;
+    private Integer tepGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("tv_group")
     @Expose
-    public Integer tvGroup;
+    private Integer tvGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("tpd_group")
     @Expose
-    public Integer tpdGroup;
+    private Integer tpdGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("pv_group")
     @Expose
-    public Integer pvGroup;
+    private Integer pvGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ft_group")
     @Expose
-    public Integer ftGroup;
+    private Integer ftGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("so_group")
     @Expose
-    public Integer soGroup;
+    private Integer soGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("fs_group")
     @Expose
-    public Integer fsGroup;
+    private Integer fsGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("le_group")
     @Expose
-    public Integer leGroup;
+    private Integer leGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("sn_group")
     @Expose
-    public Integer snGroup;
+    private Integer snGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("sfs_group")
     @Expose
-    public Integer sfsGroup;
+    private Integer sfsGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("cl_group")
     @Expose
-    public Integer clGroup;
+    private Integer clGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ipi_group")
     @Expose
-    public Integer ipiGroup;
+    private Integer ipiGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("isi_group")
     @Expose
-    public Integer isiGroup;
+    private Integer isiGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ima_group")
     @Expose
-    public Integer imaGroup;
+    private Integer imaGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ocu_group")
     @Expose
-    public Integer ocuGroup;
+    private Integer ocuGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("cac_group")
     @Expose
-    public Integer cacGroup;
+    private Integer cacGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("pmr_group")
     @Expose
-    public Integer pmrGroup;
+    private Integer pmrGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ccf_group")
     @Expose
-    public Integer ccfGroup;
+    private Integer ccfGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("la_group")
     @Expose
-    public Integer laGroup;
+    private Integer laGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ppo_group")
     @Expose
-    public Integer ppoGroup;
+    private Integer ppoGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("fc_group")
     @Expose
-    public Integer fcGroup;
+    private Integer fcGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("aco_group")
     @Expose
-    public Integer acoGroup;
+    private Integer acoGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("ibh_group")
     @Expose
-    public Integer ibhGroup;
+    private Integer ibhGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("cas_group")
     @Expose
-    public Integer casGroup;
+    private Integer casGroup;
+    @Column(useAccessMethods = true)
     @SerializedName("vgs_group")
     @Expose
-    public Integer vgsGroup;
+    private Integer vgsGroup;
+    @Column(useAccessMethods = true)
+    @SerializedName("otras_lineas")
+    @Expose
+    private Integer otrasLineas;
+    @Column(useAccessMethods = true)
+    @SerializedName("parada_subida")
+    @Expose
+    private Integer paradaSubida;
+    @Column(useAccessMethods = true)
+    @SerializedName("parada_bajada")
+    @Expose
+    private Integer paradaBajada;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_mm")
+    @Expose
+    private Integer iamMm;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_ma")
+    @Expose
+    private Integer iamMa;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_no")
+    @Expose
+    private Integer iamNo;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_bi")
+    @Expose
+    private Integer iamBi;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_mb")
+    @Expose
+    private Integer iamMb;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_ns")
+    @Expose
+    private Integer iamNs;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_be")
+    @Expose
+    private Integer iamBe;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_wo")
+    @Expose
+    private Integer iamWo;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_mi")
+    @Expose
+    private Integer iamMi;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_li")
+    @Expose
+    private Integer iamLi;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_mm")
+    @Expose
+    private Integer cpaMm;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_ma")
+    @Expose
+    private Integer cpaMa;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_no")
+    @Expose
+    private Integer cpaNo;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_bi")
+    @Expose
+    private Integer cpaBi;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_mb")
+    @Expose
+    private Integer cpaMb;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_ns")
+    @Expose
+    private Integer cpaNs;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_be")
+    @Expose
+    private Integer cpaBe;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_wo")
+    @Expose
+    private Integer cpaWo;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_mi")
+    @Expose
+    private Integer cpaMi;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_li")
+    @Expose
+    private Integer cpaLi;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_mm")
+    @Expose
+    private Integer dmrMm;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_ma")
+    @Expose
+    private Integer dmrMa;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_no")
+    @Expose
+    private Integer dmrNo;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_bi")
+    @Expose
+    private Integer dmrBi;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_mb")
+    @Expose
+    private Integer dmrMb;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_ns")
+    @Expose
+    private Integer dmrNs;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_be")
+    @Expose
+    private Integer dmrBe;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_wo")
+    @Expose
+    private Integer dmrWo;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_mi")
+    @Expose
+    private Integer dmrMi;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_li")
+    @Expose
+    private Integer dmrLi;
+    @Column(useAccessMethods = true)
+    @SerializedName("iam_group")
+    @Expose
+    private Integer iamGroup;
+    @Column(useAccessMethods = true)
+    @SerializedName("cpa_group")
+    @Expose
+    private Integer cpaGroup;
+    @Column(useAccessMethods = true)
+    @SerializedName("dmr_group")
+    @Expose
+    private Integer dmrGroup;
 
-    public Integer getID() {
+    public String getID() {
         return iD;
     }
 
-    public void setID(Integer iD) {
+    public void setID(String iD) {
         this.iD = iD;
     }
 
@@ -1121,11 +1584,11 @@ public class SurveyObjectSend {
         this.vehiculoNo = vehiculoNo;
     }
 
-    public String getLinea() {
+    public Integer getLinea() {
         return linea;
     }
 
-    public void setLinea(String linea) {
+    public void setLinea(Integer linea) {
         this.linea = linea;
     }
 
@@ -3519,6 +3982,294 @@ public class SurveyObjectSend {
 
     public void setVgsGroup(Integer vgsGroup) {
         this.vgsGroup = vgsGroup;
+    }
+
+    public Integer getOtrasLineas() {
+        return otrasLineas;
+    }
+
+    public void setOtrasLineas(Integer otrasLineas) {
+        this.otrasLineas = otrasLineas;
+    }
+
+    public Integer getParadaSubida() {
+        return paradaSubida;
+    }
+
+    public void setParadaSubida(Integer paradaSubida) {
+        this.paradaSubida = paradaSubida;
+    }
+
+    public Integer getParadaBajada() {
+        return paradaBajada;
+    }
+
+    public void setParadaBajada(Integer paradaBajada) {
+        this.paradaBajada = paradaBajada;
+    }
+
+    public Integer getIamMm() {
+        return iamMm;
+    }
+
+    public void setIamMm(Integer iamMm) {
+        this.iamMm = iamMm;
+    }
+
+    public Integer getIamMa() {
+        return iamMa;
+    }
+
+    public void setIamMa(Integer iamMa) {
+        this.iamMa = iamMa;
+    }
+
+    public Integer getIamNo() {
+        return iamNo;
+    }
+
+    public void setIamNo(Integer iamNo) {
+        this.iamNo = iamNo;
+    }
+
+    public Integer getIamBi() {
+        return iamBi;
+    }
+
+    public void setIamBi(Integer iamBi) {
+        this.iamBi = iamBi;
+    }
+
+    public Integer getIamMb() {
+        return iamMb;
+    }
+
+    public void setIamMb(Integer iamMb) {
+        this.iamMb = iamMb;
+    }
+
+    public Integer getIamNs() {
+        return iamNs;
+    }
+
+    public void setIamNs(Integer iamNs) {
+        this.iamNs = iamNs;
+    }
+
+    public Integer getIamBe() {
+        return iamBe;
+    }
+
+    public void setIamBe(Integer iamBe) {
+        this.iamBe = iamBe;
+    }
+
+    public Integer getIamWo() {
+        return iamWo;
+    }
+
+    public void setIamWo(Integer iamWo) {
+        this.iamWo = iamWo;
+    }
+
+    public Integer getIamMi() {
+        return iamMi;
+    }
+
+    public void setIamMi(Integer iamMi) {
+        this.iamMi = iamMi;
+    }
+
+    public Integer getIamLi() {
+        return iamLi;
+    }
+
+    public void setIamLi(Integer iamLi) {
+        this.iamLi = iamLi;
+    }
+
+    public Integer getCpaMm() {
+        return cpaMm;
+    }
+
+    public void setCpaMm(Integer cpaMm) {
+        this.cpaMm = cpaMm;
+    }
+
+    public Integer getCpaMa() {
+        return cpaMa;
+    }
+
+    public void setCpaMa(Integer cpaMa) {
+        this.cpaMa = cpaMa;
+    }
+
+    public Integer getCpaNo() {
+        return cpaNo;
+    }
+
+    public void setCpaNo(Integer cpaNo) {
+        this.cpaNo = cpaNo;
+    }
+
+    public Integer getCpaBi() {
+        return cpaBi;
+    }
+
+    public void setCpaBi(Integer cpaBi) {
+        this.cpaBi = cpaBi;
+    }
+
+    public Integer getCpaMb() {
+        return cpaMb;
+    }
+
+    public void setCpaMb(Integer cpaMb) {
+        this.cpaMb = cpaMb;
+    }
+
+    public Integer getCpaNs() {
+        return cpaNs;
+    }
+
+    public void setCpaNs(Integer cpaNs) {
+        this.cpaNs = cpaNs;
+    }
+
+    public Integer getCpaBe() {
+        return cpaBe;
+    }
+
+    public void setCpaBe(Integer cpaBe) {
+        this.cpaBe = cpaBe;
+    }
+
+    public Integer getCpaWo() {
+        return cpaWo;
+    }
+
+    public void setCpaWo(Integer cpaWo) {
+        this.cpaWo = cpaWo;
+    }
+
+    public Integer getCpaMi() {
+        return cpaMi;
+    }
+
+    public void setCpaMi(Integer cpaMi) {
+        this.cpaMi = cpaMi;
+    }
+
+    public Integer getCpaLi() {
+        return cpaLi;
+    }
+
+    public void setCpaLi(Integer cpaLi) {
+        this.cpaLi = cpaLi;
+    }
+
+    public Integer getDmrMm() {
+        return dmrMm;
+    }
+
+    public void setDmrMm(Integer dmrMm) {
+        this.dmrMm = dmrMm;
+    }
+
+    public Integer getDmrMa() {
+        return dmrMa;
+    }
+
+    public void setDmrMa(Integer dmrMa) {
+        this.dmrMa = dmrMa;
+    }
+
+    public Integer getDmrNo() {
+        return dmrNo;
+    }
+
+    public void setDmrNo(Integer dmrNo) {
+        this.dmrNo = dmrNo;
+    }
+
+    public Integer getDmrBi() {
+        return dmrBi;
+    }
+
+    public void setDmrBi(Integer dmrBi) {
+        this.dmrBi = dmrBi;
+    }
+
+    public Integer getDmrMb() {
+        return dmrMb;
+    }
+
+    public void setDmrMb(Integer dmrMb) {
+        this.dmrMb = dmrMb;
+    }
+
+    public Integer getDmrNs() {
+        return dmrNs;
+    }
+
+    public void setDmrNs(Integer dmrNs) {
+        this.dmrNs = dmrNs;
+    }
+
+    public Integer getDmrBe() {
+        return dmrBe;
+    }
+
+    public void setDmrBe(Integer dmrBe) {
+        this.dmrBe = dmrBe;
+    }
+
+    public Integer getDmrWo() {
+        return dmrWo;
+    }
+
+    public void setDmrWo(Integer dmrWo) {
+        this.dmrWo = dmrWo;
+    }
+
+    public Integer getDmrMi() {
+        return dmrMi;
+    }
+
+    public void setDmrMi(Integer dmrMi) {
+        this.dmrMi = dmrMi;
+    }
+
+    public Integer getDmrLi() {
+        return dmrLi;
+    }
+
+    public void setDmrLi(Integer dmrLi) {
+        this.dmrLi = dmrLi;
+    }
+
+    public Integer getIamGroup() {
+        return iamGroup;
+    }
+
+    public void setIamGroup(Integer iamGroup) {
+        this.iamGroup = iamGroup;
+    }
+
+    public Integer getCpaGroup() {
+        return cpaGroup;
+    }
+
+    public void setCpaGroup(Integer cpaGroup) {
+        this.cpaGroup = cpaGroup;
+    }
+
+    public Integer getDmrGroup() {
+        return dmrGroup;
+    }
+
+    public void setDmrGroup(Integer dmrGroup) {
+        this.dmrGroup = dmrGroup;
     }
 
 }
