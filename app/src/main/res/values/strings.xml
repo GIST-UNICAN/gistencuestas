@@ -22,4 +22,6 @@
     <string name="error_icon_description">Error al cargar los datos</string>
     <string name="error_message">Error al cargar los datos</string>
     <string name="REMAINDERS_NO_REMAINDER">No hay elementos de encuesta, por favor revise la sincronización</string>
+    <string name="sync_data">Sincronizar</string>
+    <string name="send_data">Enviar datos</string>
 </resources>

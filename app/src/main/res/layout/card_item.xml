@@ -28,7 +28,7 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@color/grey" />
 
         <LinearLayout
@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
@@ -76,8 +77,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <RadioButton
+                    android:id="@+id/answer7_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
 
             </RadioGroup>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
@@ -99,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
