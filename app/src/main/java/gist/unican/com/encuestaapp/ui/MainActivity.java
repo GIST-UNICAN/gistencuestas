@@ -37,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         SurveyObjectSend sob=new SurveyObjectSend();
+        sob.setAcoBe(1);
         String variable= "setAcoBe";
         try {
-           Method metodo= sob.getClass().getMethod(variable,String.class);
-            metodo.invoke("string");
+           Method metodo= sob.getClass().getMethod(variable,Integer.class);
+            metodo.invoke(1);
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

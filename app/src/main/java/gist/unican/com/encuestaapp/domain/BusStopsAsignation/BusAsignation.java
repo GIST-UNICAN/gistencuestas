@@ -33,10 +33,8 @@ public class BusAsignation {
                 sublineas.add(busStopObjectItem.getAytoNombreSublinea());
             }
             // para cada elemento de la lista de paradas si la sublinea no se conoce la almacena como nueva
-            for (String nombreSubLinea : sublineas) {
-                if (!busStopObjectItem.getAytoNombreSublinea().equalsIgnoreCase(nombreSubLinea)) {
-                    sublineas.add(busStopObjectItem.getAytoNombreSublinea());
-                }
+            if (sublineas.indexOf(busStopObjectItem.getAytoNombreSublinea()) == -1) {
+                sublineas.add(busStopObjectItem.getAytoNombreSublinea());
             }
         }
         return sublineas;
@@ -49,13 +47,11 @@ public class BusAsignation {
         for (BusStopObjectItem busStopObjectItem : busStopObjectItemList) {
             if (busStopObjectItem.getAytoNombreSublinea().equalsIgnoreCase(sublinea)) {//si la parada de la linea es de la sublinea
                 if (sentidos.size() == 0) {//la primera siempre se añade
-                    sentidos.add(busStopObjectItem.getAytoNombreSublinea());
+                    sentidos.add(busStopObjectItem.getAytoSentidoRuta());
                 }
                 // para cada elemento de la lista de paradas si el sentido de la sublinea no se conoce se añade
-                for (String nombreSubLinea : sentidos) {
-                    if (!busStopObjectItem.getAytoNombreSublinea().equalsIgnoreCase(nombreSubLinea)) {
-                        sentidos.add(busStopObjectItem.getAytoNombreSublinea());
-                    }
+                if (sentidos.indexOf(busStopObjectItem.getAytoSentidoRuta()) == -1) {
+                    sentidos.add(busStopObjectItem.getAytoSentidoRuta());
                 }
             }
         }
