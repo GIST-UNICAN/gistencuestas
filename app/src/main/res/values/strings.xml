@@ -15,4 +15,11 @@
     <string name="motivo_compras">Compras</string>
     <string name="motivo_ocio">Ocio</string>
     <string name="motivo_otros">Otros</string>
+    <string name="LOGIN_TEXT_LOGIN">Login</string>
+    <string name="LOGIN_TEXT_USER">Usuario</string>
+    <string name="LOGIN_TEXT_PASSWORD">password</string>
+    <string name="loading_message">cargando...</string>
+    <string name="error_icon_description">Error al cargar los datos</string>
+    <string name="error_message">Error al cargar los datos</string>
+    <string name="REMAINDERS_NO_REMAINDER">No hay elementos de encuesta, por favor revise la sincronización</string>
 </resources>
