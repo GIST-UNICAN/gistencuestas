@@ -8,12 +8,13 @@ import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+
+import static gist.unican.com.encuestaapp.domain.Utils.Constants.URL_SERVER;
 
 /**
  * Created by andres on 08/05/2017.
@@ -42,7 +43,7 @@ public class ResourcesDataSurvey implements ResourcesSurvey {
                 .addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(URL_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
