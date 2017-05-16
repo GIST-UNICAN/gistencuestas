@@ -358,6 +358,7 @@ public class MainScreenFragment extends Fragment {
 
     }
 
+    //methods
     private void generateWaysSppiner(String selectedSubline) {
         BusAsignation busAsignation = new BusAsignation();
         List<String> sentidos = busAsignation.waysBySubline(listStopsByLine, selectedSubline);
