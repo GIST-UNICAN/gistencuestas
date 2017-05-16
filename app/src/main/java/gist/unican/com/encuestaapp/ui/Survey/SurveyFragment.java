@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import gist.unican.com.encuestaapp.R;
+import gist.unican.com.encuestaapp.ui.Survey.SurveyList.SurveyAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SurveyFragment extends Fragment {
+public class SurveyFragment extends Fragment implements SurveyAdapter.OnItemsSelectedInListener {
+    int numeroDeVecesQueSePresionaUnaTarjeta = 0;
 
 
     public SurveyFragment() {
@@ -27,4 +29,8 @@ public class SurveyFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_survey, container, false);
     }
 
+    @Override
+    public void OnRadioChecked() {
+        numeroDeVecesQueSePresionaUnaTarjeta++;
+    }
 }
