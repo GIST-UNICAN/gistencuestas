@@ -18,11 +18,11 @@ import rx.Observable;
 
 public interface ApiResourcesSurvey {
     @Headers("Content-Type: application/json")
-    @GET
+    @GET("encuestas/generalvariables/")
     Observable<SurveyGeneralVariables> getGeneralVariables();
 
     @Headers("Content-Type: application/json")
-    @GET
+    @GET("encuestas/qualityvariables/")
     Observable<SurveyQualityVariables> getQualityVariables();
 
     @Headers("Content-Type: application/json")

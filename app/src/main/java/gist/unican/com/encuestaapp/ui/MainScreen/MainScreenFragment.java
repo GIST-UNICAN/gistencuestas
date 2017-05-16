@@ -37,6 +37,8 @@ import gist.unican.com.encuestaapp.domain.DataPersistance.DeleteInLocalDatabase;
 import gist.unican.com.encuestaapp.domain.DataPersistance.RestoreFromLocalDatabase;
 import gist.unican.com.encuestaapp.domain.DataPersistance.SaveInLocalDatabase;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
+import gist.unican.com.encuestaapp.domain.encuesta.DownloadGeneralVariablesUseCase;
+import gist.unican.com.encuestaapp.domain.encuesta.DownloadQualityVariablesUseCase;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
@@ -154,6 +156,8 @@ public class MainScreenFragment extends Fragment {
         showLoading();
         paradasYLineasRecuperadas = false;
         new DownloadBusLinesUseCase(AYTO_URL_LINES).execute(new MainScreenFragment.GetBusLines());
+        new DownloadGeneralVariablesUseCase().execute(new MainScreenFragment.GetGeneralVariables());
+        new DownloadQualityVariablesUseCase().execute(new MainScreenFragment.GetQualityVariables());
     }
 
     //carga las sublineas al hacer click en la linea
