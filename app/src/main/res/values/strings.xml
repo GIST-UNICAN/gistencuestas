@@ -24,4 +24,11 @@
     <string name="REMAINDERS_NO_REMAINDER">No hay elementos de encuesta, por favor revise la sincronización</string>
     <string name="sync_data">Sincronizar</string>
     <string name="send_data">Enviar datos</string>
+    <string name="PREFERENCES_TIME_LAST_SYNC">last sync</string>
+    <string name="LastSinc">Ultima sincronización</string>
+    <string name="NEVER">Nunca</string>
+    <string name="LINEA">LINEA</string>
+    <string name="SUBLINEA">SUBLINEA</string>
+    <string name="SENTIDO">SENTIDO 1 ida 2 vuelta</string>
+    <string name="STOPS_SYNCRHONIZED">Listado de paradas grabado localmente</string>
 </resources>

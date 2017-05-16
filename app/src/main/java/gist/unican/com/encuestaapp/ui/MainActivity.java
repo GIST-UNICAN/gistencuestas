@@ -1,11 +1,14 @@
 package gist.unican.com.encuestaapp.ui;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,10 +21,9 @@ import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 
-public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked{
+public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    @Nullable
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
@@ -35,9 +37,17 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         /**
          * Lets inflate the very first fragment
          */
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Request both READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE so that the
+            // Pushy SDK will be able to persist the device token in the external storage
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
+
        /*
         SurveyObjectSend sob=new SurveyObjectSend();
         sob.setAcoBe(1);
@@ -58,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
 
     @Override
     public void onNewSurveySelected() {
-        Log.d("va","si");
+        Log.d("va", "si");
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new SurveyFragment()).commit();

@@ -11,6 +11,9 @@ import gist.unican.com.encuestaapp.R;
  */
 
 public class Utils {
+    public Utils() {
+    }
+
     public static void saveUserInPreference(Context context, String token, String username) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -28,6 +31,21 @@ public class Utils {
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null));
+    }
+
+    public static void saveLastSyncInPreference(Context context, String time) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(context.getString(R.string.PREFERENCES_TIME_LAST_SYNC), time);
+        editor.commit();
+    }
+
+    public static String getLastSyncFromPreference(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_TIME_LAST_SYNC), null);
     }
 
     public static String getMotivoViaje(Context context, int category) {
@@ -51,9 +69,6 @@ public class Utils {
         }
 
     }
-
-
-
 
 
     public static String encrypt(String input) {
