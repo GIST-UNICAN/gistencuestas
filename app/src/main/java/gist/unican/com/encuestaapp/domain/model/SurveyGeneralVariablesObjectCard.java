@@ -14,16 +14,7 @@ public class SurveyGeneralVariablesObjectCard {
     private String variableSpinner;
     private Boolean spinner;
     private List<String> listaSpinner;
-
-    public SurveyGeneralVariablesObjectCard(String titulo, Boolean radiosEnabled, int numeroRadios, List<List<String>> listaRadioButtons, String variableSpinner, Boolean spinner, List<String> listaSpinner) {
-        this.titulo = titulo;
-        this.radiosEnabled = radiosEnabled;
-        this.numeroRadios = numeroRadios;
-        this.listaRadioButtons = listaRadioButtons;
-        this.variableSpinner = variableSpinner;
-        this.spinner = spinner;
-        this.listaSpinner = listaSpinner;
-    }
+    private List<Boolean> activeRadios;
 
     public String getTitulo() {
         return titulo;
@@ -79,5 +70,25 @@ public class SurveyGeneralVariablesObjectCard {
 
     public void setListaSpinner(List<String> listaSpinner) {
         this.listaSpinner = listaSpinner;
+    }
+
+    public List<Boolean> getActiveRadios() {
+        return activeRadios;
+    }
+
+    public void setActiveRadios(List<Boolean> activeRadios) {
+        this.activeRadios = activeRadios;
+    }
+
+    public SurveyGeneralVariablesObjectCard(String titulo, Boolean radiosEnabled, int numeroRadios, List<List<String>> listaRadioButtons, String variableSpinner, Boolean spinner, List<String> listaSpinner, List<Boolean> activeRadios) {
+
+        this.titulo = titulo;
+        this.radiosEnabled = radiosEnabled;
+        this.numeroRadios = numeroRadios;
+        this.listaRadioButtons = listaRadioButtons;
+        this.variableSpinner = variableSpinner;
+        this.spinner = spinner;
+        this.listaSpinner = listaSpinner;
+        this.activeRadios = activeRadios;
     }
 }

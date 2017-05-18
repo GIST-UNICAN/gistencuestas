@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,12 +34,13 @@ import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
+import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnItemsSelectedInListener;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.SurveyAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SurveyFragment extends Fragment implements SurveyAdapter.OnItemsSelectedInListener {
+public class SurveyFragment extends Fragment implements OnItemsSelectedInListener {
     @Nullable
     @BindView(R.id.content)
     RelativeLayout content;
@@ -119,7 +122,7 @@ public class SurveyFragment extends Fragment implements SurveyAdapter.OnItemsSel
         surveyRecyclerView.setLayoutManager(layoutManager);
 
         //recuperamos hora, usuario y linea de las shared preferences
-        usuario ="usuario acordarse de cambiarlo por preferencias";
+        usuario = "usuario acordarse de cambiarlo por preferencias";
         Calendar now = Calendar.getInstance();
         int mes = now.get(Calendar.MONTH) + 1;
         dateTime = now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ";" + now.get(Calendar.DAY_OF_MONTH) + "/" + mes + "/" + now.get(Calendar.YEAR);
@@ -174,25 +177,26 @@ public class SurveyFragment extends Fragment implements SurveyAdapter.OnItemsSel
                     case "998":
                         break;
                     case "997":
-                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaLineasString);
+                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaLineasString, null);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                     case "996":
                         break;
                     case "995":
-                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaParadasString);
+                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaParadasString, null);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                     default:
                         List<List<String>> listaRadios = getListaRadios(generalVariableItem, generalVariablesItemList);
-                        Log.d("ITEMS",generalVariableItem.getNOMBRE()+" items:"+String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
-                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), true, Integer.valueOf(generalVariableItem.getITEMS()), listaRadios, null, false, null);
+                        Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
+                        List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
+                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), true, Integer.valueOf(generalVariableItem.getITEMS()), listaRadios, null, false, null, chechedButtons);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                 }
 
             }
-            adapterList= new SurveyAdapter(getContext(),tarjetasParaMostrar,this);
+            adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this);
             surveyRecyclerView.setAdapter(adapterList);
             adapterList.notifyDataSetChanged();
             variablesGenerales = false;
@@ -206,12 +210,12 @@ public class SurveyFragment extends Fragment implements SurveyAdapter.OnItemsSel
         int posicionEnLista = generalVariablesItemList.indexOf(generalVariableItem);
         int numeroRadiosButtons = Integer.valueOf(generalVariableItem.getITEMS());
         List<List<String>> elementoADevolver = new ArrayList<>();
-        for (int i = posicionEnLista+1; i < posicionEnLista + numeroRadiosButtons+1; i++) {
+        for (int i = posicionEnLista + 1; i < posicionEnLista + numeroRadiosButtons + 1; i++) {
             List<String> elementoAñadir = new ArrayList<>();
             elementoAñadir.add(generalVariablesItemList.get(i).getNOMBRE());
             elementoAñadir.add(generalVariablesItemList.get(i).getAbreviatura());
             elementoADevolver.add(elementoAñadir);
-            Log.d("ListaRadios",elementoAñadir.get(0));
+            Log.d("ListaRadios", elementoAñadir.get(0));
         }
 
         return elementoADevolver;
@@ -230,9 +234,8 @@ public class SurveyFragment extends Fragment implements SurveyAdapter.OnItemsSel
 
 
     @Override
-    public void OnRadioChecked() {
-        numeroDeVecesQueSePresionaUnaTarjeta++;
-        Log.d("checked",String.valueOf(numeroDeVecesQueSePresionaUnaTarjeta));
+    public void OnRadioChecked(int posicionTrue, int positionInCard) {
+
     }
 
     @Override

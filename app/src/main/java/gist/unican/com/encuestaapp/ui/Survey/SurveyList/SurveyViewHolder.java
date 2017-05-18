@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,7 +63,7 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder {
     @Nullable
     @BindView(R.id.answer7_radio)
     RadioButton answer7_radio;
-    RadioButton selectedRadio=null;
+    RadioButton selectedRadio = null;
     @Nullable
     @BindView(R.id.dropdownCard)
     LinearLayout dropDownCard;
@@ -71,7 +72,8 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder {
     Spinner spinner;
 
     //listener para sumar y comprobar que este all relleno
-    SurveyAdapter.OnItemsSelectedInListener listener = null;
+    OnItemsSelectedInListener listener = null;
+    OnItemsSelectedInListener listener2 = null;
     Boolean firsTimeChange = true;
 
     //Objeto con datos tarjetas
@@ -79,6 +81,12 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
     //String para almacenar la variable anterior
     String variableAnterior = null;
+
+    //lista con los radio buttons
+    List<RadioButton> listRadios = new ArrayList<>();
+
+    //int posicionen car list
+    int positionCardList;
 
     //Radiogroup get checked
     private void radioOnChecked() {
@@ -92,9 +100,10 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder {
             View radioButton = radioGroup.findViewById(id);
             int radioId = radioGroup.indexOfChild(radioButton);
             RadioButton btn = (RadioButton) radioGroup.getChildAt(radioId);
-            selectedRadio=btn;
+            selectedRadio = btn;
             String selection = (String) btn.getText();
             String variable = "";
+            listener2.OnRadioChecked(positionCardList, listRadios.indexOf(btn));
             for (List titulo : surveyGeneralVariablesObjectCard.getListaRadioButtons()) {
                 if (titulo.get(0).toString().equalsIgnoreCase(selection)) {
                     variable = titulo.get(1).toString();
@@ -115,83 +124,44 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder {
     @Nullable
     @OnItemSelected(R.id.spinner)
     void spinnerItemSelected() {
-        if (firsTimeChange) {
-            listener.OnRadioChecked();
-            firsTimeChange = false;
-        }
+
         listener.OnSpinnerSelected(surveyGeneralVariablesObjectCard.getVariableSpinner(), spinner.getSelectedItem().toString());
 
     }
 
-    public void bind(Context context, final SurveyGeneralVariablesObjectCard surveyGeneralVariablesObjectCard, SurveyAdapter.OnItemsSelectedInListener listener) {
+    public synchronized void bind(Context context, final SurveyGeneralVariablesObjectCard surveyGeneralVariablesObjectCard, OnItemsSelectedInListener listener, int positionInCardList, OnItemsSelectedInListener listener2) {
         this.listener = listener;
+        this.listener2 = listener2;
         this.surveyGeneralVariablesObjectCard = surveyGeneralVariablesObjectCard;
+        this.positionCardList = positionInCardList;
         title.setText(surveyGeneralVariablesObjectCard.getTitulo());
-        answer2_radio.setVisibility(View.VISIBLE);
-        answer3_radio.setVisibility(View.VISIBLE);
-        answer4_radio.setVisibility(View.VISIBLE);
-        answer5_radio.setVisibility(View.VISIBLE);
-        answer6_radio.setVisibility(View.VISIBLE);
-        answer7_radio.setVisibility(View.VISIBLE);
         if (surveyGeneralVariablesObjectCard.getRadiosEnabled()) {
+            radioGroup.clearCheck();
             dropDownCard.setVisibility(View.GONE);
             normalCard.setVisibility(View.VISIBLE);
-            switch (surveyGeneralVariablesObjectCard.getNumeroRadios()) {
-                //se encienden los radio buttons que sean menester
-                case 2:
-                    answer1_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(0).get(0));
-                    answer2_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(1).get(0));
-                    answer3_radio.setVisibility(View.GONE);
-                    answer4_radio.setVisibility(View.GONE);
-                    answer5_radio.setVisibility(View.GONE);
-                    answer6_radio.setVisibility(View.GONE);
-                    answer7_radio.setVisibility(View.GONE);
-                    break;
-                case 3:
-                    answer1_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(0).get(0));
-                    answer2_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(1).get(0));
-                    answer3_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(2).get(0));
-                    answer4_radio.setVisibility(View.GONE);
-                    answer5_radio.setVisibility(View.GONE);
-                    answer6_radio.setVisibility(View.GONE);
-                    answer7_radio.setVisibility(View.GONE);
-                    break;
-                case 4:
-                    answer1_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(0).get(0));
-                    answer2_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(1).get(0));
-                    answer3_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(2).get(0));
-                    answer4_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(3).get(0));
-                    answer5_radio.setVisibility(View.GONE);
-                    answer6_radio.setVisibility(View.GONE);
-                    answer7_radio.setVisibility(View.GONE);
-                    break;
-                case 5:
-                    answer1_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(0).get(0));
-                    answer2_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(1).get(0));
-                    answer3_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(2).get(0));
-                    answer4_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(3).get(0));
-                    answer5_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(4).get(0));
-                    answer6_radio.setVisibility(View.GONE);
-                    answer7_radio.setVisibility(View.GONE);
-                    break;
-                case 6:
-                    answer1_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(0).get(0));
-                    answer2_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(1).get(0));
-                    answer3_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(2).get(0));
-                    answer4_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(3).get(0));
-                    answer5_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(4).get(0));
-                    answer6_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(5).get(0));
-                    answer7_radio.setVisibility(View.GONE);
-                    break;
-                case 7:
-                    answer1_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(0).get(0));
-                    answer2_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(1).get(0));
-                    answer3_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(2).get(0));
-                    answer4_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(3).get(0));
-                    answer5_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(4).get(0));
-                    answer6_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(5).get(0));
-                    answer7_radio.setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(6).get(0));
-                    break;
+            //guardamos los radio buttons en una lista
+
+            listRadios.add(answer1_radio);
+            listRadios.add(answer2_radio);
+            listRadios.add(answer3_radio);
+            listRadios.add(answer4_radio);
+            listRadios.add(answer5_radio);
+            listRadios.add(answer6_radio);
+            listRadios.add(answer7_radio);
+            int optionTrue = surveyGeneralVariablesObjectCard.getActiveRadios().indexOf(true);
+            for (RadioButton rb : listRadios) {
+                rb.setChecked(false);
+                rb.setVisibility(View.GONE);
+            }
+            Log.d("option reu", String.valueOf(optionTrue));
+            if (optionTrue != -1) {
+                listRadios.get(optionTrue).setChecked(true);
+            }
+
+
+            for (int i = 0; i < surveyGeneralVariablesObjectCard.getNumeroRadios(); i++) {
+                listRadios.get(i).setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(i).get(0));
+                listRadios.get(i).setVisibility(View.VISIBLE);
             }
 
         } else {//se asume que es un spinner
@@ -217,7 +187,7 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder {
     public SurveyViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-        if(selectedRadio!=null){
+        if (selectedRadio != null) {
             selectedRadio.setChecked(true);
         }
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
