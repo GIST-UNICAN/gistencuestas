@@ -22,6 +22,10 @@ import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 
 public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked {
+
+
+
+
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     @BindView(R.id.drawer_layout)
@@ -48,21 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
 
-       /*
-        SurveyObjectSend sob=new SurveyObjectSend();
-        sob.setAcoBe(1);
-        String variable= "setAcoBe";
-        try {
-           Method metodo= sob.getClass().getMethod(variable,Integer.class);
-            metodo.invoke(1);
 
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }*/
 
     }
 
@@ -72,5 +62,5 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new SurveyFragment()).commit();
-    }
-}
+
+}}

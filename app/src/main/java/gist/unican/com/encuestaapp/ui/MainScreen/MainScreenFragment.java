@@ -98,6 +98,9 @@ public class MainScreenFragment extends Fragment {
     //Booleano para saber si se han recuperado de la base de datos las lineas y paradas
     Boolean paradasYLineasRecuperadas = false;
 
+    //Utilidades
+    Utils utilidades= new Utils();
+
 
     public interface OnNewSurveyClicked {
         void onNewSurveySelected();
@@ -202,6 +205,8 @@ public class MainScreenFragment extends Fragment {
     @Nullable
     @OnClick(R.id.floatingActionButton)
     public void nuevaEncuestaPulsado() {
+        String lineaSubLineaSentido=selectorLineas.getSelectedItem().toString()+";"+selectorSublineas.getSelectedItem().toString()+";"+selectorSentidos.getSelectedItem().toString();
+        utilidades.saveLineInPreferences(getContext(),lineaSubLineaSentido);
         newSurveyListener.onNewSurveySelected();
     }
 
@@ -271,6 +276,7 @@ public class MainScreenFragment extends Fragment {
             }
             try {
                 saveLocalDatabase.saveLocalBusStops(objetoParadas);
+                paradasYLineasRecuperadas=true;
                 Toast.makeText(getContext(), getString(R.string.STOPS_SYNCRHONIZED), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 e.printStackTrace();

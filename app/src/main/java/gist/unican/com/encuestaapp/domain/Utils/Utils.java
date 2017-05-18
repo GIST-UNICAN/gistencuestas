@@ -47,6 +47,20 @@ public class Utils {
 
         return sharedPref.getString(context.getString(R.string.PREFERENCES_TIME_LAST_SYNC), null);
     }
+    public static void saveLineInPreferences(Context context, String time) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(context.getString(R.string.PREFERENCES_BUS_LINE), time);
+        editor.commit();
+    }
+
+    public static String getBusLineFromPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_BUS_LINE), null);
+    }
 
     public static String getMotivoViaje(Context context, int category) {
         switch (category) {
