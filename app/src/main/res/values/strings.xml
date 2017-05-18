@@ -31,4 +31,5 @@
     <string name="SUBLINEA">SUBLINEA</string>
     <string name="SENTIDO">SENTIDO 1 ida 2 vuelta</string>
     <string name="STOPS_SYNCRHONIZED">Listado de paradas grabado localmente</string>
+    <string name="PREFERENCES_BUS_LINE">linea</string>
 </resources>

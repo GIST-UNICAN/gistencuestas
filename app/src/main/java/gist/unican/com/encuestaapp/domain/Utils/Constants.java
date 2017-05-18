@@ -22,4 +22,6 @@ public class Constants {//SERVICES
     public static final String MENOSIMPORTANTE = "_li";
     public static final String GRUPO = "_group";
 
+    //survey elements
+    public static final int NUMBER_ITEMS_SCREEN = 4;
 }
