@@ -74,7 +74,7 @@ public class MainScreenFragment extends Fragment {
     Button enviarDatosBoton;
     @Nullable
     @BindView(R.id.floatingActionButton)
-    FloatingActionButton nuevaEncuestaBoton;
+    Button nuevaEncuestaBoton;
     @Nullable
     @BindView(R.id.content)
     RelativeLayout content;
@@ -205,6 +205,7 @@ public class MainScreenFragment extends Fragment {
     @Nullable
     @OnClick(R.id.floatingActionButton)
     public void nuevaEncuestaPulsado() {
+        Log.d("PULSADO,","PULSADO");
         String lineaSubLineaSentido=selectorLineas.getSelectedItem().toString()+";"+selectorSublineas.getSelectedItem().toString()+";"+selectorSentidos.getSelectedItem().toString();
         utilidades.saveLineInPreferences(getContext(),lineaSubLineaSentido);
         newSurveyListener.onNewSurveySelected();
