@@ -6,11 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import gist.unican.com.encuestaapp.R;
+import gist.unican.com.encuestaapp.domain.DataPersistance.DeleteInLocalDatabase;
+import gist.unican.com.encuestaapp.domain.DataPersistance.SaveInLocalDatabase;
+import gist.unican.com.encuestaapp.domain.Utils.Utils;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
 
 /**
@@ -18,13 +22,16 @@ import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard
  */
 
 public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemsSelectedInListener {
-    List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList;
+    public List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList;
     public OnItemsSelectedInListener listener;
+    public OnAllRadioChecked listenerNext;
     Context context;
     List<Boolean> elementos = new ArrayList<>();
+    private RadioButton lastCheckedRB = null;
 
 
-    public SurveyAdapter(Context context, List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList, OnItemsSelectedInListener listener) {
+    public SurveyAdapter(Context context, List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList, OnItemsSelectedInListener listener, OnAllRadioChecked listenerNext) {
+        this.listenerNext = listenerNext;
         this.listener = listener;
         this.surveyGeneralVariablesObjectCardList = surveyGeneralVariablesObjectCardList;
         this.context = context;
@@ -38,7 +45,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         ((SurveyViewHolder) holder).bind(context, surveyGeneralVariablesObjectCardList.get(position), listener, position, this);
     }
 
@@ -48,14 +55,41 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void OnRadioChecked(int positionInCard,int posicionTrue) {
+    public void OnRadioChecked(int positionInCard, int posicionTrue) {
         List<Boolean> elementosCheckeados = surveyGeneralVariablesObjectCardList.get(positionInCard).getActiveRadios();
         if (elementosCheckeados.indexOf(true) != -1) {
             elementosCheckeados.set(elementosCheckeados.indexOf(true), false);
         }
         elementosCheckeados.set(posicionTrue, true);
         surveyGeneralVariablesObjectCardList.get(positionInCard).setActiveRadios(elementosCheckeados);
+        surveyGeneralVariablesObjectCardList.get(positionInCard).setElementoRadioButtonPresionado(posicionTrue);
         Log.d("elemento-cambiado", surveyGeneralVariablesObjectCardList.get(positionInCard).getTitulo() + " " + elementosCheckeados.toString());
+        Boolean mostrarBotonSiguiente = true;
+        for (SurveyGeneralVariablesObjectCard elementoTarjeta : surveyGeneralVariablesObjectCardList) {
+            if (elementoTarjeta.getTitulo().equalsIgnoreCase("Linea")){//la linea no se pregunta y también esnecesario almacenarla
+                Utils utilidades= new Utils();
+                int elemento= surveyGeneralVariablesObjectCardList.indexOf(elementoTarjeta);
+                surveyGeneralVariablesObjectCardList.get(elemento).setElementoSpinnerSeleccionado(utilidades.getBusLineFromPreferences(context));
+            }
+            if (elementoTarjeta.getRadiosEnabled()) {
+                if (elementoTarjeta.getActiveRadios().indexOf(true) == -1) {
+                    mostrarBotonSiguiente = false;
+                    break;
+                }
+            }
+        }
+        if (mostrarBotonSiguiente) {
+            SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
+            DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
+            try {
+                deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
+                saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyGeneralVariablesObjectCardList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            listenerNext.OnAllRadioCheckedTrue();
+        }
+
     }
 
     @Override
@@ -64,7 +98,15 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void OnSpinnerSelected(String variableSpinner, String nombreVariable) {
-
+    public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int positionInCard) {
+        surveyGeneralVariablesObjectCardList.get(positionInCard).setElementoSpinnerSeleccionado(variableSpinner);
+        SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
+        DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
+        try {
+            deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
+            saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyGeneralVariablesObjectCardList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

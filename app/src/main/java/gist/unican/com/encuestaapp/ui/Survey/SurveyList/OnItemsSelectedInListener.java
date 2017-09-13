@@ -9,5 +9,5 @@ public interface OnItemsSelectedInListener {
 
     public void OnItemSelected(String variableAFijarEn1, String variableADevolverA0);
 
-    public void OnSpinnerSelected(String variableSpinner, String nombreVariable);
+    public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int positionCArdList);
 }

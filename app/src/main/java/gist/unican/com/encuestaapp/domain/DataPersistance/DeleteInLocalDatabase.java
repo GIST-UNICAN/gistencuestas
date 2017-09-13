@@ -3,6 +3,7 @@ package gist.unican.com.encuestaapp.domain.DataPersistance;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
+import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
 
@@ -33,6 +34,13 @@ public class DeleteInLocalDatabase {
     public void deleteGeneralVariablesTable() throws Exception {
         Integer deleteTable = 0;
         deleteTable = SurveyGeneralVariablesItem.deleteTable().execute();
+        if (deleteTable == 0) {
+            throw new Exception("No delete itmes");
+        }
+    }
+    public void deleteGeneralVariablesAnswersTable() throws Exception {
+        Integer deleteTable = 0;
+        deleteTable = SurveyGeneralVariablesObjectCard.deleteTable().execute();
         if (deleteTable == 0) {
             throw new Exception("No delete itmes");
         }

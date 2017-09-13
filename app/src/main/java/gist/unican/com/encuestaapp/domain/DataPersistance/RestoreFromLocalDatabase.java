@@ -9,11 +9,8 @@ import static com.siimkinks.sqlitemagic.BusStopObjectItemTable.BUS_STOP_OBJECT_I
 import static com.siimkinks.sqlitemagic.SurveyGeneralVariablesItemTable.SURVEY_GENERAL_VARIABLES_ITEM;
 import static com.siimkinks.sqlitemagic.SurveyObjectSendTable.SURVEY_OBJECT_SEND;
 import static com.siimkinks.sqlitemagic.SurveyQualityVariablesItemTable.SURVEY_QUALITY_VARIABLES_ITEM;
+import static com.siimkinks.sqlitemagic.SurveyGeneralVariablesObjectCardTable.SURVEY_GENERAL_VARIABLES_OBJECT_CARD;
 
-/**
- * Created by andres on 10/05/2017.
- * ;
- */
 
 public class RestoreFromLocalDatabase {
     public RestoreFromLocalDatabase() {
@@ -37,6 +34,13 @@ public class RestoreFromLocalDatabase {
 
     public List generalVariables() throws Exception {
         List vuelta_item = Select.from(SURVEY_GENERAL_VARIABLES_ITEM).execute();
+        if (vuelta_item == null) {
+            throw new Exception("No items in database");
+        }
+        return vuelta_item;
+    }
+    public List generalVariablesAnswers()throws Exception {
+        List vuelta_item = Select.from(SURVEY_GENERAL_VARIABLES_OBJECT_CARD).execute();
         if (vuelta_item == null) {
             throw new Exception("No items in database");
         }

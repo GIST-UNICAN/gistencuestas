@@ -1,11 +1,14 @@
 package gist.unican.com.encuestaapp.domain.DataPersistance;
 
+import java.util.List;
+
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
+import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
@@ -42,6 +45,15 @@ public class SaveInLocalDatabase {
         for (SurveyGeneralVariablesItem surveyGeneralVariablesItem : surveyGeneralVariables.getSurveyGeneralVariablesItems()) {
             long id = 0;
             id = surveyGeneralVariablesItem.persist().execute();
+            if (id == 0) {
+                throw new Exception("No insert into local database");
+            }
+        }
+    }
+    public void saveLocaGeneralVariablesAnswers(List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList) throws Exception {
+        for (SurveyGeneralVariablesObjectCard surveyGeneralVariablesObjectCard : surveyGeneralVariablesObjectCardList) {
+            long id = 0;
+            id = surveyGeneralVariablesObjectCard.persist().execute();
             if (id == 0) {
                 throw new Exception("No insert into local database");
             }

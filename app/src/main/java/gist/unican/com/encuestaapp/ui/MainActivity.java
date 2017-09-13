@@ -1,7 +1,6 @@
 package gist.unican.com.encuestaapp.ui;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.siimkinks.sqlitemagic.SqliteMagic;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gist.unican.com.encuestaapp.R;
@@ -22,8 +19,6 @@ import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 
 public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked {
-
-
 
 
     private FragmentManager fragmentManager;
@@ -37,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Context context = getApplicationContext();
-        SqliteMagic.init((Application) context);
+        //SqliteMagic.init((Application) context);
         /**
          * Lets inflate the very first fragment
          */
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
 
 
-
     }
 
     @Override
@@ -63,4 +57,5 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new SurveyFragment()).commit();
 
-}}
+    }
+}

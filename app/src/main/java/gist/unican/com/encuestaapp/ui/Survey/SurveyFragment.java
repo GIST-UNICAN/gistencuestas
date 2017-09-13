@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.BusStopsAsignation.BusAsignation;
 import gist.unican.com.encuestaapp.domain.DataPersistance.RestoreFromLocalDatabase;
@@ -34,13 +36,14 @@ import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
+import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnAllRadioChecked;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnItemsSelectedInListener;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.SurveyAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SurveyFragment extends Fragment implements OnItemsSelectedInListener {
+public class SurveyFragment extends Fragment implements OnItemsSelectedInListener, OnAllRadioChecked {
     @Nullable
     @BindView(R.id.content)
     RelativeLayout content;
@@ -87,7 +90,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     private List<String> listaParadasString = new ArrayList<>();
     private List<BusLinesObjectItem> listaLineas = new ArrayList<>();
     private List<String> listaLineasString = new ArrayList<>();
-
+    private List<String> listaMotivos= new ArrayList<>();
     //Asignbador de paradas a lineas
     private BusAsignation busAsignation = new BusAsignation();
 
@@ -109,6 +112,12 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_survey, null);
         ButterKnife.bind(this, view);
+        //se oculta el boton de siguiente
+        nextButton.setVisibility(View.GONE);
+        //motivos de viaje
+        listaMotivos.add("casa");
+        listaMotivos.add("trabajo");
+
         //recuperar de la local db las preguntas
         try {
             generalVariablesItemList = restoreFromLocalDatabase.generalVariables();
@@ -181,6 +190,8 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                     case "996":
+                        tarjeta=new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaMotivos, null);
+                        tarjetasParaMostrar.add(tarjeta);
                         break;
                     case "995":
                         tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaParadasString, null);
@@ -196,7 +207,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                 }
 
             }
-            adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this);
+            adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this, this);
             surveyRecyclerView.setAdapter(adapterList);
             adapterList.notifyDataSetChanged();
             variablesGenerales = false;
@@ -215,7 +226,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             elementoAñadir.add(generalVariablesItemList.get(i).getNOMBRE());
             elementoAñadir.add(generalVariablesItemList.get(i).getAbreviatura());
             elementoADevolver.add(elementoAñadir);
-            Log.d("ListaRadios", elementoAñadir.get(0));
+            //Log.d("ListaRadios", elementoAñadir.get(0));
         }
 
         return elementoADevolver;
@@ -257,7 +268,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     }
 
     @Override
-    public void OnSpinnerSelected(String variableSpinner, String nombreVariable) {
+    public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int posicionElemento) {
         /* SurveyObjectSend sob = new SurveyObjectSend();
                     sob.setAcoBe(1);
                     String variable = "setAcoBe";
@@ -301,5 +312,71 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         content.setVisibility(View.VISIBLE);
         loading.setVisibility(View.GONE);
         error.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void OnAllRadioCheckedTrue() {
+        nextButton.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.floatingNext)
+    void onNextClicked() {
+        try {
+            List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList = restoreFromLocalDatabase.generalVariablesAnswers();
+            int elementoInicial = 0;
+            int elementoFinal;
+
+            for (SurveyGeneralVariablesObjectCard objeto : surveyGeneralVariablesObjectCardList) {
+                int contador = 0;
+                elementoInicial++;
+                elementoFinal = elementoInicial + objeto.getNumeroRadios();
+                Log.d("inicio", String.valueOf(elementoInicial));
+                Log.d("fin", String.valueOf(elementoFinal));
+                for (int i = elementoInicial; i < elementoFinal; i++) {
+                    String abreviatura = generalVariablesItemList.get(i).getAbreviatura();
+                    abreviatura = abreviatura.split("_")[0].substring(0, 1).toUpperCase() + abreviatura.split("_")[0].substring(1, abreviatura.split("_")[0].length()) + abreviatura.split("_")[1].substring(0, 1).toUpperCase() + abreviatura.split("_")[1].substring(1, abreviatura.split("_")[1].length());
+                    Log.d("abreviado", abreviatura);
+                    if (contador == objeto.getElementoRadioButtonPresionado()) {
+                        metodoVariablesDinamicas(abreviatura, 1);
+                    } else {
+                        metodoVariablesDinamicas(abreviatura, 0);
+                    }
+                    contador++;
+                }
+                elementoInicial = elementoFinal;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void metodoVariablesDinamicas(String abreviatura, int valor) {
+        String nombreMetodo = "set" + abreviatura;
+        surveyObjectSend.setSexoHombre(1);
+        try {
+            Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, new Class[]{int.class});
+            metodo.invoke(valor);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void metodoVariablesDinamicas(String abreviatura, String valor) {
+        String nombreMetodo = "set" + abreviatura;
+        try {
+            Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, String.class);
+            metodo.invoke(valor);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

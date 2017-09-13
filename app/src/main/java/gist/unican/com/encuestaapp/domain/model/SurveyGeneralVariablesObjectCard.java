@@ -1,20 +1,54 @@
 package gist.unican.com.encuestaapp.domain.model;
 
+import android.support.annotation.Nullable;
+
+import com.siimkinks.sqlitemagic.annotation.Column;
+import com.siimkinks.sqlitemagic.annotation.IgnoreColumn;
+import com.siimkinks.sqlitemagic.annotation.Table;
+
 import java.util.List;
 
 /**
  * Created by andres on 16/05/2017.
  */
-
+@Table(persistAll = true)
 public class SurveyGeneralVariablesObjectCard {
+    @Column(useAccessMethods = true)
+    @Nullable
     private String titulo;
+    @Column(useAccessMethods = true)
+    @Nullable
     private Boolean radiosEnabled;
+    @Column(useAccessMethods = true)
+    @Nullable
     private int numeroRadios;
+    @Nullable
+    @IgnoreColumn
+    //@Column(useAccessMethods = true)
     private List<List<String>> listaRadioButtons;
+    @Column(useAccessMethods = true)
+    @Nullable
     private String variableSpinner;
+    @Column(useAccessMethods = true)
+    @Nullable
     private Boolean spinner;
+    @IgnoreColumn
+    @Nullable
     private List<String> listaSpinner;
+    @IgnoreColumn
+    @Nullable
     private List<Boolean> activeRadios;
+    @Nullable
+    @Column(useAccessMethods = true)
+    private String elementoSpinnerSeleccionado;
+
+
+    @Nullable
+    @Column(useAccessMethods = true)
+    private Integer elementoRadioButtonPresionado;
+
+    public SurveyGeneralVariablesObjectCard() {
+    }
 
     public String getTitulo() {
         return titulo;
@@ -78,6 +112,22 @@ public class SurveyGeneralVariablesObjectCard {
 
     public void setActiveRadios(List<Boolean> activeRadios) {
         this.activeRadios = activeRadios;
+    }
+
+    public String getElementoSpinnerSeleccionado() {
+        return elementoSpinnerSeleccionado;
+    }
+
+    public void setElementoSpinnerSeleccionado(String elementoSpinnerSeleccionado) {
+        this.elementoSpinnerSeleccionado = elementoSpinnerSeleccionado;
+    }
+
+    public Integer getElementoRadioButtonPresionado() {
+        return elementoRadioButtonPresionado;
+    }
+
+    public void setElementoRadioButtonPresionado(@Nullable Integer elementoRadioButtonPresionado) {
+        this.elementoRadioButtonPresionado = elementoRadioButtonPresionado;
     }
 
     public SurveyGeneralVariablesObjectCard(String titulo, Boolean radiosEnabled, int numeroRadios, List<List<String>> listaRadioButtons, String variableSpinner, Boolean spinner, List<String> listaSpinner, List<Boolean> activeRadios) {
