@@ -90,15 +90,15 @@ public class SurveyObjectSend {
     @Column(useAccessMethods = true)
     @SerializedName("linea")
     @Expose
-    private Integer linea;
+    private String linea;
     @Column(useAccessMethods = true)
     @SerializedName("motivo_inicio")
     @Expose
-    private Integer motivoInicio;
+    private String motivoInicio;
     @Column(useAccessMethods = true)
     @SerializedName("motivo_fin")
     @Expose
-    private Integer motivoFin;
+    private String motivoFin;
     @Column(useAccessMethods = true)
     @SerializedName("viajes_5")
     @Expose
@@ -146,7 +146,7 @@ public class SurveyObjectSend {
     @Column(useAccessMethods = true)
     @SerializedName("valoriacion_muymal")
     @Expose
-    private Integer valoriacionMuymal;
+    private Integer valoracionMuymal;
     @Column(useAccessMethods = true)
     @SerializedName("valoracion_mal")
     @Expose
@@ -1290,15 +1290,15 @@ public class SurveyObjectSend {
     @Column(useAccessMethods = true)
     @SerializedName("otras_lineas")
     @Expose
-    private Integer otrasLineas;
+    private String otrasLineas;
     @Column(useAccessMethods = true)
     @SerializedName("parada_subida")
     @Expose
-    private Integer paradaSubida;
+    private String paradaSubida;
     @Column(useAccessMethods = true)
     @SerializedName("parada_bajada")
     @Expose
-    private Integer paradaBajada;
+    private String paradaBajada;
     @Column(useAccessMethods = true)
     @SerializedName("iam_mm")
     @Expose
@@ -1584,27 +1584,27 @@ public class SurveyObjectSend {
         this.vehiculoNo = vehiculoNo;
     }
 
-    public Integer getLinea() {
+    public String getLinea() {
         return linea;
     }
 
-    public void setLinea(Integer linea) {
+    public void setLinea(String linea) {
         this.linea = linea;
     }
 
-    public Integer getMotivoInicio() {
+    public String getMotivoInicio() {
         return motivoInicio;
     }
 
-    public void setMotivoInicio(Integer motivoInicio) {
+    public void setMotivoInicio(String motivoInicio) {
         this.motivoInicio = motivoInicio;
     }
 
-    public Integer getMotivoFin() {
+    public String getMotivoFin() {
         return motivoFin;
     }
 
-    public void setMotivoFin(Integer motivoFin) {
+    public void setMotivoFin(String motivoFin) {
         this.motivoFin = motivoFin;
     }
 
@@ -1696,12 +1696,12 @@ public class SurveyObjectSend {
         this.ingresoNsnc = ingresoNsnc;
     }
 
-    public Integer getValoriacionMuymal() {
-        return valoriacionMuymal;
+    public Integer getValoracionMuymal() {
+        return valoracionMuymal;
     }
 
-    public void setValoriacionMuymal(Integer valoriacionMuymal) {
-        this.valoriacionMuymal = valoriacionMuymal;
+    public void setValoracionMuymal(Integer valoriacionMuymal) {
+        this.valoracionMuymal = valoriacionMuymal;
     }
 
     public Integer getValoracionMal() {
@@ -3984,27 +3984,27 @@ public class SurveyObjectSend {
         this.vgsGroup = vgsGroup;
     }
 
-    public Integer getOtrasLineas() {
+    public String getOtrasLineas() {
         return otrasLineas;
     }
 
-    public void setOtrasLineas(Integer otrasLineas) {
+    public void setOtrasLineas(String otrasLineas) {
         this.otrasLineas = otrasLineas;
     }
 
-    public Integer getParadaSubida() {
+    public String getParadaSubida() {
         return paradaSubida;
     }
 
-    public void setParadaSubida(Integer paradaSubida) {
+    public void setParadaSubida(String paradaSubida) {
         this.paradaSubida = paradaSubida;
     }
 
-    public Integer getParadaBajada() {
+    public String getParadaBajada() {
         return paradaBajada;
     }
 
-    public void setParadaBajada(Integer paradaBajada) {
+    public void setParadaBajada(String paradaBajada) {
         this.paradaBajada = paradaBajada;
     }
 

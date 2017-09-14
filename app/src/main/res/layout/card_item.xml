@@ -45,49 +45,57 @@
                 android:id="@+id/answer_radioGroup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <RadioButton
                     android:id="@+id/answer1_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
                 <RadioButton
                     android:id="@+id/answer2_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
                 <RadioButton
                     android:id="@+id/answer3_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
                 <RadioButton
                     android:id="@+id/answer4_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
                 <RadioButton
                     android:id="@+id/answer5_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
                 <RadioButton
                     android:id="@+id/answer6_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
                 <RadioButton
                     android:id="@+id/answer7_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"/>
+                    android:checked="false"
+                    android:textSize="@dimen/letra_mediana"/>
 
 
             </RadioGroup>

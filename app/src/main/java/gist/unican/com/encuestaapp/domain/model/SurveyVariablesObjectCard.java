@@ -12,7 +12,7 @@ import java.util.List;
  * Created by andres on 16/05/2017.
  */
 @Table(persistAll = true)
-public class SurveyGeneralVariablesObjectCard {
+public class SurveyVariablesObjectCard {
     @Column(useAccessMethods = true)
     @Nullable
     private String titulo;
@@ -41,13 +41,27 @@ public class SurveyGeneralVariablesObjectCard {
     @Nullable
     @Column(useAccessMethods = true)
     private String elementoSpinnerSeleccionado;
-
-
+    @IgnoreColumn
+    @Nullable
+    private int color;
     @Nullable
     @Column(useAccessMethods = true)
     private Integer elementoRadioButtonPresionado;
 
-    public SurveyGeneralVariablesObjectCard() {
+    public SurveyVariablesObjectCard() {
+    }
+
+    public SurveyVariablesObjectCard(String titulo, Boolean radiosEnabled, int numeroRadios, List<List<String>> listaRadioButtons, String variableSpinner, Boolean spinner, List<String> listaSpinner, List<Boolean> activeRadios, int color) {
+
+        this.titulo = titulo;
+        this.radiosEnabled = radiosEnabled;
+        this.numeroRadios = numeroRadios;
+        this.listaRadioButtons = listaRadioButtons;
+        this.variableSpinner = variableSpinner;
+        this.spinner = spinner;
+        this.listaSpinner = listaSpinner;
+        this.activeRadios = activeRadios;
+        this.color = color;
     }
 
     public String getTitulo() {
@@ -130,15 +144,13 @@ public class SurveyGeneralVariablesObjectCard {
         this.elementoRadioButtonPresionado = elementoRadioButtonPresionado;
     }
 
-    public SurveyGeneralVariablesObjectCard(String titulo, Boolean radiosEnabled, int numeroRadios, List<List<String>> listaRadioButtons, String variableSpinner, Boolean spinner, List<String> listaSpinner, List<Boolean> activeRadios) {
-
-        this.titulo = titulo;
-        this.radiosEnabled = radiosEnabled;
-        this.numeroRadios = numeroRadios;
-        this.listaRadioButtons = listaRadioButtons;
-        this.variableSpinner = variableSpinner;
-        this.spinner = spinner;
-        this.listaSpinner = listaSpinner;
-        this.activeRadios = activeRadios;
+    public int getColor() {
+        return color;
     }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+
 }

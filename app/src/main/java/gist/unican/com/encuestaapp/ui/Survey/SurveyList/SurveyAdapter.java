@@ -15,14 +15,14 @@ import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.DataPersistance.DeleteInLocalDatabase;
 import gist.unican.com.encuestaapp.domain.DataPersistance.SaveInLocalDatabase;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
-import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
+import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 
 /**
  * Created by andres on 16/05/2017.
  */
 
 public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnItemsSelectedInListener {
-    public List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList;
+    public List<SurveyVariablesObjectCard> surveyVariablesObjectCardList;
     public OnItemsSelectedInListener listener;
     public OnAllRadioChecked listenerNext;
     Context context;
@@ -30,10 +30,10 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private RadioButton lastCheckedRB = null;
 
 
-    public SurveyAdapter(Context context, List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList, OnItemsSelectedInListener listener, OnAllRadioChecked listenerNext) {
+    public SurveyAdapter(Context context, List<SurveyVariablesObjectCard> surveyVariablesObjectCardList, OnItemsSelectedInListener listener, OnAllRadioChecked listenerNext) {
         this.listenerNext = listenerNext;
         this.listener = listener;
-        this.surveyGeneralVariablesObjectCardList = surveyGeneralVariablesObjectCardList;
+        this.surveyVariablesObjectCardList = surveyVariablesObjectCardList;
         this.context = context;
     }
 
@@ -46,30 +46,30 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        ((SurveyViewHolder) holder).bind(context, surveyGeneralVariablesObjectCardList.get(position), listener, position, this);
+        ((SurveyViewHolder) holder).bind(context, surveyVariablesObjectCardList.get(position), listener, position, this);
     }
 
     @Override
     public int getItemCount() {
-        return surveyGeneralVariablesObjectCardList.size();
+        return surveyVariablesObjectCardList.size();
     }
 
     @Override
     public void OnRadioChecked(int positionInCard, int posicionTrue) {
-        List<Boolean> elementosCheckeados = surveyGeneralVariablesObjectCardList.get(positionInCard).getActiveRadios();
+        List<Boolean> elementosCheckeados = surveyVariablesObjectCardList.get(positionInCard).getActiveRadios();
         if (elementosCheckeados.indexOf(true) != -1) {
             elementosCheckeados.set(elementosCheckeados.indexOf(true), false);
         }
         elementosCheckeados.set(posicionTrue, true);
-        surveyGeneralVariablesObjectCardList.get(positionInCard).setActiveRadios(elementosCheckeados);
-        surveyGeneralVariablesObjectCardList.get(positionInCard).setElementoRadioButtonPresionado(posicionTrue);
-        Log.d("elemento-cambiado", surveyGeneralVariablesObjectCardList.get(positionInCard).getTitulo() + " " + elementosCheckeados.toString());
+        surveyVariablesObjectCardList.get(positionInCard).setActiveRadios(elementosCheckeados);
+        surveyVariablesObjectCardList.get(positionInCard).setElementoRadioButtonPresionado(posicionTrue);
+        Log.d("elemento-cambiado", surveyVariablesObjectCardList.get(positionInCard).getTitulo() + " " + elementosCheckeados.toString());
         Boolean mostrarBotonSiguiente = true;
-        for (SurveyGeneralVariablesObjectCard elementoTarjeta : surveyGeneralVariablesObjectCardList) {
+        for (SurveyVariablesObjectCard elementoTarjeta : surveyVariablesObjectCardList) {
             if (elementoTarjeta.getTitulo().equalsIgnoreCase("Linea")){//la linea no se pregunta y también esnecesario almacenarla
                 Utils utilidades= new Utils();
-                int elemento= surveyGeneralVariablesObjectCardList.indexOf(elementoTarjeta);
-                surveyGeneralVariablesObjectCardList.get(elemento).setElementoSpinnerSeleccionado(utilidades.getBusLineFromPreferences(context));
+                int elemento= surveyVariablesObjectCardList.indexOf(elementoTarjeta);
+                surveyVariablesObjectCardList.get(elemento).setElementoSpinnerSeleccionado(utilidades.getBusLineFromPreferences(context));
             }
             if (elementoTarjeta.getRadiosEnabled()) {
                 if (elementoTarjeta.getActiveRadios().indexOf(true) == -1) {
@@ -83,7 +83,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
             try {
                 deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
-                saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyGeneralVariablesObjectCardList);
+                saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -99,12 +99,12 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int positionInCard) {
-        surveyGeneralVariablesObjectCardList.get(positionInCard).setElementoSpinnerSeleccionado(variableSpinner);
+        surveyVariablesObjectCardList.get(positionInCard).setElementoSpinnerSeleccionado(variableSpinner);
         SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
         DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
         try {
             deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
-            saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyGeneralVariablesObjectCardList);
+            saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
         } catch (Exception e) {
             e.printStackTrace();
         }

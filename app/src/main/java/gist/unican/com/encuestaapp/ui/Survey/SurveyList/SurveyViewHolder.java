@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import gist.unican.com.encuestaapp.R;
-import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
+import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 
 /**
  * Created by andres on 16/05/2017.
@@ -76,7 +76,7 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
     private boolean onBind;
 
     //Objeto con datos tarjetas
-    SurveyGeneralVariablesObjectCard surveyGeneralVariablesObjectCard;
+    SurveyVariablesObjectCard surveyVariablesObjectCard;
 
     //String para almacenar la variable anterior
     String variableAnterior = null;
@@ -104,7 +104,7 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
             Log.d("SELECTION", selection);
             String variable = "";
             listener2.OnRadioChecked(getAdapterPosition(), listRadios.indexOf(btn));
-           /* for (List titulo : surveyGeneralVariablesObjectCard.getListaRadioButtons()) {
+           /* for (List titulo : surveyVariablesObjectCard.getListaRadioButtons()) {
                 if (titulo.get(0).toString().equalsIgnoreCase(selection)) {
                     variable = titulo.get(1).toString();
                     Log.d("Variable Marcada", variable);
@@ -123,25 +123,40 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
     @OnItemSelected(R.id.spinner)
     void spinnerItemSelected() {
         if (!onBind) {
-            listener2.OnSpinnerSelected(spinner.getSelectedItem().toString(), surveyGeneralVariablesObjectCard.getVariableSpinner(), getAdapterPosition());
+            listener2.OnSpinnerSelected(spinner.getSelectedItem().toString(), surveyVariablesObjectCard.getVariableSpinner(), getAdapterPosition());
         }
 
     }
 
-    public void bind(Context context, final SurveyGeneralVariablesObjectCard surveyGeneralVariablesObjectCard, OnItemsSelectedInListener listener, int positionInCardList, OnItemsSelectedInListener listener2) {
+    public void bind(Context context, final SurveyVariablesObjectCard surveyVariablesObjectCard, OnItemsSelectedInListener listener, int positionInCardList, OnItemsSelectedInListener listener2) {
         this.listener = listener;
         this.listener2 = listener2;
-        this.surveyGeneralVariablesObjectCard = surveyGeneralVariablesObjectCard;
+        this.surveyVariablesObjectCard = surveyVariablesObjectCard;
         this.positionCardList = positionInCardList;
-        title.setText(surveyGeneralVariablesObjectCard.getTitulo());
-        Log.d("CREANDO", surveyGeneralVariablesObjectCard.getTitulo());
+        title.setText(surveyVariablesObjectCard.getTitulo());
+        //color
         onBind = true;
-        if (surveyGeneralVariablesObjectCard.getRadiosEnabled()) {
+        switch (surveyVariablesObjectCard.getColor()) {
+            case 0:
+                tarjetaCompleta.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                normalCard.setBackgroundColor(context.getResources().getColor(R.color.white));
+                title.setTextColor(context.getResources().getColor(R.color.white));
+                break;
+            case 1:
+                tarjetaCompleta.setBackgroundColor(context.getResources().getColor(R.color.colorSecondary));
+                normalCard.setBackgroundColor(context.getResources().getColor(R.color.white));
+                title.setTextColor(context.getResources().getColor(R.color.white));
+                break;
+            default:
+                tarjetaCompleta.setBackgroundColor(context.getResources().getColor(R.color.white));
+                normalCard.setBackgroundColor(context.getResources().getColor(R.color.white));
+                title.setTextColor(context.getResources().getColor(R.color.black));
+        }
+        if (surveyVariablesObjectCard.getRadiosEnabled()) {
             radioGroup.clearCheck();
             dropDownCard.setVisibility(View.GONE);
             normalCard.setVisibility(View.VISIBLE);
             //guardamos los radio buttons en una lista
-
             listRadios.add(answer1_radio);
             listRadios.add(answer2_radio);
             listRadios.add(answer3_radio);
@@ -149,7 +164,7 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
             listRadios.add(answer5_radio);
             listRadios.add(answer6_radio);
             listRadios.add(answer7_radio);
-            int optionTrue = surveyGeneralVariablesObjectCard.getActiveRadios().indexOf(true);
+            int optionTrue = surveyVariablesObjectCard.getActiveRadios().indexOf(true);
             for (RadioButton rb : listRadios) {
                 rb.setChecked(false);
                 rb.setVisibility(View.GONE);
@@ -158,10 +173,8 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
             if (optionTrue != -1) {
                 //listRadios.get(optionTrue).setChecked(true);
             }
-
-
-            for (int i = 0; i < surveyGeneralVariablesObjectCard.getNumeroRadios(); i++) {
-                listRadios.get(i).setText(surveyGeneralVariablesObjectCard.getListaRadioButtons().get(i).get(0));
+            for (int i = 0; i < surveyVariablesObjectCard.getNumeroRadios(); i++) {
+                listRadios.get(i).setText(surveyVariablesObjectCard.getListaRadioButtons().get(i).get(0));
                 listRadios.get(i).setVisibility(View.VISIBLE);
                 if (i == optionTrue) {
                     listRadios.get(i).setChecked(true);
@@ -177,7 +190,7 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
             dropDownCard.setVisibility(View.VISIBLE);
             tarjetaCompleta.setVisibility(View.VISIBLE);
             //si es linea no se mmuestra la tarjeta
-            if (surveyGeneralVariablesObjectCard.getTitulo().equalsIgnoreCase("Linea")) {
+            if (surveyVariablesObjectCard.getTitulo().equalsIgnoreCase("Linea")) {
                 tarjetaCompleta.setVisibility(View.GONE);
                 if (firsTimeChange) {
                     Log.d("linea", "l");
@@ -188,13 +201,13 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
                 }
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, surveyGeneralVariablesObjectCard.getListaSpinner());
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, R.layout.spinner, surveyVariablesObjectCard.getListaSpinner());
+            adapter.setDropDownViewResource(R.layout.spinner);
             spinner.setAdapter(adapter);
 
 
-            if (surveyGeneralVariablesObjectCard.getElementoSpinnerSeleccionado() != null) {//si ya se ha rellenado se pone en el spinner el elemento almacenado
-                spinner.setSelection(surveyGeneralVariablesObjectCard.getListaSpinner().indexOf(surveyGeneralVariablesObjectCard.getElementoSpinnerSeleccionado()));
+            if (surveyVariablesObjectCard.getElementoSpinnerSeleccionado() != null) {//si ya se ha rellenado se pone en el spinner el elemento almacenado
+                spinner.setSelection(surveyVariablesObjectCard.getListaSpinner().indexOf(surveyVariablesObjectCard.getElementoSpinnerSeleccionado()));
             }
 
             onBind = false;

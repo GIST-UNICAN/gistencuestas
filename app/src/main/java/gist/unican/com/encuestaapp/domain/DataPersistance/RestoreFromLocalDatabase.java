@@ -9,7 +9,7 @@ import static com.siimkinks.sqlitemagic.BusStopObjectItemTable.BUS_STOP_OBJECT_I
 import static com.siimkinks.sqlitemagic.SurveyGeneralVariablesItemTable.SURVEY_GENERAL_VARIABLES_ITEM;
 import static com.siimkinks.sqlitemagic.SurveyObjectSendTable.SURVEY_OBJECT_SEND;
 import static com.siimkinks.sqlitemagic.SurveyQualityVariablesItemTable.SURVEY_QUALITY_VARIABLES_ITEM;
-import static com.siimkinks.sqlitemagic.SurveyGeneralVariablesObjectCardTable.SURVEY_GENERAL_VARIABLES_OBJECT_CARD;
+import static com.siimkinks.sqlitemagic.SurveyVariablesObjectCardTable.SURVEY_VARIABLES_OBJECT_CARD;
 
 
 public class RestoreFromLocalDatabase {
@@ -40,7 +40,7 @@ public class RestoreFromLocalDatabase {
         return vuelta_item;
     }
     public List generalVariablesAnswers()throws Exception {
-        List vuelta_item = Select.from(SURVEY_GENERAL_VARIABLES_OBJECT_CARD).execute();
+        List vuelta_item = Select.from(SURVEY_VARIABLES_OBJECT_CARD).execute();
         if (vuelta_item == null) {
             throw new Exception("No items in database");
         }

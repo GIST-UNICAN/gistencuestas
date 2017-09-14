@@ -8,7 +8,7 @@ import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
-import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
+import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
@@ -50,10 +50,10 @@ public class SaveInLocalDatabase {
             }
         }
     }
-    public void saveLocaGeneralVariablesAnswers(List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList) throws Exception {
-        for (SurveyGeneralVariablesObjectCard surveyGeneralVariablesObjectCard : surveyGeneralVariablesObjectCardList) {
+    public void saveLocaGeneralVariablesAnswers(List<SurveyVariablesObjectCard> surveyVariablesObjectCardList) throws Exception {
+        for (SurveyVariablesObjectCard surveyVariablesObjectCard : surveyVariablesObjectCardList) {
             long id = 0;
-            id = surveyGeneralVariablesObjectCard.persist().execute();
+            id = surveyVariablesObjectCard.persist().execute();
             if (id == 0) {
                 throw new Exception("No insert into local database");
             }

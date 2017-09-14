@@ -22,6 +22,10 @@ public class SurveyQualityVariablesItem {
     @SerializedName("abreviatura")
     @Expose
     private String abreviatura;
+    @SerializedName("color")
+    @Expose
+    @Column(useAccessMethods = true)
+    private int color;
 
     public String getID() {
         return iD;
@@ -45,6 +49,14 @@ public class SurveyQualityVariablesItem {
 
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
 }

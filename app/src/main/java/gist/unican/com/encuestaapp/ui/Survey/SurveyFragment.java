@@ -28,12 +28,13 @@ import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.BusStopsAsignation.BusAsignation;
 import gist.unican.com.encuestaapp.domain.DataPersistance.RestoreFromLocalDatabase;
 import gist.unican.com.encuestaapp.domain.DataPersistance.SaveInLocalDatabase;
+import gist.unican.com.encuestaapp.domain.Utils.Constants;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
-import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesObjectCard;
+import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnAllRadioChecked;
@@ -76,6 +77,8 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     private String usuario = "";
     private String dateTime = "";
     private String linea = "";
+    //ventana
+    private String ventana;
 
 
     //objeto que se enviará al final a la db
@@ -90,7 +93,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     private List<String> listaParadasString = new ArrayList<>();
     private List<BusLinesObjectItem> listaLineas = new ArrayList<>();
     private List<String> listaLineasString = new ArrayList<>();
-    private List<String> listaMotivos= new ArrayList<>();
+    private List<String> listaMotivos = new ArrayList<>();
     //Asignbador de paradas a lineas
     private BusAsignation busAsignation = new BusAsignation();
 
@@ -101,6 +104,11 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     //variable para mostrar en primer lugar las variables generales
     private Boolean variablesGenerales = true;
 
+    //lista variables ordenadas
+    private List<SurveyQualityVariablesItem> surveyQualityVariablesItemsUnordered;
+    private int numeroElementosMostrados = 0;
+
+    //elementos de
 
     public SurveyFragment() {
         // Required empty public constructor
@@ -118,10 +126,28 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         listaMotivos.add("casa");
         listaMotivos.add("trabajo");
 
+        //prueba
+       /* Method[] methods = surveyObjectSend.getClass().getMethods();
+        for (Method m : methods){
+            Log.d("METODO",m.toGenericString()+" "+m.toString());
+        }
+        try {
+            Method m = surveyObjectSend.getClass().getMethod("setSexoHombre", Integer.class);
+            m.invoke(surveyObjectSend,1);
+            Log.d("METODO", "bueno "+surveyObjectSend.getSexoHombre());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }*/
+
         //recuperar de la local db las preguntas
         try {
             generalVariablesItemList = restoreFromLocalDatabase.generalVariables();
             qualityVariablesItemList = restoreFromLocalDatabase.qualityVariables();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,47 +187,50 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         for (BusLinesObjectItem busLine : listaLineas) {
             listaLineasString.add(busLine.getAytoNumero());
         }
-
-
         //barajamos las variables específicas y guardamos el grupo en cada una
-        List<SurveyQualityVariablesItem> variablesOrdenadas = barajarLasVariables(qualityVariablesItemList);
-        qualityVariablesItemList = variablesOrdenadas;
+        surveyQualityVariablesItemsUnordered = barajarLasVariables(qualityVariablesItemList);
+
+
+        //identificamos las ventanas
+        ventana = "generalVariables";
 
         //mostramos las variables aqui hay que distinguir 2 casos, primero de golpe todas las variables generales, y luego de forma aleatoria las variables de calidad
-        showList(generalVariablesItemList, variablesOrdenadas);
+        showQualityVariablesList();
+
+        //showList(generalVariablesItemList);
         return view;
 
     }
 
-    private void showList(List<SurveyGeneralVariablesItem> generalVariablesItemList, List<SurveyQualityVariablesItem> variablesOrdenadas) {
+    private void showList(List<SurveyGeneralVariablesItem> generalVariablesItemList) {
         //en primer lugar las variables generales
 
         if (variablesGenerales) {
-            List<SurveyGeneralVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
+            List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
             for (SurveyGeneralVariablesItem generalVariableItem : generalVariablesItemList) {
-                SurveyGeneralVariablesObjectCard tarjeta = null;
+                SurveyVariablesObjectCard tarjeta = null;
                 switch (generalVariableItem.getITEMS()) {
                     case "999":
                         break;
                     case "998":
                         break;
                     case "997":
-                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaLineasString, null);
+                        tarjeta = new SurveyVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaLineasString, null, 999);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                     case "996":
-                        tarjeta=new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaMotivos, null);
+                        tarjeta = new SurveyVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaMotivos, null, 999);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                     case "995":
-                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaParadasString, null);
+                        tarjeta = new SurveyVariablesObjectCard(generalVariableItem.getNOMBRE(), false, 0, null, generalVariableItem.getAbreviatura(), true, listaParadasString, null, 999);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                     default:
                         List<List<String>> listaRadios = getListaRadios(generalVariableItem, generalVariablesItemList);
                         Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
                         List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
-                        tarjeta = new SurveyGeneralVariablesObjectCard(generalVariableItem.getNOMBRE(), true, Integer.valueOf(generalVariableItem.getITEMS()), listaRadios, null, false, null, chechedButtons);
+                        tarjeta = new SurveyVariablesObjectCard(generalVariableItem.getNOMBRE(), true, Integer.valueOf(generalVariableItem.getITEMS()), listaRadios, null, false, null, chechedButtons, 999);
                         tarjetasParaMostrar.add(tarjeta);
                         break;
                 }
@@ -212,9 +241,38 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             adapterList.notifyDataSetChanged();
             variablesGenerales = false;
             showContent();
-        } else {
-            //coje de x en x
         }
+    }
+
+    public void showQualityVariablesList() {
+        showLoading();
+        ventana = "qualityVariables";
+        List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
+        SurveyVariablesObjectCard tarjeta = null;
+        List<String> nombres = new ArrayList<>();
+        for (int i = numeroElementosMostrados; i < numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN - 1; i++) {
+            List<List<String>> listaRadios = getListaRadios();
+            // Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
+            List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
+            tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, Constants.NUMBER_ITEMS_SCREEN - 1, listaRadios, null, false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
+            tarjetasParaMostrar.add(tarjeta);
+            nombres.add(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE());
+        }
+        //añadimos los spinner de opinion
+        tarjeta = new SurveyVariablesObjectCard("Mejor", false, 0, null, "none", true, nombres, null, 999);
+        tarjetasParaMostrar.add(tarjeta);
+        tarjeta = new SurveyVariablesObjectCard("Peor", false, 0, null, "none", true, nombres, null, 999);
+        tarjetasParaMostrar.add(tarjeta);
+        tarjeta = new SurveyVariablesObjectCard("Mas Importante", false, 0, null, "none", true, nombres, null, 999);
+        tarjetasParaMostrar.add(tarjeta);
+        tarjeta = new SurveyVariablesObjectCard("Menos Importante", false, 0, null, "none", true, nombres, null, 999);
+        tarjetasParaMostrar.add(tarjeta);
+        adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this, this);
+        surveyRecyclerView.setAdapter(adapterList);
+        adapterList.notifyDataSetChanged();
+        numeroElementosMostrados = numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN - 1;
+        showContent();
+        //coje de x en x
     }
 
     private List<List<String>> getListaRadios(SurveyGeneralVariablesItem generalVariableItem, List<SurveyGeneralVariablesItem> generalVariablesItemList) {
@@ -225,6 +283,20 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             List<String> elementoAñadir = new ArrayList<>();
             elementoAñadir.add(generalVariablesItemList.get(i).getNOMBRE());
             elementoAñadir.add(generalVariablesItemList.get(i).getAbreviatura());
+            elementoADevolver.add(elementoAñadir);
+            //Log.d("ListaRadios", elementoAñadir.get(0));
+        }
+
+        return elementoADevolver;
+    }
+
+    private List<List<String>> getListaRadios() {
+        int numeroRadiosButtons = 6;
+        List<List<String>> elementoADevolver = new ArrayList<>();
+        String[] nombres = {"Muy Mal", "Mal", "Normal", "Bien", "Muy Bien", "Ns/Nc"};
+        for (int i = 0; i < numeroRadiosButtons; i++) {
+            List<String> elementoAñadir = new ArrayList<>();
+            elementoAñadir.add(nombres[i]);
             elementoADevolver.add(elementoAñadir);
             //Log.d("ListaRadios", elementoAñadir.get(0));
         }
@@ -321,42 +393,64 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     @OnClick(R.id.floatingNext)
     void onNextClicked() {
-        try {
-            List<SurveyGeneralVariablesObjectCard> surveyGeneralVariablesObjectCardList = restoreFromLocalDatabase.generalVariablesAnswers();
-            int elementoInicial = 0;
-            int elementoFinal;
+        //hay que identificar en que ventana estamos
+        if (ventana.equalsIgnoreCase("generalVariables")) {
+            try {
+                List<SurveyVariablesObjectCard> surveyVariablesObjectCardList = restoreFromLocalDatabase.generalVariablesAnswers();
+                int elementoInicial = 0;
+                int elementoFinal;
 
-            for (SurveyGeneralVariablesObjectCard objeto : surveyGeneralVariablesObjectCardList) {
-                int contador = 0;
-                elementoInicial++;
-                elementoFinal = elementoInicial + objeto.getNumeroRadios();
-                Log.d("inicio", String.valueOf(elementoInicial));
-                Log.d("fin", String.valueOf(elementoFinal));
-                for (int i = elementoInicial; i < elementoFinal; i++) {
-                    String abreviatura = generalVariablesItemList.get(i).getAbreviatura();
-                    abreviatura = abreviatura.split("_")[0].substring(0, 1).toUpperCase() + abreviatura.split("_")[0].substring(1, abreviatura.split("_")[0].length()) + abreviatura.split("_")[1].substring(0, 1).toUpperCase() + abreviatura.split("_")[1].substring(1, abreviatura.split("_")[1].length());
-                    Log.d("abreviado", abreviatura);
-                    if (contador == objeto.getElementoRadioButtonPresionado()) {
-                        metodoVariablesDinamicas(abreviatura, 1);
-                    } else {
-                        metodoVariablesDinamicas(abreviatura, 0);
+                for (SurveyVariablesObjectCard objeto : surveyVariablesObjectCardList) {
+                    int contador = 0;
+                    elementoInicial++;
+                    elementoFinal = elementoInicial + objeto.getNumeroRadios();
+                    Log.d("inicio", String.valueOf(elementoInicial));
+                    Log.d("fin", String.valueOf(elementoFinal));
+                    //para elementos tipo radiobutton
+                    for (int i = elementoInicial; i < elementoFinal; i++) {//se obtiene la abreviatura y se llama al método que lo mete en la clase del objeto a subir posteriormente
+                        String abreviatura = generalVariablesItemList.get(i).getAbreviatura();
+                        abreviatura = abreviatura.split("_")[0].substring(0, 1).toUpperCase() + abreviatura.split("_")[0].substring(1, abreviatura.split("_")[0].length()) + abreviatura.split("_")[1].substring(0, 1).toUpperCase() + abreviatura.split("_")[1].substring(1, abreviatura.split("_")[1].length());
+                        //Log.d("abreviado", abreviatura);
+                        if (contador == objeto.getElementoRadioButtonPresionado()) {
+                            metodoVariablesDinamicas(abreviatura, 1);
+                        } else {
+                            metodoVariablesDinamicas(abreviatura, 0);
+                        }
+                        contador++;
                     }
-                    contador++;
-                }
-                elementoInicial = elementoFinal;
-            }
+                    //PARA TIPO SPINNER
+                    if (!objeto.getRadiosEnabled()) {
+                        String abreviatura = objeto.getVariableSpinner();
+                        try {
+                            abreviatura = abreviatura.split("_")[0].substring(0, 1).toUpperCase() + abreviatura.split("_")[0].substring(1, abreviatura.split("_")[0].length()) + abreviatura.split("_")[1].substring(0, 1).toUpperCase() + abreviatura.split("_")[1].substring(1, abreviatura.split("_")[1].length());
+                        } catch (IndexOutOfBoundsException e) {
+                            abreviatura = abreviatura.substring(0, 1).toUpperCase() + abreviatura.substring(1, abreviatura.length());
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                        }
+                        metodoVariablesDinamicas(abreviatura, objeto.getVariableSpinner());
+                    }
+                    elementoInicial = elementoFinal;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            showQualityVariablesList();
+        } else {
+            if (numeroElementosMostrados == surveyQualityVariablesItemsUnordered.size()) {
+                //TODO CLOSE
+            } else {
+                //TODO guardar asignar grupo mas importante menos importante peor mejor...
+                showQualityVariablesList();
+            }
         }
     }
 
     private void metodoVariablesDinamicas(String abreviatura, int valor) {
         String nombreMetodo = "set" + abreviatura;
-        surveyObjectSend.setSexoHombre(1);
         try {
-            Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, new Class[]{int.class});
-            metodo.invoke(valor);
+            Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, Integer.class);
+            metodo.invoke(surveyObjectSend, Integer.valueOf(valor));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -370,7 +464,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         String nombreMetodo = "set" + abreviatura;
         try {
             Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, String.class);
-            metodo.invoke(valor);
+            metodo.invoke(surveyObjectSend, String.valueOf(valor));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
