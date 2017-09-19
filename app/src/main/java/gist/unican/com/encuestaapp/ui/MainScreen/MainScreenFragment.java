@@ -2,6 +2,8 @@ package gist.unican.com.encuestaapp.ui.MainScreen;
 
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,6 +48,7 @@ import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import rx.Subscriber;
 
@@ -101,7 +104,7 @@ public class MainScreenFragment extends Fragment {
     Boolean paradasYLineasRecuperadas = false;
 
     //Utilidades
-    Utils utilidades= new Utils();
+    Utils utilidades = new Utils();
 
 
     public interface OnNewSurveyClicked {
@@ -132,7 +135,7 @@ public class MainScreenFragment extends Fragment {
         selectorSublineas.setVisibility(View.GONE);
         selectorSentidos.setVisibility(View.GONE);
         nuevaEncuestaBoton.setVisibility(View.GONE);
-        enviarDatosBoton.setVisibility(View.VISIBLE);
+        enviarDatosBoton.setVisibility(View.GONE);
         //se recupera el momento de la ultima sincronización de preferencias y se muestra
         Utils utilidades = new Utils();
         String lastsincro = utilidades.getLastSyncFromPreference(getContext());
@@ -150,6 +153,19 @@ public class MainScreenFragment extends Fragment {
                 e.printStackTrace();
             }
         } else lastSync.setText(getString(R.string.NEVER));
+
+        //intentamos recuperar encuestas hechas para mostrar el boton
+        if (isOnline()) {
+            try {
+                restoreLocalDatabase.surveyObjectSend();
+                enviarDatosBoton.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            //No internet
+            sincronizarBoton.setVisibility(View.GONE);
+        }
         return view;
 
     }
@@ -201,22 +217,26 @@ public class MainScreenFragment extends Fragment {
     @Nullable
     @OnClick(R.id.button2)
     void enviarPulsado() {
-        List<SurveyObjectSend> lista= new ArrayList<>();
+        List<SurveyObjectSendItem> lista = new ArrayList<>();
         try {
             lista = restoreLocalDatabase.surveyObjectSend();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        new SaveSurveyUseCase(lista.get(0)).execute(new MainScreenFragment.SetStoragedSurveys());
+        SurveyObjectSend objetoEnvio = new SurveyObjectSend();
+        objetoEnvio.setData(lista);
+        showLoading();
+        new SaveSurveyUseCase(objetoEnvio).execute(new MainScreenFragment.SetStoragedSurveys());
+
 
     }
 
     @Nullable
     @OnClick(R.id.floatingActionButton)
     public void nuevaEncuestaPulsado() {
-        Log.d("PULSADO,","PULSADO");
-        String lineaSubLineaSentido=selectorLineas.getSelectedItem().toString()+";"+selectorSublineas.getSelectedItem().toString()+";"+selectorSentidos.getSelectedItem().toString();
-        utilidades.saveLineInPreferences(getContext(),lineaSubLineaSentido);
+        Log.d("PULSADO,", "PULSADO");
+        String lineaSubLineaSentido = selectorLineas.getSelectedItem().toString() + ";" + selectorSublineas.getSelectedItem().toString() + ";" + selectorSentidos.getSelectedItem().toString();
+        utilidades.saveLineInPreferences(getContext(), lineaSubLineaSentido);
         newSurveyListener.onNewSurveySelected();
     }
 
@@ -286,7 +306,7 @@ public class MainScreenFragment extends Fragment {
             }
             try {
                 saveLocalDatabase.saveLocalBusStops(objetoParadas);
-                paradasYLineasRecuperadas=true;
+                paradasYLineasRecuperadas = true;
                 Toast.makeText(getContext(), getString(R.string.STOPS_SYNCRHONIZED), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -377,12 +397,19 @@ public class MainScreenFragment extends Fragment {
         }
 
     }
-    private final class SetStoragedSurveys extends Subscriber<SurveyObjectSend> {
+
+    private final class SetStoragedSurveys extends Subscriber<SurveyObjectSendItem> {
         //3 callbacks
         //Show the listView
         @Override
         public void onCompleted() {
-
+            showContent();
+            try {
+                deleteLocalDatabase.deleteUserAnswerTable();
+                enviarDatosBoton.setVisibility(View.GONE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         //Show the error
@@ -394,7 +421,7 @@ public class MainScreenFragment extends Fragment {
         }
 
         @Override
-        public void onNext(SurveyObjectSend surveyObjectSend) {
+        public void onNext(SurveyObjectSendItem surveyObjectSendItem) {
 
         }
 
@@ -475,5 +502,12 @@ public class MainScreenFragment extends Fragment {
         content.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

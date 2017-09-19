@@ -9,7 +9,7 @@ import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
-import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
 
@@ -70,10 +70,10 @@ public class SaveInLocalDatabase {
         }
     }
 
-    public void saveUserAaswers(SurveyObjectSend surveyObjectSend) throws Exception {
+    public void saveUserAaswers(SurveyObjectSendItem surveyObjectSendItem) throws Exception {
 
         long id = 0;
-        id = surveyObjectSend.persist().execute();
+        id = surveyObjectSendItem.persist().execute();
         if (id == 0) {
             throw new Exception("No insert into local database");
 

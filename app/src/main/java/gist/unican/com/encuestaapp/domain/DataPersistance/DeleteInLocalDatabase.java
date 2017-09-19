@@ -4,7 +4,7 @@ import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
-import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
 
 /**
@@ -56,7 +56,7 @@ public class DeleteInLocalDatabase {
 
     public void deleteUserAnswerTable() throws Exception {
         Integer deleteTable = 0;
-        deleteTable = SurveyObjectSend.deleteTable().execute();
+        deleteTable = SurveyObjectSendItem.deleteTable().execute();
         if (deleteTable == 0) {
             throw new Exception("No delete itmes");
         }

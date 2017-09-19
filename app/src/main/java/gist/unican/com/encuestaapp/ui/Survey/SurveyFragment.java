@@ -35,7 +35,7 @@ import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
-import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnAllRadioChecked;
@@ -91,7 +91,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
 
     //objeto que se enviará al final a la db
-    private SurveyObjectSend surveyObjectSend = new SurveyObjectSend();
+    private SurveyObjectSendItem surveyObjectSendItem = new SurveyObjectSendItem();
 
     //Utils
     private Utils utilidades = new Utils();
@@ -150,14 +150,14 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         listaMotivos.add("trabajo");
 
         //prueba
-       /* Method[] methods = surveyObjectSend.getClass().getMethods();
+       /* Method[] methods = surveyObjectSendItem.getClass().getMethods();
         for (Method m : methods){
             Log.d("METODO",m.toGenericString()+" "+m.toString());
         }
         try {
-            Method m = surveyObjectSend.getClass().getMethod("setSexoHombre", Integer.class);
-            m.invoke(surveyObjectSend,1);
-            Log.d("METODO", "bueno "+surveyObjectSend.getSexoHombre());
+            Method m = surveyObjectSendItem.getClass().getMethod("setSexoHombre", Integer.class);
+            m.invoke(surveyObjectSendItem,1);
+            Log.d("METODO", "bueno "+surveyObjectSendItem.getSexoHombre());
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -218,9 +218,9 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         ventana = "generalVariables";
 
         //mostramos las variables aqui hay que distinguir 2 casos, primero de golpe todas las variables generales, y luego de forma aleatoria las variables de calidad
-        showQualityVariablesList();
+       // showQualityVariablesList();
 
-        //showList(generalVariablesItemList);
+        showList(generalVariablesItemList);
         return view;
 
     }
@@ -347,7 +347,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     @Override
     public void OnItemSelected(String variableAFijarEn1, String variableADevolverA0) {
-         /* SurveyObjectSend sob = new SurveyObjectSend();
+         /* SurveyObjectSendItem sob = new SurveyObjectSendItem();
                     sob.setAcoBe(1);
                     String variable = "setAcoBe";
                     try {
@@ -365,7 +365,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     @Override
     public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int posicionElemento) {
-        /* SurveyObjectSend sob = new SurveyObjectSend();
+        /* SurveyObjectSendItem sob = new SurveyObjectSendItem();
                     sob.setAcoBe(1);
                     String variable = "setAcoBe";
                     try {
@@ -507,7 +507,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             if (grupo == 3) {
                 //savve in local database
                 try {
-                    saveInLocalDatabase.saveUserAaswers(surveyObjectSend);
+                    saveInLocalDatabase.saveUserAaswers(surveyObjectSendItem);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -522,8 +522,8 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     private void metodoVariablesDinamicas(String abreviatura, int valor) {
         String nombreMetodo = "set" + abreviatura;
         try {
-            Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, Integer.class);
-            metodo.invoke(surveyObjectSend, Integer.valueOf(valor));
+            Method metodo = surveyObjectSendItem.getClass().getMethod(nombreMetodo, Integer.class);
+            metodo.invoke(surveyObjectSendItem, Integer.valueOf(valor));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -536,8 +536,8 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     private void metodoVariablesDinamicas(String abreviatura, String valor) {
         String nombreMetodo = "set" + abreviatura;
         try {
-            Method metodo = surveyObjectSend.getClass().getMethod(nombreMetodo, String.class);
-            metodo.invoke(surveyObjectSend, String.valueOf(valor));
+            Method metodo = surveyObjectSendItem.getClass().getMethod(nombreMetodo, String.class);
+            metodo.invoke(surveyObjectSendItem, String.valueOf(valor));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
