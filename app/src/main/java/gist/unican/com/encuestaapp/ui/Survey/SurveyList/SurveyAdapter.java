@@ -83,10 +83,15 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
             try {
                 deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
                 saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             listenerNext.OnAllRadioCheckedTrue();
         }
 
@@ -100,13 +105,19 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int positionInCard) {
         surveyVariablesObjectCardList.get(positionInCard).setElementoSpinnerSeleccionado(variableSpinner);
+        Log.d("Entra nº",String.valueOf(positionInCard)+" "+variableSpinner);
         SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
         DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
         try {
             deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
             saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

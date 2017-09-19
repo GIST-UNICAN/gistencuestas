@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,7 +17,7 @@ import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 
-public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked {
+public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey {
 
 
     private FragmentManager fragmentManager;
@@ -52,10 +51,15 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
 
     @Override
     public void onNewSurveySelected() {
-        Log.d("va", "si");
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new SurveyFragment()).commit();
+    }
 
+    @Override
+    public void loadMainScreen() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
     }
 }

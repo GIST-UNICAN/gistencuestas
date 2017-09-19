@@ -39,7 +39,7 @@ public class RestoreFromLocalDatabase {
         }
         return vuelta_item;
     }
-    public List generalVariablesAnswers()throws Exception {
+    public List variablesAnswers()throws Exception {
         List vuelta_item = Select.from(SURVEY_VARIABLES_OBJECT_CARD).execute();
         if (vuelta_item == null) {
             throw new Exception("No items in database");

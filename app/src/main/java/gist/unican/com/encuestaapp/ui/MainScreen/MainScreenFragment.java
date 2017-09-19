@@ -39,11 +39,13 @@ import gist.unican.com.encuestaapp.domain.DataPersistance.SaveInLocalDatabase;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
 import gist.unican.com.encuestaapp.domain.encuesta.DownloadGeneralVariablesUseCase;
 import gist.unican.com.encuestaapp.domain.encuesta.DownloadQualityVariablesUseCase;
+import gist.unican.com.encuestaapp.domain.encuesta.SaveSurveyUseCase;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
+import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import rx.Subscriber;
 
@@ -74,7 +76,7 @@ public class MainScreenFragment extends Fragment {
     Button enviarDatosBoton;
     @Nullable
     @BindView(R.id.floatingActionButton)
-    Button nuevaEncuestaBoton;
+    FloatingActionButton nuevaEncuestaBoton;
     @Nullable
     @BindView(R.id.content)
     RelativeLayout content;
@@ -130,7 +132,7 @@ public class MainScreenFragment extends Fragment {
         selectorSublineas.setVisibility(View.GONE);
         selectorSentidos.setVisibility(View.GONE);
         nuevaEncuestaBoton.setVisibility(View.GONE);
-        enviarDatosBoton.setVisibility(View.GONE);
+        enviarDatosBoton.setVisibility(View.VISIBLE);
         //se recupera el momento de la ultima sincronización de preferencias y se muestra
         Utils utilidades = new Utils();
         String lastsincro = utilidades.getLastSyncFromPreference(getContext());
@@ -199,6 +201,13 @@ public class MainScreenFragment extends Fragment {
     @Nullable
     @OnClick(R.id.button2)
     void enviarPulsado() {
+        List<SurveyObjectSend> lista= new ArrayList<>();
+        try {
+            lista = restoreLocalDatabase.surveyObjectSend();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        new SaveSurveyUseCase(lista.get(0)).execute(new MainScreenFragment.SetStoragedSurveys());
 
     }
 
@@ -366,6 +375,29 @@ public class MainScreenFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+
+    }
+    private final class SetStoragedSurveys extends Subscriber<SurveyObjectSend> {
+        //3 callbacks
+        //Show the listView
+        @Override
+        public void onCompleted() {
+
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            Log.e("ERROR q variables", e.toString());
+            e.printStackTrace();
+            showError();
+        }
+
+        @Override
+        public void onNext(SurveyObjectSend surveyObjectSend) {
+
+        }
+
 
     }
 

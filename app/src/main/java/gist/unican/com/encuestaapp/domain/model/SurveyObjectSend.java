@@ -12,10 +12,6 @@ public class SurveyObjectSend {
 
     }
     @Column(useAccessMethods = true)
-    @SerializedName("ID")
-    @Expose
-    private String iD;
-    @Column(useAccessMethods = true)
     @SerializedName("encuestador")
     @Expose
     private String encuestador;
@@ -1432,13 +1428,6 @@ public class SurveyObjectSend {
     @Expose
     private Integer dmrGroup;
 
-    public String getID() {
-        return iD;
-    }
-
-    public void setID(String iD) {
-        this.iD = iD;
-    }
 
     public String getEncuestador() {
         return encuestador;

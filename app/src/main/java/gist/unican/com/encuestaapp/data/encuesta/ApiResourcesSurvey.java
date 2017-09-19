@@ -30,7 +30,7 @@ public interface ApiResourcesSurvey {
     Observable<BusLinesObject> getBusLines(@Url String url);
 
     @Headers("Content-Type: application/json")
-    @POST("URL")
+    @POST("encuestas/datosenvia")
     Observable<Void> sendSurveyAnswers(@Body SurveyObjectSend body);
 
     @Headers("Content-Type: application/json")

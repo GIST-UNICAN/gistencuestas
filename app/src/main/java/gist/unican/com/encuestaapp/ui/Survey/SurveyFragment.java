@@ -1,6 +1,7 @@
 package gist.unican.com.encuestaapp.ui.Survey;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -34,9 +35,9 @@ import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
-import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
+import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnAllRadioChecked;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.OnItemsSelectedInListener;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.SurveyAdapter;
@@ -65,6 +66,10 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     LinearLayout loading;
     int numeroDeVecesQueSePresionaUnaTarjeta = 0;
 
+    //listener
+    SurveyFragment.onFinishSurvey onFinishSurveyListener;
+
+
     //local db
     private RestoreFromLocalDatabase restoreFromLocalDatabase = new RestoreFromLocalDatabase();
     private SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
@@ -79,6 +84,10 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     private String linea = "";
     //ventana
     private String ventana;
+
+    //grupo de tarjetas desordenadas
+
+    int grupo = 0;
 
 
     //objeto que se enviará al final a la db
@@ -114,6 +123,20 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         // Required empty public constructor
     }
 
+    public interface onFinishSurvey {
+        public void loadMainScreen();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        //give a context to the calls from other activities
+        super.onAttach(context);
+        if (context instanceof SurveyFragment.onFinishSurvey) {
+            onFinishSurveyListener = (SurveyFragment.onFinishSurvey) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implements SurveyFragment.onFinishSurvey");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -246,6 +269,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     public void showQualityVariablesList() {
         showLoading();
+        nextButton.setVisibility(View.GONE);
         ventana = "qualityVariables";
         List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
         SurveyVariablesObjectCard tarjeta = null;
@@ -254,7 +278,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             List<List<String>> listaRadios = getListaRadios();
             // Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
             List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
-            tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, Constants.NUMBER_ITEMS_SCREEN - 1, listaRadios, null, false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
+            tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, Constants.NUMBER_ITEMS_SCREEN - 1, listaRadios, surveyQualityVariablesItemsUnordered.get(i).getAbreviatura(), false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
             tarjetasParaMostrar.add(tarjeta);
             nombres.add(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE());
         }
@@ -396,7 +420,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         //hay que identificar en que ventana estamos
         if (ventana.equalsIgnoreCase("generalVariables")) {
             try {
-                List<SurveyVariablesObjectCard> surveyVariablesObjectCardList = restoreFromLocalDatabase.generalVariablesAnswers();
+                List<SurveyVariablesObjectCard> surveyVariablesObjectCardList = restoreFromLocalDatabase.variablesAnswers();
                 int elementoInicial = 0;
                 int elementoFinal;
 
@@ -427,7 +451,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                             abreviatura = abreviatura.substring(0, 1).toUpperCase() + abreviatura.substring(1, abreviatura.length());
 
                         }
-                        metodoVariablesDinamicas(abreviatura, objeto.getVariableSpinner());
+                        metodoVariablesDinamicas(abreviatura, objeto.getElementoSpinnerSeleccionado());
                     }
                     elementoInicial = elementoFinal;
                 }
@@ -437,12 +461,61 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             }
             showQualityVariablesList();
         } else {
-            if (numeroElementosMostrados == surveyQualityVariablesItemsUnordered.size()) {
-                //TODO CLOSE
+            Log.d("Entra", "1");
+            //PARA VARIABLES DE CALIDAD
+            List<SurveyVariablesObjectCard> surveyVariablesObjectCardList = null;
+            List<String[]> abreviaturaYNombre = new ArrayList<>();
+            int posicionTarjetaBestWorst = 0;
+            try {
+                surveyVariablesObjectCardList = restoreFromLocalDatabase.variablesAnswers();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            for (SurveyVariablesObjectCard objeto : surveyVariablesObjectCardList) {
+                if (objeto.getRadiosEnabled()) {
+                    String abreviatura = objeto.getVariableSpinner();
+                    abreviatura = abreviatura.substring(0, 1).toUpperCase() + abreviatura.substring(1, abreviatura.length());
+                    String guardar[] = {abreviatura, objeto.getTitulo()};
+                    abreviaturaYNombre.add(guardar);
+                    metodoVariablesDinamicas(abreviatura + Constants.GRUPO, grupo);
+                    for (int i = 0; i < 6; i++) {//se obtiene la abreviatura y se llama al método que lo mete en la clase del objeto a subir posteriormente
+                        int contador = 0;
+                        String abreviaturaDinamica = abreviatura + Constants.LISTABREVIATURAS[i];
+                        //Log.d("abreviado", abreviatura);
+                        if (contador == objeto.getElementoRadioButtonPresionado()) {
+                            metodoVariablesDinamicas(abreviaturaDinamica, 1);
+                        } else {
+                            metodoVariablesDinamicas(abreviaturaDinamica, 0);
+                        }
+                        contador++;
+                    }
+                } else { //tipo spinner
+
+                    for (String[] lista : abreviaturaYNombre) {
+                        String abreviaturaDinamica = lista[0] + Constants.LISTABREVIATURASBESTWORST[posicionTarjetaBestWorst];
+                        //si el nombre corresponde con el seleccionado la abreviatura la hacemos 1 sino 0
+                        if (lista[1].equals(objeto.getElementoSpinnerSeleccionado())) {
+                            metodoVariablesDinamicas(abreviaturaDinamica, 1);
+                        } else {
+                            metodoVariablesDinamicas(abreviaturaDinamica, 0);
+                        }
+                    }
+                    posicionTarjetaBestWorst++;
+                }
+
+            }
+            if (grupo == 3) {
+                //savve in local database
+                try {
+                    saveInLocalDatabase.saveUserAaswers(surveyObjectSend);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                onFinishSurveyListener.loadMainScreen();
             } else {
-                //TODO guardar asignar grupo mas importante menos importante peor mejor...
                 showQualityVariablesList();
             }
+            grupo++;
         }
     }
 

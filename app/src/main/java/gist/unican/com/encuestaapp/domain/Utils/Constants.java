@@ -10,6 +10,8 @@ public class Constants {//SERVICES
     public static final String AYTO_URL_STOPS = "http://datos.santander.es/api/rest/datasets/lineas_bus_secuencia.json?items=3000";
 
     //survey sufix
+    public static final String[] LISTABREVIATURAS ={"Mm","Ma","No","Bi","Mb","Ns"};
+    public static final String[] LISTABREVIATURASBESTWORST ={"Be","Wo","Mi","Li"};
     public static final String MUYMAL = "_mm";
     public static final String MAL = "_ma";
     public static final String NORMAL = "_no";
@@ -20,7 +22,7 @@ public class Constants {//SERVICES
     public static final String PEOR = "_wo";
     public static final String MASIMPORTANTE = "_mi";
     public static final String MENOSIMPORTANTE = "_li";
-    public static final String GRUPO = "_group";
+    public static final String GRUPO = "Group";
 
     //survey elements
     public static final int NUMBER_ITEMS_SCREEN = 7;
