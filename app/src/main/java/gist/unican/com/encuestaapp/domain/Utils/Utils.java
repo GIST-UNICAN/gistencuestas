@@ -14,11 +14,10 @@ public class Utils {
     public Utils() {
     }
 
-    public static void saveUserInPreference(Context context, String token, String username) {
+    public static void saveUserInPreference(Context context,  String username) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(context.getString(R.string.PREFERENCES_TOKEN), encrypt(token));
         editor.putString(context.getString(R.string.PREFERENCES_USER), encrypt(username));
         long time = System.currentTimeMillis();
         long expiration_time = time + 604800000;

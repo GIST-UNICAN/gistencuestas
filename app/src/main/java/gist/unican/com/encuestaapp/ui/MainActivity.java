@@ -17,8 +17,9 @@ import butterknife.ButterKnife;
 import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
+import gist.unican.com.encuestaapp.ui.login.LoginFragment;
 
-public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey {
+public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey, LoginFragment.OnUserLogged {
 
 
     private FragmentManager fragmentManager;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
+        fragmentTransaction.replace(R.id.drawer_layout, new LoginFragment()).commit();
 
 
     }
@@ -60,6 +61,20 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
 
     @Override
     public void loadMainScreen() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
+    }
+
+    @Override
+    public void onCorrectedLoged() {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();
+    }
+
+    @Override
+    public void onSavedLoged() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.drawer_layout, new MainScreenFragment()).commit();

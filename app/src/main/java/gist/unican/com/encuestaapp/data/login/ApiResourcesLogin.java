@@ -13,6 +13,6 @@ import rx.Observable;
 public interface ApiResourcesLogin {
 
     @Headers("Content-Type: application/json")
-    @POST("URL")
+    @POST("encuestas/usuario")
     Observable<Void> sendUser(@Body UserObject body);
 }

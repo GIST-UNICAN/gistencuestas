@@ -233,6 +233,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             listaLineasString.add(1,"No uso lineas adicionales");
             listaMotivos.add(0, "Seleccione");
             listaParadasString.add(0, "Seleccione");
+            listaParadasString.add(1,"No sabe / No contexta");
             BusLinesObjectItem add= new BusLinesObjectItem();
             List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
             for (SurveyGeneralVariablesItem generalVariableItem : generalVariablesItemList) {
@@ -490,6 +491,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             if (grupo == 3) {
                 //savve in local database
                 try {
+                    surveyObjectSendItem.setEncuestador(utilidades.getUserFromPreference(getContext()));
                     saveInLocalDatabase.saveUserAaswers(surveyObjectSendItem);
                 } catch (Exception e) {
                     e.printStackTrace();

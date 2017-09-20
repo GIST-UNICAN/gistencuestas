@@ -8,6 +8,7 @@
     <string name="PREFERENCES_TOKEN">preferencias_token</string>
     <string name="PREFERENCES_USER">preferencias_user</string>
     <string name="PREFERENCES_EXPIRATION">preferencias_expiracion</string>
+    <string name="LOGIN_FALSE">Login incorrecto, por favor introduzca bien usuario y clave</string>
     <string name="motivo_casa">Casa</string>
     <string name="motivo_trabajo">Trabajo</string>
     <string name="motivo_estudios">Estudios</string>

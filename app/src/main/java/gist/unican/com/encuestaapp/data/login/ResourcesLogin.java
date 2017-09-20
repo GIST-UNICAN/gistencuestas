@@ -1,6 +1,6 @@
 package gist.unican.com.encuestaapp.data.login;
 
-import okhttp3.RequestBody;
+import gist.unican.com.encuestaapp.domain.model.UserObject;
 import rx.Observable;
 
 /**
@@ -8,5 +8,5 @@ import rx.Observable;
  */
 
 public interface ResourcesLogin {
-    Observable<Void> getUser(RequestBody body);
+    Observable<Void> getUser(UserObject body);
 }

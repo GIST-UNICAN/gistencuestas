@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "DB_VERSION", "1"
         // Optional (defaults to "database.db")
-        buildConfigField "String", "DB_NAME", '"samplesamplesample.db"'
+        buildConfigField "String", "DB_NAME", '"samplev1.db"'
     }
     buildTypes {
         release {

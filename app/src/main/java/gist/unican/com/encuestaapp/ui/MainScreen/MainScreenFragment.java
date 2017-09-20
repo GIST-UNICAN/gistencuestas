@@ -233,7 +233,6 @@ public class MainScreenFragment extends Fragment {
         }
         SurveyObjectSend objetoEnvio = new SurveyObjectSend();
         objetoEnvio.setData(lista);
-        Log.d("viaje",lista.get(0).getViajes515().toString());
         showLoading();
         new SaveSurveyUseCase(objetoEnvio).execute(new MainScreenFragment.SetStoragedSurveys());
 
