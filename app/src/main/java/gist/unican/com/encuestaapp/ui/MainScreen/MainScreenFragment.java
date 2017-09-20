@@ -136,6 +136,11 @@ public class MainScreenFragment extends Fragment {
         selectorSentidos.setVisibility(View.GONE);
         nuevaEncuestaBoton.setVisibility(View.GONE);
         enviarDatosBoton.setVisibility(View.GONE);
+        try {
+            //deleteLocalDatabase.deleteUserAnswerTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //se recupera el momento de la ultima sincronización de preferencias y se muestra
         Utils utilidades = new Utils();
         String lastsincro = utilidades.getLastSyncFromPreference(getContext());
@@ -157,12 +162,15 @@ public class MainScreenFragment extends Fragment {
         //intentamos recuperar encuestas hechas para mostrar el boton
         if (isOnline()) {
             try {
-                restoreLocalDatabase.surveyObjectSend();
-                enviarDatosBoton.setVisibility(View.VISIBLE);
+                List<SurveyObjectSendItem> lista = restoreLocalDatabase.surveyObjectSend();
+                if (lista != null) {
+                    enviarDatosBoton.setVisibility(View.VISIBLE);
+                }
             } catch (Exception e) {
+                enviarDatosBoton.setVisibility(View.GONE);
                 e.printStackTrace();
             }
-        }else {
+        } else {
             //No internet
             sincronizarBoton.setVisibility(View.GONE);
         }
@@ -225,6 +233,7 @@ public class MainScreenFragment extends Fragment {
         }
         SurveyObjectSend objetoEnvio = new SurveyObjectSend();
         objetoEnvio.setData(lista);
+        Log.d("viaje",lista.get(0).getViajes515().toString());
         showLoading();
         new SaveSurveyUseCase(objetoEnvio).execute(new MainScreenFragment.SetStoragedSurveys());
 
@@ -405,7 +414,7 @@ public class MainScreenFragment extends Fragment {
         public void onCompleted() {
             showContent();
             try {
-                deleteLocalDatabase.deleteUserAnswerTable();
+                //deleteLocalDatabase.deleteUserAnswerTable();
                 enviarDatosBoton.setVisibility(View.GONE);
             } catch (Exception e) {
                 e.printStackTrace();

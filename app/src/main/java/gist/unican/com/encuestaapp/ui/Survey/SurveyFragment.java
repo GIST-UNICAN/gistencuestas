@@ -218,7 +218,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         ventana = "generalVariables";
 
         //mostramos las variables aqui hay que distinguir 2 casos, primero de golpe todas las variables generales, y luego de forma aleatoria las variables de calidad
-       // showQualityVariablesList();
+        // showQualityVariablesList();
 
         showList(generalVariablesItemList);
         return view;
@@ -229,6 +229,11 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         //en primer lugar las variables generales
 
         if (variablesGenerales) {
+            listaLineasString.add(0, "Seleccione");
+            listaLineasString.add(1,"No uso lineas adicionales");
+            listaMotivos.add(0, "Seleccione");
+            listaParadasString.add(0, "Seleccione");
+            BusLinesObjectItem add= new BusLinesObjectItem();
             List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
             for (SurveyGeneralVariablesItem generalVariableItem : generalVariablesItemList) {
                 SurveyVariablesObjectCard tarjeta = null;
@@ -274,7 +279,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
         SurveyVariablesObjectCard tarjeta = null;
         List<String> nombres = new ArrayList<>();
-        for (int i = numeroElementosMostrados; i < numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN - 1; i++) {
+        for (int i = numeroElementosMostrados; i < numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN; i++) {
             List<List<String>> listaRadios = getListaRadios();
             // Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
             List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
@@ -283,6 +288,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             nombres.add(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE());
         }
         //añadimos los spinner de opinion
+        nombres.add(0, "Seleccione");
         tarjeta = new SurveyVariablesObjectCard("Mejor", false, 0, null, "none", true, nombres, null, 999);
         tarjetasParaMostrar.add(tarjeta);
         tarjeta = new SurveyVariablesObjectCard("Peor", false, 0, null, "none", true, nombres, null, 999);
@@ -294,7 +300,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this, this);
         surveyRecyclerView.setAdapter(adapterList);
         adapterList.notifyDataSetChanged();
-        numeroElementosMostrados = numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN - 1;
+        numeroElementosMostrados = numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN;
         showContent();
         //coje de x en x
     }
@@ -347,38 +353,12 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     @Override
     public void OnItemSelected(String variableAFijarEn1, String variableADevolverA0) {
-         /* SurveyObjectSendItem sob = new SurveyObjectSendItem();
-                    sob.setAcoBe(1);
-                    String variable = "setAcoBe";
-                    try {
-                        Method metodo = sob.getClass().getMethod(variable, Integer.class);
-                        metodo.invoke(1);
 
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }*/
     }
 
     @Override
     public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int posicionElemento) {
-        /* SurveyObjectSendItem sob = new SurveyObjectSendItem();
-                    sob.setAcoBe(1);
-                    String variable = "setAcoBe";
-                    try {
-                        Method metodo = sob.getClass().getMethod(variable, Integer.class);
-                        metodo.invoke(1);
 
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }*/
     }
 
 
@@ -413,6 +393,11 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
     @Override
     public void OnAllRadioCheckedTrue() {
         nextButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void OnNotAllRadioCheckedTrue() {
+        nextButton.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.floatingNext)
@@ -478,16 +463,14 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                     String guardar[] = {abreviatura, objeto.getTitulo()};
                     abreviaturaYNombre.add(guardar);
                     metodoVariablesDinamicas(abreviatura + Constants.GRUPO, grupo);
-                    for (int i = 0; i < 6; i++) {//se obtiene la abreviatura y se llama al método que lo mete en la clase del objeto a subir posteriormente
-                        int contador = 0;
+                    for (int i = 0; i < Constants.LISTABREVIATURAS.length; i++) {//se obtiene la abreviatura y se llama al método que lo mete en la clase del objeto a subir posteriormente
                         String abreviaturaDinamica = abreviatura + Constants.LISTABREVIATURAS[i];
                         //Log.d("abreviado", abreviatura);
-                        if (contador == objeto.getElementoRadioButtonPresionado()) {
+                        if (i == objeto.getElementoRadioButtonPresionado()) {
                             metodoVariablesDinamicas(abreviaturaDinamica, 1);
                         } else {
                             metodoVariablesDinamicas(abreviaturaDinamica, 0);
                         }
-                        contador++;
                     }
                 } else { //tipo spinner
 

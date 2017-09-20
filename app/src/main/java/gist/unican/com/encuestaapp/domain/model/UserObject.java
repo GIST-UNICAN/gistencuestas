@@ -9,7 +9,22 @@ import com.siimkinks.sqlitemagic.annotation.Table;
 public class UserObject {
     public UserObject() {
     }
+
     public String user;
+    public String password;
+
+    public UserObject(String user, String password) {
+        this.user = user;
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public long getId() {
         return id;

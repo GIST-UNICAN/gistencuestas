@@ -4280,5 +4280,43 @@ public class SurveyObjectSendItem {
         this.dmrGroup = dmrGroup;
     }
 
+    public Integer getVgsNs() {
+        return vgsNs;
+    }
 
+    public void setVgsNs(Integer vgsNs) {
+        this.vgsNs = vgsNs;
+    }
+
+    public Integer getVgsBe() {
+        return vgsBe;
+    }
+
+    public void setVgsBe(Integer vgsBe) {
+        this.vgsBe = vgsBe;
+    }
+
+    public Integer getVgsWo() {
+        return vgsWo;
+    }
+
+    public void setVgsWo(Integer vgsWo) {
+        this.vgsWo = vgsWo;
+    }
+
+    public Integer getVgsMi() {
+        return vgsMi;
+    }
+
+    public void setVgsMi(Integer vgsMi) {
+        this.vgsMi = vgsMi;
+    }
+
+    public Integer getVgsLi() {
+        return vgsLi;
+    }
+
+    public void setVgsLi(Integer vgsLi) {
+        this.vgsLi = vgsLi;
+    }
 }

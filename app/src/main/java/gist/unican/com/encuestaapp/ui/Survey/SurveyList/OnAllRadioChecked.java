@@ -6,4 +6,6 @@ package gist.unican.com.encuestaapp.ui.Survey.SurveyList;
 
 public interface OnAllRadioChecked {
     public void OnAllRadioCheckedTrue();
+
+    public void OnNotAllRadioCheckedTrue();
 }

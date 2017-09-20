@@ -2,7 +2,6 @@ package gist.unican.com.encuestaapp.ui.Survey.SurveyList;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,19 +62,56 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         elementosCheckeados.set(posicionTrue, true);
         surveyVariablesObjectCardList.get(positionInCard).setActiveRadios(elementosCheckeados);
         surveyVariablesObjectCardList.get(positionInCard).setElementoRadioButtonPresionado(posicionTrue);
-        Log.d("elemento-cambiado", surveyVariablesObjectCardList.get(positionInCard).getTitulo() + " " + elementosCheckeados.toString());
+        mostrarBotonSiguiente();
+
+    }
+
+    @Override
+    public void OnItemSelected(String variableAFijarEn1, String variableADevolverA0) {
+
+    }
+
+    @Override
+    public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int positionInCard) {
+        surveyVariablesObjectCardList.get(positionInCard).setElementoSpinnerSeleccionado(variableSpinner);
+        SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
+        DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
+        try {
+            deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mostrarBotonSiguiente();
+    }
+
+    private void mostrarBotonSiguiente() {
         Boolean mostrarBotonSiguiente = true;
         for (SurveyVariablesObjectCard elementoTarjeta : surveyVariablesObjectCardList) {
-            if (elementoTarjeta.getTitulo().equalsIgnoreCase("Linea")){//la linea no se pregunta y también esnecesario almacenarla
-                Utils utilidades= new Utils();
-                int elemento= surveyVariablesObjectCardList.indexOf(elementoTarjeta);
+            if (elementoTarjeta.getTitulo().equalsIgnoreCase("Linea")) {//la linea no se pregunta y también esnecesario almacenarla
+                Utils utilidades = new Utils();
+                int elemento = surveyVariablesObjectCardList.indexOf(elementoTarjeta);
                 surveyVariablesObjectCardList.get(elemento).setElementoSpinnerSeleccionado(utilidades.getBusLineFromPreferences(context));
             }
-            if (elementoTarjeta.getRadiosEnabled()) {
-                if (elementoTarjeta.getActiveRadios().indexOf(true) == -1) {
-                    mostrarBotonSiguiente = false;
-                    break;
+
+            try {
+                if (elementoTarjeta.getRadiosEnabled()) {
+                    if (elementoTarjeta.getActiveRadios().indexOf(true) == -1) {
+                        mostrarBotonSiguiente = false;
+                        break;
+                    }
+                } else {
+                    if (elementoTarjeta.getElementoSpinnerSeleccionado().equalsIgnoreCase("seleccione")) {
+                        mostrarBotonSiguiente = false;
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+
             }
         }
         if (mostrarBotonSiguiente) {
@@ -93,31 +129,8 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
 
             listenerNext.OnAllRadioCheckedTrue();
+        } else {
+            listenerNext.OnNotAllRadioCheckedTrue();
         }
-
-    }
-
-    @Override
-    public void OnItemSelected(String variableAFijarEn1, String variableADevolverA0) {
-
-    }
-
-    @Override
-    public void OnSpinnerSelected(String variableSpinner, String nombreVariable, int positionInCard) {
-        surveyVariablesObjectCardList.get(positionInCard).setElementoSpinnerSeleccionado(variableSpinner);
-        Log.d("Entra nº",String.valueOf(positionInCard)+" "+variableSpinner);
-        SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
-        DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
-        try {
-            deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 }
