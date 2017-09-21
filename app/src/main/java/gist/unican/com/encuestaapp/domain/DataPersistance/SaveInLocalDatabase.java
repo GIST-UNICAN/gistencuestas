@@ -8,10 +8,10 @@ import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
-import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariablesItem;
+import gist.unican.com.encuestaapp.domain.model.SurveyVariablesObjectCard;
 
 /**
  * Created by andres on 10/05/2017.
@@ -32,11 +32,15 @@ public class SaveInLocalDatabase {
     }
 
     public void saveLocalBusStops(BusStopObject busStopObject) throws Exception {
+        Boolean ok = false;
         for (BusStopObjectItem busStopObjectItem : busStopObject.getResources()) {
-            long id = 0;
+            long id;
             id = busStopObjectItem.persist().execute();
             if (id == 0) {
+                ok = false;
                 throw new Exception("No insert into local database");
+            } else {
+                ok = true;
             }
         }
     }
@@ -50,6 +54,7 @@ public class SaveInLocalDatabase {
             }
         }
     }
+
     public void saveLocaGeneralVariablesAnswers(List<SurveyVariablesObjectCard> surveyVariablesObjectCardList) throws Exception {
         for (SurveyVariablesObjectCard surveyVariablesObjectCard : surveyVariablesObjectCardList) {
             long id = 0;

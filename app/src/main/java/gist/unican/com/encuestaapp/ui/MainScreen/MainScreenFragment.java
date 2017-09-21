@@ -16,10 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.race604.drawable.wave.WaveDrawable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +55,11 @@ import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
+import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static gist.unican.com.encuestaapp.domain.Utils.Constants.AYTO_URL_LINES;
 import static gist.unican.com.encuestaapp.domain.Utils.Constants.AYTO_URL_STOPS;
@@ -88,8 +96,16 @@ public class MainScreenFragment extends Fragment {
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
     @Nullable
+    @BindView(R.id.loading_image)
+    ImageView loading_image;
+    @Nullable
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
+    @Nullable
+    @BindView(R.id.loading_progress)
+    ProgressBar progressBar;
+
+
     MainScreenFragment.OnNewSurveyClicked newSurveyListener;
 
 
@@ -107,6 +123,10 @@ public class MainScreenFragment extends Fragment {
 
     //Utilidades
     Utils utilidades = new Utils();
+
+    //Objetos
+    public BusLinesObject busLinesObject1;
+    public BusStopObject busStopObject1;
 
 
     public interface OnNewSurveyClicked {
@@ -138,7 +158,6 @@ public class MainScreenFragment extends Fragment {
         selectorSentidos.setVisibility(View.GONE);
         nuevaEncuestaBoton.setVisibility(View.GONE);
         enviarDatosBoton.setVisibility(View.GONE);
-
         //se recupera el momento de la ultima sincronización de preferencias y se muestra
         Utils utilidades = new Utils();
         String lastsincro = utilidades.getLastSyncFromPreference(getContext());
@@ -185,6 +204,7 @@ public class MainScreenFragment extends Fragment {
         showLoading();
         paradasYLineasRecuperadas = false;
         new DownloadBusLinesUseCase(AYTO_URL_LINES).execute(new MainScreenFragment.GetBusLines());
+        new DownloadBusStopsUseCase(AYTO_URL_STOPS).execute(new MainScreenFragment.GetBusStops());
         new DownloadGeneralVariablesUseCase().execute(new MainScreenFragment.GetGeneralVariables());
         new DownloadQualityVariablesUseCase().execute(new MainScreenFragment.GetQualityVariables());
     }
@@ -193,8 +213,10 @@ public class MainScreenFragment extends Fragment {
     @Nullable
     @OnItemSelected(R.id.spinner2)
     void mostrarSublineas() {
-        showLoading();
+        //showLoading();
         if (paradasYLineasRecuperadas) {
+            Log.d("ESTADO", "2");
+
             List<BusStopObjectItem> listaParadas = null;
             try {
                 listaParadas = restoreLocalDatabase.busStops();
@@ -207,7 +229,7 @@ public class MainScreenFragment extends Fragment {
             }
 
         } else {
-            new DownloadBusStopsUseCase(AYTO_URL_STOPS).execute(new MainScreenFragment.GetBusStops());
+            //new DownloadBusStopsUseCase(AYTO_URL_STOPS).execute(new MainScreenFragment.GetBusStops());
         }
 
     }
@@ -216,7 +238,8 @@ public class MainScreenFragment extends Fragment {
     @Nullable
     @OnItemSelected(R.id.spinner3)
     void mostrarSentidos() {
-        showLoading();
+        //showLoading();
+        Log.d("ESTADO", "3");
         generateWaysSppiner(selectorSublineas.getSelectedItem().toString());
 
     }
@@ -290,35 +313,21 @@ public class MainScreenFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
+            busLinesObject1 = busLinesObject;
             //generar el spinner con las lineas
-            generateLinesSpinner(busLinesObject);
         }
 
     }
 
+
     private final class GetBusStops extends Subscriber<BusStopObject> {
         //3 callbacks
         //Show the listView
-        BusStopObject objetoParadas = new BusStopObject();
 
         @Override
         public void onCompleted() {
             //guardar bus stops en bd local
-            //guardamos paradas en la bd local
-            try {
-                deleteLocalDatabase.deleteBusStopTable();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                saveLocalDatabase.saveLocalBusStops(objetoParadas);
-                paradasYLineasRecuperadas = true;
-                Toast.makeText(getContext(), getString(R.string.STOPS_SYNCRHONIZED), Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
         }
 
 
@@ -331,10 +340,57 @@ public class MainScreenFragment extends Fragment {
         }
 
         @Override
-        public void onNext(BusStopObject busStopObject) {
-            //generar el spinner con las lineas
-            this.objetoParadas = busStopObject;
-            generateSublinesSpinner(busStopObject);
+        public void onNext(final BusStopObject busStopObject) {
+
+            final int elementos = busStopObject.getResources().size();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setMax(elementos);
+            try {
+                deleteLocalDatabase.deleteBusStopTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //vamos a usar programacion reactiva para guardar en la base de datos
+            Observable<Long> observable = Observable.create(new Observable.OnSubscribe<Long>() {
+
+                @Override
+                public void call(Subscriber<? super Long> subscriber) {
+                    Long contador = Long.valueOf(0);
+                    for (BusStopObjectItem busStopObjectItem : busStopObject.getResources()) {
+                        long id;
+                        id = busStopObjectItem.persist().execute();
+                        contador++;
+                        subscriber.onNext(contador);
+                    }
+                    subscriber.onCompleted();
+                }
+            });
+
+            Observer<Long> observer = new Observer<Long>() {
+
+                @Override
+                public void onCompleted() {
+                    Log.d("ESTADO", "save_finis");
+                    showContent();
+                    Toast.makeText(getContext(), getString(R.string.STOPS_SYNCRHONIZED), Toast.LENGTH_LONG).show();
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(Long aBoolean) {
+                    progressBar.setProgress(Integer.valueOf(String.valueOf(aBoolean)));
+
+                }
+            };
+            observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(observer);
+
+            paradasYLineasRecuperadas = true;
+
         }
 
     }
@@ -363,14 +419,14 @@ public class MainScreenFragment extends Fragment {
                 e.printStackTrace();
             }
             try {
-                for (SurveyGeneralVariablesItem item: surveyGeneralVariables.getSurveyGeneralVariablesItems()){
-                    Log.d("ELEMENTO_unorder",item.getNOMBRE());
+                for (SurveyGeneralVariablesItem item : surveyGeneralVariables.getSurveyGeneralVariablesItems()) {
+                    Log.d("ELEMENTO_unorder", item.getNOMBRE());
                 }
-                OrderListGeneralVariables orderListGeneralVariables= new OrderListGeneralVariables();
-                surveyGeneralVariables=orderListGeneralVariables.orderGeneralVariables(surveyGeneralVariables);
+                OrderListGeneralVariables orderListGeneralVariables = new OrderListGeneralVariables();
+                surveyGeneralVariables = orderListGeneralVariables.orderGeneralVariables(surveyGeneralVariables);
                 saveLocalDatabase.saveLocaGeneralVariables(surveyGeneralVariables);
-                for (SurveyGeneralVariablesItem item: surveyGeneralVariables.getSurveyGeneralVariablesItems()){
-                    Log.d("ELEMENTO",item.getNOMBRE());
+                for (SurveyGeneralVariablesItem item : surveyGeneralVariables.getSurveyGeneralVariablesItems()) {
+                    Log.d("ELEMENTO", item.getNOMBRE());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -444,6 +500,7 @@ public class MainScreenFragment extends Fragment {
 
     //methods
     private void generateWaysSppiner(String selectedSubline) {
+
         BusAsignation busAsignation = new BusAsignation();
         List<String> sentidos = busAsignation.waysBySubline(listStopsByLine, selectedSubline);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -464,7 +521,6 @@ public class MainScreenFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         selectorSublineas.setAdapter(adapter);
         selectorSublineas.setVisibility(View.VISIBLE);
-        showContent();
     }
 
     private void generateLinesSpinner(BusLinesObject busLinesObject) {
@@ -481,8 +537,9 @@ public class MainScreenFragment extends Fragment {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             selectorLineas.setAdapter(adapter);
             selectorLineas.setVisibility(View.VISIBLE);
+
             //actualizamos la sincronizacion
-            showContent();
+            //showContent();
         } else {
             showError();
         }
@@ -504,6 +561,10 @@ public class MainScreenFragment extends Fragment {
      * Method used to show the loading view
      */
     public void showLoading() {
+        progressBar.setVisibility(View.GONE);
+        WaveDrawable mWaveDrawable = new WaveDrawable(getContext(), R.drawable.gistlogo);
+        loading_image.setImageDrawable(mWaveDrawable);
+        mWaveDrawable.setIndeterminate(true);
         loadingLayout.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);

@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
     NavigationView navigationView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @Nullable
+    @BindView(R.id.menu_user)
+    TextView menuUser;
 
     String fragment = "login";
 
@@ -144,6 +148,8 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
     private void setToolbar() {
         if (!fragment.equalsIgnoreCase("login")) {
             toolbar.setVisibility(View.VISIBLE);
+            menuUser.setText("Logueado como: " + utilidades.getUserFromPreference(getApplicationContext()));
+            menuUser.setTextSize(20);
             setSupportActionBar(toolbar);
             final ActionBar ab = getSupportActionBar();
             if (ab != null) {
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
             drawerToggle.syncState();
-        }else {
+        } else {
             toolbar.setVisibility(View.GONE);
         }
     }
@@ -185,7 +191,12 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
                                     break;
 
                                 case R.id.menu_opcion_1:
-                                    Log.i("NavigationView", "Pulsada opción 1");
+                                    fragment = "mainScreen";
+                                    setToolbar();
+                                    menuHamburguesa();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_content, new MainScreenFragment()).addToBackStack("tag").commit();
                                     break;
 
                             }
