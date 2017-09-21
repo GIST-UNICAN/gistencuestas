@@ -221,6 +221,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         // showQualityVariablesList();
 
         showList(generalVariablesItemList);
+
         return view;
 
     }
@@ -284,7 +285,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             List<List<String>> listaRadios = getListaRadios();
             // Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
             List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
-            tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, Constants.NUMBER_ITEMS_SCREEN - 1, listaRadios, surveyQualityVariablesItemsUnordered.get(i).getAbreviatura(), false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
+            tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, listaRadios.size(), listaRadios, surveyQualityVariablesItemsUnordered.get(i).getAbreviatura(), false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
             tarjetasParaMostrar.add(tarjeta);
             nombres.add(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE());
         }

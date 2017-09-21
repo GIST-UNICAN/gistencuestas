@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.DataPersistance.DeleteInLocalDatabase;
@@ -27,6 +29,8 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Context context;
     List<Boolean> elementos = new ArrayList<>();
     private RadioButton lastCheckedRB = null;
+    //lista de tarjetas mostradas
+    Map<String, Boolean> tarjetasMostradas = new HashMap<>();
 
 
     public SurveyAdapter(Context context, List<SurveyVariablesObjectCard> surveyVariablesObjectCardList, OnItemsSelectedInListener listener, OnAllRadioChecked listenerNext) {
@@ -34,6 +38,9 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.listener = listener;
         this.surveyVariablesObjectCardList = surveyVariablesObjectCardList;
         this.context = context;
+        for (SurveyVariablesObjectCard tarjeta : surveyVariablesObjectCardList) {
+            tarjetasMostradas.put(tarjeta.getTitulo(), false);
+        }
     }
 
     @Override
@@ -45,6 +52,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        tarjetasMostradas.put(surveyVariablesObjectCardList.get(position).getTitulo(), true);
         ((SurveyViewHolder) holder).bind(context, surveyVariablesObjectCardList.get(position), listener, position, this);
     }
 
@@ -90,47 +98,49 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void mostrarBotonSiguiente() {
-        Boolean mostrarBotonSiguiente = true;
-        for (SurveyVariablesObjectCard elementoTarjeta : surveyVariablesObjectCardList) {
-            if (elementoTarjeta.getTitulo().equalsIgnoreCase("Linea")) {//la linea no se pregunta y también esnecesario almacenarla
-                Utils utilidades = new Utils();
-                int elemento = surveyVariablesObjectCardList.indexOf(elementoTarjeta);
-                surveyVariablesObjectCardList.get(elemento).setElementoSpinnerSeleccionado(utilidades.getBusLineFromPreferences(context));
-            }
-
-            try {
-                if (elementoTarjeta.getRadiosEnabled()) {
-                    if (elementoTarjeta.getActiveRadios().indexOf(true) == -1) {
-                        mostrarBotonSiguiente = false;
-                        break;
-                    }
-                } else {
-                    if (elementoTarjeta.getElementoSpinnerSeleccionado().equalsIgnoreCase("seleccione")) {
-                        mostrarBotonSiguiente = false;
-                        break;
-                    }
+        if (!tarjetasMostradas.values().contains(false)) {
+            Boolean mostrarBotonSiguiente = true;
+            for (SurveyVariablesObjectCard elementoTarjeta : surveyVariablesObjectCardList) {
+                if (elementoTarjeta.getTitulo().equalsIgnoreCase("Linea")) {//la linea no se pregunta y también esnecesario almacenarla
+                    Utils utilidades = new Utils();
+                    int elemento = surveyVariablesObjectCardList.indexOf(elementoTarjeta);
+                    surveyVariablesObjectCardList.get(elemento).setElementoSpinnerSeleccionado(utilidades.getBusLineFromPreferences(context));
                 }
-            } catch (Exception e) {
 
-            }
-        }
-        if (mostrarBotonSiguiente) {
-            SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
-            DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
-            try {
-                deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                try {
+                    if (elementoTarjeta.getRadiosEnabled()) {
+                        if (elementoTarjeta.getActiveRadios().indexOf(true) == -1) {
+                            mostrarBotonSiguiente = false;
+                            break;
+                        }
+                    } else {
+                        if (elementoTarjeta.getElementoSpinnerSeleccionado().equalsIgnoreCase("seleccione")) {
+                            mostrarBotonSiguiente = false;
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
 
-            listenerNext.OnAllRadioCheckedTrue();
-        } else {
-            listenerNext.OnNotAllRadioCheckedTrue();
+                }
+            }
+            if (mostrarBotonSiguiente) {
+                SaveInLocalDatabase saveInLocalDatabase = new SaveInLocalDatabase();
+                DeleteInLocalDatabase deleteInLocalDatabase = new DeleteInLocalDatabase();
+                try {
+                    deleteInLocalDatabase.deleteGeneralVariablesAnswersTable();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    saveInLocalDatabase.saveLocaGeneralVariablesAnswers(surveyVariablesObjectCardList);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                listenerNext.OnAllRadioCheckedTrue();
+            } else {
+                listenerNext.OnNotAllRadioCheckedTrue();
+            }
         }
     }
 }

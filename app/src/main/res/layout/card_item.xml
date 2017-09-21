@@ -52,19 +52,22 @@
                     android:id="@+id/answer1_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:checked="false"
-                    android:textSize="@dimen/letra_mediana"/>
+                    android:textSize="@dimen/letra_menos_grande"/>
 
                 <RadioButton
                     android:id="@+id/answer2_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/letra_menos_grande"/>
 
                 <RadioButton
                     android:id="@+id/answer3_radio"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:textSize="@dimen/letra_menos_grande"/>
@@ -72,6 +75,7 @@
                 <RadioButton
                     android:id="@+id/answer4_radio"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:textSize="@dimen/letra_menos_grande"/>
@@ -79,6 +83,7 @@
                 <RadioButton
                     android:id="@+id/answer5_radio"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:textSize="@dimen/letra_menos_grande"/>
@@ -86,6 +91,7 @@
                 <RadioButton
                     android:id="@+id/answer6_radio"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:textSize="@dimen/letra_menos_grande"/>
@@ -93,6 +99,7 @@
                 <RadioButton
                     android:id="@+id/answer7_radio"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:textSize="@dimen/letra_menos_grande"/>

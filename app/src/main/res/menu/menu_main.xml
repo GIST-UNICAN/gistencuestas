@@ -1,10 +1,21 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="gist.unican.com.encuestaapp.ui.MainActivity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_seccion_1"
+            android:icon="@mipmap/ic_exit_to_app_black_24dp"
+            android:title="@string/LOGOUT"/>
+
+    </group>
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/navigation_subheader"
+        android:title="@string/app_name">
+        <menu>
+            <item
+                android:id="@+id/menu_opcion_1"
+                android:icon="?android:attr/actionModePasteDrawable"
+                android:title="@string/ENCUESTA" />
+
+        </menu>
+    </item>
 </menu>

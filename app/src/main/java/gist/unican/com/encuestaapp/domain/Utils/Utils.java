@@ -31,6 +31,12 @@ public class Utils {
 
         return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null));
     }
+    public static void deleteUserPreferences(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(context.getString(R.string.PREFERENCES_USER)).commit();
+    }
 
     public static void saveLastSyncInPreference(Context context, String time) {
         SharedPreferences sharedPref = context.getSharedPreferences(

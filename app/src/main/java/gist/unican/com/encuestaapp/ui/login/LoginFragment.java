@@ -86,6 +86,7 @@ public class LoginFragment extends Fragment {
             }
         } catch (Exception e) {
         }
+showContent();
         return view;
     }
 
@@ -111,6 +112,7 @@ public class LoginFragment extends Fragment {
             Log.e("ERROR buslines ", e.toString());
             e.printStackTrace();
             loginFalse.setVisibility(View.VISIBLE);
+            showContent();
         }
 
         @Override
@@ -145,4 +147,5 @@ public class LoginFragment extends Fragment {
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
     }
+
 }

@@ -94,6 +94,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:descendantFocusability="beforeDescendants"
                         android:orientation="horizontal">
 
                         <Space
@@ -114,6 +115,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
                             android:ems="10"
+                            android:focusableInTouchMode="true"
                             android:gravity="center_vertical"
                             android:hint="@string/LOGIN_TEXT_USER"
                             android:inputType="textPersonName" />
@@ -131,6 +133,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:descendantFocusability="beforeDescendants"
                         android:orientation="horizontal">
 
                         <Space
@@ -151,6 +154,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
                             android:ems="10"
+                            android:focusableInTouchMode="true"
                             android:gravity="center_vertical"
                             android:hint="@string/LOGIN_TEXT_PASSWORD"
                             android:inputType="textPassword" />
@@ -184,7 +188,7 @@
                             android:background="@color/colorSecondary"
                             android:padding="15dip"
                             android:text="@string/LOGIN_TEXT_LOGIN"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
 
                         <Space
                             android:layout_width="wrap_content"

@@ -34,4 +34,6 @@
     <string name="STOPS_SYNCRHONIZED">Listado de paradas grabado localmente</string>
     <string name="PREFERENCES_BUS_LINE">linea</string>
     <string name="nueva_encuesta">Nueva encuesta</string>
+    <string name="LOGOUT">Cerrar Sesion</string>
+    <string name="ENCUESTA">Nueva Encuesta</string>
 </resources>

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +37,7 @@ import gist.unican.com.encuestaapp.domain.BusStopsAsignation.DownloadBusStopsUse
 import gist.unican.com.encuestaapp.domain.DataPersistance.DeleteInLocalDatabase;
 import gist.unican.com.encuestaapp.domain.DataPersistance.RestoreFromLocalDatabase;
 import gist.unican.com.encuestaapp.domain.DataPersistance.SaveInLocalDatabase;
+import gist.unican.com.encuestaapp.domain.Utils.OrderListGeneralVariables;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
 import gist.unican.com.encuestaapp.domain.encuesta.DownloadGeneralVariablesUseCase;
 import gist.unican.com.encuestaapp.domain.encuesta.DownloadQualityVariablesUseCase;
@@ -47,6 +47,7 @@ import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
+import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
@@ -82,7 +83,7 @@ public class MainScreenFragment extends Fragment {
     FloatingActionButton nuevaEncuestaBoton;
     @Nullable
     @BindView(R.id.content)
-    RelativeLayout content;
+    LinearLayout content;
     @Nullable
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
@@ -90,6 +91,7 @@ public class MainScreenFragment extends Fragment {
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
     MainScreenFragment.OnNewSurveyClicked newSurveyListener;
+
 
     //lista para los buses
     private List<String> listAytoNumbers = new ArrayList<>();
@@ -136,11 +138,7 @@ public class MainScreenFragment extends Fragment {
         selectorSentidos.setVisibility(View.GONE);
         nuevaEncuestaBoton.setVisibility(View.GONE);
         enviarDatosBoton.setVisibility(View.GONE);
-        try {
-            //deleteLocalDatabase.deleteUserAnswerTable();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         //se recupera el momento de la ultima sincronización de preferencias y se muestra
         Utils utilidades = new Utils();
         String lastsincro = utilidades.getLastSyncFromPreference(getContext());
@@ -163,7 +161,7 @@ public class MainScreenFragment extends Fragment {
         if (isOnline()) {
             try {
                 List<SurveyObjectSendItem> lista = restoreLocalDatabase.surveyObjectSend();
-                if (lista != null) {
+                if (lista.get(0) != null) {
                     enviarDatosBoton.setVisibility(View.VISIBLE);
                 }
             } catch (Exception e) {
@@ -174,11 +172,13 @@ public class MainScreenFragment extends Fragment {
             //No internet
             sincronizarBoton.setVisibility(View.GONE);
         }
+        showContent();
         return view;
 
     }
 
     // 3 posibles casos que es hacer clicken cada uno de los botones
+
     @Nullable
     @OnClick(R.id.button)
     void sincronizarPulsado() {
@@ -332,8 +332,6 @@ public class MainScreenFragment extends Fragment {
 
         @Override
         public void onNext(BusStopObject busStopObject) {
-
-
             //generar el spinner con las lineas
             this.objetoParadas = busStopObject;
             generateSublinesSpinner(busStopObject);
@@ -365,7 +363,15 @@ public class MainScreenFragment extends Fragment {
                 e.printStackTrace();
             }
             try {
+                for (SurveyGeneralVariablesItem item: surveyGeneralVariables.getSurveyGeneralVariablesItems()){
+                    Log.d("ELEMENTO_unorder",item.getNOMBRE());
+                }
+                OrderListGeneralVariables orderListGeneralVariables= new OrderListGeneralVariables();
+                surveyGeneralVariables=orderListGeneralVariables.orderGeneralVariables(surveyGeneralVariables);
                 saveLocalDatabase.saveLocaGeneralVariables(surveyGeneralVariables);
+                for (SurveyGeneralVariablesItem item: surveyGeneralVariables.getSurveyGeneralVariablesItems()){
+                    Log.d("ELEMENTO",item.getNOMBRE());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -413,7 +419,7 @@ public class MainScreenFragment extends Fragment {
         public void onCompleted() {
             showContent();
             try {
-                //deleteLocalDatabase.deleteUserAnswerTable();
+                deleteLocalDatabase.deleteUserAnswerTable();
                 enviarDatosBoton.setVisibility(View.GONE);
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,5 +1,7 @@
 package gist.unican.com.encuestaapp.domain.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.siimkinks.sqlitemagic.annotation.Column;
@@ -9,7 +11,7 @@ import com.siimkinks.sqlitemagic.annotation.Table;
  * Created by andres on 08/05/2017.
  */
 @Table(persistAll = true)
-public class SurveyGeneralVariablesItem {
+public class SurveyGeneralVariablesItem implements Comparable<SurveyGeneralVariablesItem> {
 
     public SurveyGeneralVariablesItem() {
     }
@@ -74,4 +76,16 @@ public class SurveyGeneralVariablesItem {
         this.abreviatura = abreviatura;
     }
 
+    @Override
+    public int compareTo(@NonNull SurveyGeneralVariablesItem o) {
+        if (Double.valueOf(orden) > Double.valueOf(o.getOrden())) {
+            return 1;
+        }
+        else if (Double.valueOf(orden) < Double.valueOf(o.getOrden())) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
 }

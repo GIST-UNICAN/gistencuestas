@@ -25,5 +25,5 @@ public class Constants {//SERVICES
     public static final String GRUPO = "Group";
 
     //survey elements
-    public static final int NUMBER_ITEMS_SCREEN = 7;
+    public static final int NUMBER_ITEMS_SCREEN = 4;
 }
