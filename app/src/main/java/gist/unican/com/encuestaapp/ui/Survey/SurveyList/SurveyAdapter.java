@@ -2,6 +2,7 @@ package gist.unican.com.encuestaapp.ui.Survey.SurveyList;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         tarjetasMostradas.put(surveyVariablesObjectCardList.get(position).getTitulo(), true);
+        Log.d("bind_1",surveyVariablesObjectCardList.get(position).getTitulo());
         ((SurveyViewHolder) holder).bind(context, surveyVariablesObjectCardList.get(position), listener, position, this);
     }
 

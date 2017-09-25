@@ -152,10 +152,13 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
                 normalCard.setBackgroundColor(context.getResources().getColor(R.color.white));
                 title.setTextColor(context.getResources().getColor(R.color.black));
         }
+
         if (surveyVariablesObjectCard.getRadiosEnabled()) {
+            Log.d("bind_2",surveyVariablesObjectCard.getTitulo());
             radioGroup.clearCheck();
             dropDownCard.setVisibility(View.GONE);
             normalCard.setVisibility(View.VISIBLE);
+            tarjetaCompleta.setVisibility(View.VISIBLE);
             //guardamos los radio buttons en una lista
             listRadios.add(answer1_radio);
             listRadios.add(answer2_radio);
@@ -185,6 +188,8 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
             onBind = false;
 
         } else {//se asume que es un spinner
+            Log.d("bind_2",surveyVariablesObjectCard.getTitulo());
+
             onBind = true;
             normalCard.setVisibility(View.GONE);
             dropDownCard.setVisibility(View.VISIBLE);
@@ -211,6 +216,9 @@ public class SurveyViewHolder extends RecyclerView.ViewHolder implements RadioGr
             }
 
             onBind = false;
+            //dropDownCard.setVisibility(View.VISIBLE);
+            //normalCard.setVisibility(View.VISIBLE);
+            //tarjetaCompleta.setVisibility(View.VISIBLE);
         }
 
     }

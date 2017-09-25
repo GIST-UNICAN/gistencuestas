@@ -149,22 +149,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         listaMotivos.add("casa");
         listaMotivos.add("trabajo");
 
-        //prueba
-       /* Method[] methods = surveyObjectSendItem.getClass().getMethods();
-        for (Method m : methods){
-            Log.d("METODO",m.toGenericString()+" "+m.toString());
-        }
-        try {
-            Method m = surveyObjectSendItem.getClass().getMethod("setSexoHombre", Integer.class);
-            m.invoke(surveyObjectSendItem,1);
-            Log.d("METODO", "bueno "+surveyObjectSendItem.getSexoHombre());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }*/
+
 
         //recuperar de la local db las preguntas
         try {
@@ -178,7 +163,6 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         surveyRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         surveyRecyclerView.setLayoutManager(layoutManager);
-
         //recuperamos hora, usuario y linea de las shared preferences
         usuario = "usuario acordarse de cambiarlo por preferencias";
         Calendar now = Calendar.getInstance();
@@ -448,7 +432,6 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
             }
             showQualityVariablesList();
         } else {
-            Log.d("Entra", "1");
             //PARA VARIABLES DE CALIDAD
             List<SurveyVariablesObjectCard> surveyVariablesObjectCardList = null;
             List<String[]> abreviaturaYNombre = new ArrayList<>();
