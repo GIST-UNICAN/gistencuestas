@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,11 +87,11 @@ public class MainScreenFragment extends Fragment {
     @BindView(R.id.button2)
     Button enviarDatosBoton;
     @Nullable
-    @BindView(R.id.floatingActionButton)
-    FloatingActionButton nuevaEncuestaBoton;
+    @BindView(R.id.nueva)
+    Button nuevaEncuestaBoton;
     @Nullable
     @BindView(R.id.content)
-    LinearLayout content;
+    RelativeLayout content;
     @Nullable
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
@@ -159,7 +159,7 @@ public class MainScreenFragment extends Fragment {
         nuevaEncuestaBoton.setVisibility(View.GONE);
         enviarDatosBoton.setVisibility(View.GONE);
         //se recupera el momento de la ultima sincronización de preferencias y se muestra
-        Utils utilidades = new Utils();
+        final Utils utilidades = new Utils();
         String lastsincro = utilidades.getLastSyncFromPreference(getContext());
         if (lastsincro != null) {
             lastSync.setText(lastsincro);
@@ -263,7 +263,7 @@ public class MainScreenFragment extends Fragment {
     }
 
     @Nullable
-    @OnClick(R.id.floatingActionButton)
+    @OnClick(R.id.nueva)
     public void nuevaEncuestaPulsado() {
         Log.d("PULSADO,", "PULSADO");
         String lineaSubLineaSentido = selectorLineas.getSelectedItem().toString() + ";" + selectorSublineas.getSelectedItem().toString() + ";" + selectorSentidos.getSelectedItem().toString();
@@ -584,5 +584,11 @@ public class MainScreenFragment extends Fragment {
                 (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+    public void openSurvey(View v){
+        Log.d("PULSADO,", "PULSADO");
+        String lineaSubLineaSentido = selectorLineas.getSelectedItem().toString() + ";" + selectorSublineas.getSelectedItem().toString() + ";" + selectorSentidos.getSelectedItem().toString();
+        utilidades.saveLineInPreferences(getContext(), lineaSubLineaSentido);
+        newSurveyListener.onNewSurveySelected();
     }
 }

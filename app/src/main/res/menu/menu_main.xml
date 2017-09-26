@@ -15,6 +15,14 @@
                 android:id="@+id/menu_opcion_1"
                 android:icon="?android:attr/actionModePasteDrawable"
                 android:title="@string/ENCUESTA" />
+            <item
+                android:id="@+id/menu_opcion_2"
+                android:icon="@android:drawable/ic_dialog_map"
+                android:title="@string/MAP" />
+            <item
+                android:id="@+id/menu_opcion_3"
+                android:icon="@android:drawable/ic_dialog_map"
+                android:title="@string/MAP_Espiras" />
 
         </menu>
     </item>

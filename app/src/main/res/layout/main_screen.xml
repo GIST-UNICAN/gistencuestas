@@ -4,169 +4,150 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    tools:context=".ui.MainActivity">
     <!-- Toolbar -->
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
-        <RelativeLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_height="match_parent">
 
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorSecondary"
-                android:backgroundTint="@color/colorPrimary"
-                android:clickable="true"
-                android:padding="5dp"
-                android:text="@string/nueva_encuesta"
-                android:textColor="@color/white"
-                app:elevation="6dp"
-                app:srcCompat="@mipmap/ic_action_new" />
+                android:layout_gravity="center"
+                android:background="@drawable/border"
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="40dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tw1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/border"
-
+                    android:layout_marginBottom="3dp"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="40dp">
+                    android:text="@string/LINEA" />
 
-                    <TextView
-                        android:id="@+id/tw1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center"
-                        android:text="@string/LINEA" />
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center" />
 
-                    <Spinner
-                        android:id="@+id/spinner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center" />
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/grey" />
 
-                    <View
-                        android:id="@+id/line"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@color/grey" />
+                <TextView
+                    android:id="@+id/tw2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="3dp"
+                    android:gravity="center"
+                    android:text="@string/SUBLINEA" />
 
-                    <TextView
-                        android:id="@+id/tw2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center"
-                        android:text="@string/SUBLINEA" />
+                <Spinner
+                    android:id="@+id/spinner3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center" />
 
-                    <Spinner
-                        android:id="@+id/spinner3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center" />
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/grey" />
 
-                    <View
-                        android:id="@+id/line2"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@color/grey" />
+                <TextView
+                    android:id="@+id/tw3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="3dp"
+                    android:gravity="center"
+                    android:text="@string/SENTIDO" />
 
-                    <TextView
-                        android:id="@+id/tw3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="3dp"
-                        android:gravity="center"
-                        android:text="@string/SENTIDO" />
+                <Spinner
+                    android:id="@+id/spinner4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center" />
 
-                    <Spinner
-                        android:id="@+id/spinner4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center" />
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/grey" />
 
-                    <View
-                        android:id="@+id/line3"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@color/grey" />
+                <Button
+                    android:id="@+id/nueva"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/button_rounded"
+                    android:padding="5dp"
+                    android:text="@string/nueva_encuesta"
+                    android:textColor="@color/white" />
 
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/button_rounded"
+                    android:padding="5dp"
+                    android:text="@string/sync_data"
+                    android:textColor="@color/white" />
 
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:background="@drawable/button_rounded"
-                        android:padding="5dp"
-                        android:text="@string/sync_data"
-                        android:textColor="@color/white" />
+                <TextView
+                    android:id="@+id/lastSync1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/LastSinc" />
 
-                    <TextView
-                        android:id="@+id/lastSync1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/LastSinc" />
+                <TextView
+                    android:id="@+id/lastSync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="TextView" />
 
-                    <TextView
-                        android:id="@+id/lastSync"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:text="TextView" />
-
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/button_rounded"
-                        android:padding="5dp"
-                        android:text="@string/send_data"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-            </ScrollView>
-        </RelativeLayout>
-
-    </LinearLayout>
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_rounded"
+                    android:padding="5dp"
+                    android:text="@string/send_data"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 
     <LinearLayout

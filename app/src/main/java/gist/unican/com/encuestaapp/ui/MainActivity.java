@@ -29,6 +29,8 @@ import gist.unican.com.encuestaapp.domain.Utils.Utils;
 import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 import gist.unican.com.encuestaapp.ui.login.LoginFragment;
+import gist.unican.com.encuestaapp.ui.map.LoopSensorFragment;
+import gist.unican.com.encuestaapp.ui.map.TransportMapFragment;
 
 public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey, LoginFragment.OnUserLogged {
 
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("PATH", this.getFilesDir().getParent());
+        Log.d("PATH", this.getFilesDir().getAbsolutePath());
         setContentView(R.layout.navigationdrawer);
         ButterKnife.bind(this);
         if (!fragment.equalsIgnoreCase("login")) {
@@ -197,6 +199,23 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
                                     fragmentManager = getSupportFragmentManager();
                                     fragmentTransaction = fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.main_content, new MainScreenFragment()).addToBackStack("tag").commit();
+                                    break;
+
+                                case R.id.menu_opcion_2:
+                                    fragment = "mapScreen";
+                                    setToolbar();
+                                    menuHamburguesa();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_content, new TransportMapFragment()).addToBackStack("tag").commit();
+                                    break;
+                                case R.id.menu_opcion_3:
+                                    fragment = "mapScreenTraffic";
+                                    setToolbar();
+                                    menuHamburguesa();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_content, new LoopSensorFragment()).addToBackStack("tag").commit();
                                     break;
 
                             }

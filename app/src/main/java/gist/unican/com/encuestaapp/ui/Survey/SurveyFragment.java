@@ -472,7 +472,7 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                 }
 
             }
-            if (grupo == 3) {
+            if (grupo == Constants.NUMBER_SCREENS) { //a la constante hay que restarle 1
                 //savve in local database
                 try {
                     surveyObjectSendItem.setEncuestador(utilidades.getUserFromPreference(getContext()));

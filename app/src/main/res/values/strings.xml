@@ -36,4 +36,7 @@
     <string name="nueva_encuesta">Nueva encuesta</string>
     <string name="LOGOUT">Cerrar Sesion</string>
     <string name="ENCUESTA">Nueva Encuesta</string>
+    <string name="MAP">Mapa Posición Autobuses</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="MAP_Espiras">Estado del tráfico</string>
 </resources>

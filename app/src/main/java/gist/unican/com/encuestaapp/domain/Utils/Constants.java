@@ -26,4 +26,5 @@ public class Constants {//SERVICES
 
     //survey elements
     public static final int NUMBER_ITEMS_SCREEN = 4;
+    public static final int NUMBER_SCREENS = 5;
 }
