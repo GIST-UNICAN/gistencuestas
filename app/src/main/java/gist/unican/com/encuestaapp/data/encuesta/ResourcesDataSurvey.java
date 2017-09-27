@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
+import gist.unican.com.encuestaapp.domain.model.RankingObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
@@ -69,6 +70,10 @@ public class ResourcesDataSurvey implements ResourcesSurvey {
     @Override
     public Observable<SurveyQualityVariables> getSurveyQuality() {
         return service.getQualityVariables();
+    }
+    @Override
+    public Observable<RankingObject> getRanking() {
+        return service.getRanking();
     }
 
     @Override

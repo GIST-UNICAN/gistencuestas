@@ -2,6 +2,7 @@ package gist.unican.com.encuestaapp.data.encuesta;
 
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
+import gist.unican.com.encuestaapp.domain.model.RankingObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
@@ -26,6 +27,10 @@ public interface ApiResourcesSurvey {
     Observable<SurveyQualityVariables> getQualityVariables();
 
     @Headers("Content-Type: application/json")
+    @GET("encuestas/ranking/")
+    Observable<RankingObject> getRanking();
+
+    @Headers("Content-Type: application/json")
     @GET
     Observable<BusLinesObject> getBusLines(@Url String url);
 
@@ -36,5 +41,6 @@ public interface ApiResourcesSurvey {
     @Headers("Content-Type: application/json")
     @GET
     Observable<BusStopObject> getBusStops(@Url String url);
+
 
 }

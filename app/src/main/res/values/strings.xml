@@ -39,4 +39,7 @@
     <string name="MAP">Mapa Posición Autobuses</string>
     <string name="title_activity_maps">Map</string>
     <string name="MAP_Espiras">Estado del tráfico</string>
+    <string name="Surveyranking">Ranking</string>
+    <string name="Encuestador">ENCUESTADOR</string>
+    <string name="Puntos">SCORE</string>
 </resources>

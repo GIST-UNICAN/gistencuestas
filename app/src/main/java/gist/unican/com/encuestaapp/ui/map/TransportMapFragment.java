@@ -2,11 +2,15 @@ package gist.unican.com.encuestaapp.ui.map;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,6 +28,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,7 +38,12 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnItemSelected;
 import gist.unican.com.encuestaapp.R;
+import gist.unican.com.encuestaapp.domain.DataPersistance.RestoreFromLocalDatabase;
+import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -50,6 +61,17 @@ public class TransportMapFragment extends Fragment {
 
     private MapView mapView;
     private GoogleMap map;
+    @Nullable
+    @BindView(R.id.loading_layout)
+    LinearLayout loadingLayout;
+
+    @Nullable
+    @BindView(R.id.error_layout)
+    LinearLayout errorLayout;
+
+    @Nullable
+    @BindView(R.id.lines_spinner)
+    Spinner linesSpinner;
 
     public TransportMapFragment() {
         // Required empty public constructor
@@ -60,24 +82,22 @@ public class TransportMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_transport_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_transport_map, null);
+        ButterKnife.bind(this, view);
+        loadSpinnerToolbar();
         mapView = (MapView) view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        //actualizamos el mapa cada minuto
-        Timer timer = new Timer ();
-        TimerTask hourlyTask = new TimerTask () {
-            @Override
-            public void run () {
-                downloadFile("https://193.144.208.142/");
-            }
-        };
 
-        // schedule the task to run starting now and then every minute
-        timer.schedule (hourlyTask, 0l, 60000);
 
         return view;
 
     }
+
+    @OnItemSelected(R.id.lines_spinner)
+    void changeMap() {
+        //downloadFile("espiras/programa_ejecutar/lineas_bus_" + linesSpinner.getSelectedItem().toString() + ".kml", linesSpinner.getSelectedItem().toString() + ".kml");
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -108,6 +128,22 @@ public class TransportMapFragment extends Fragment {
 
                 map.moveCamera(center);
                 map.animateCamera(zoom);
+                //actualizamos el mapa cada minuto
+                Timer timer = new Timer();
+                TimerTask hourlyTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                downloadFile("espiras/programa_ejecutar/lineas_bus.kml", "archivo.kml");
+                            }
+                        });
+                    }
+                };
+
+                // schedule the task to run starting now and then every minute
+                timer.schedule(hourlyTask, 0l, 60000);
             }
         });
     }
@@ -137,19 +173,20 @@ public class TransportMapFragment extends Fragment {
         mapView.onPause();
     }
 
-    public void downloadFile(final String url) {
+    public void downloadFile(final String url, final String name) {
+        showLoading();
         final String path = getActivity().getFilesDir().getAbsolutePath();
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(getUnsafeOkHttpClient())
-                .baseUrl(url)
+                .baseUrl("https://193.144.208.142/")
                 .build();
         final RxDownload rxDownload = RxDownload.getInstance(getContext())
                 .maxThread(3) //Set the max thread
                 .maxRetryCount(3)
                 .retrofit(retrofit);  //Single instance
         rxDownload.getInstance(getContext())
-                .download("espiras/programa_ejecutar/lineas_bus.kml","archivo.kml",path)//just pass url
+                .download(url, name, path)//just pass url
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DownloadStatus>() {
@@ -165,31 +202,33 @@ public class TransportMapFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("ARCHIVO", e.toString());
+                        showError();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.d("ARCHIVO", "ok");
-                        File[] files = rxDownload.getRealFiles("archivo.kml",path);
+                        File[] files = rxDownload.getRealFiles(name, path);
                         if (files != null) {
-                            File kml= new File(files[0].getAbsolutePath());
                             try {
-                                FileInputStream fileInputStream= new FileInputStream(files[0].getAbsoluteFile());
+                                FileInputStream fileInputStream = new FileInputStream(files[0].getAbsoluteFile());
                                 KmlLayer layer = new KmlLayer(map, fileInputStream, getContext());
                                 map.clear();
                                 layer.addLayerToMap();
                                 zoomMap(map);
+                                showContent();
 
                             } catch (FileNotFoundException e) {
+                                showError();
                                 e.printStackTrace();
                             } catch (XmlPullParserException e) {
+                                showError();
                                 e.printStackTrace();
                             } catch (IOException e) {
+                                showError();
                                 e.printStackTrace();
                             }
 
-                            Log.d("ARCHIVO", files[0].getName());
                         }
                     }
 
@@ -197,7 +236,8 @@ public class TransportMapFragment extends Fragment {
                 });
 
     }
-    private void zoomMap(GoogleMap map){
+
+    private void zoomMap(GoogleMap map) {
         CameraUpdate center =
                 CameraUpdateFactory.newLatLng(new LatLng(43.4722,
                         -3.8199));
@@ -248,5 +288,64 @@ public class TransportMapFragment extends Fragment {
             throw new RuntimeException(e);
         }
 
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showError() {
+        mapView.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
+
+    }
+
+    /**
+     * Method used to show the loading view
+     */
+    public void showLoading() {
+
+        loadingLayout.setVisibility(View.VISIBLE);
+        mapView.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show the listView
+     */
+    public void showContent() {
+        CameraUpdate center =
+                CameraUpdateFactory.newLatLng(new LatLng(43.4722,
+                        -3.8199));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(12);
+
+        map.moveCamera(center);
+        map.animateCamera(zoom);
+        mapView.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+
+    }
+
+    private void loadSpinnerToolbar() {
+        //hay que componer el spinner selector de lineas
+        RestoreFromLocalDatabase restoreFromLocalDatabase = new RestoreFromLocalDatabase();
+        List<BusLinesObjectItem> busLinesObject = new ArrayList<>();
+        List<String> listaDescarga = new ArrayList<>();
+        try {
+            busLinesObject = restoreFromLocalDatabase.busLines();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (busLinesObject.size() != 0) {
+            for (BusLinesObjectItem busLinesObjectItem : busLinesObject) {
+                String linea = busLinesObjectItem.getDcName().replace("/", "-");
+                listaDescarga.add(busLinesObjectItem.getAytoNumero() + " " + linea);
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.spinner, listaDescarga);
+        adapter.setDropDownViewResource(R.layout.spinner);
+        //linesSpinner.setVisibility(View.VISIBLE);
+        //linesSpinner.setAdapter(adapter);
     }
 }

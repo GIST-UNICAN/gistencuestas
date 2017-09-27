@@ -23,6 +23,10 @@
                 android:id="@+id/menu_opcion_3"
                 android:icon="@android:drawable/ic_dialog_map"
                 android:title="@string/MAP_Espiras" />
+            <item
+                android:id="@+id/menu_opcion_4"
+                android:icon="@mipmap/ranking_cup"
+                android:title="@string/Surveyranking" />
 
         </menu>
     </item>

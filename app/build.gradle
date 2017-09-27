@@ -62,9 +62,9 @@ dependencies {
         transitive = true;
     }
 
-    //compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
 
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'zlc.season:rxdownload2:2.0.4'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
@@ -76,7 +76,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'io.reactivex:rxjava:1.1.8'
-    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.jakewharton:butterknife:8.5.1'
@@ -84,11 +83,11 @@ dependencies {
     compile 'com.github.tibolte:elasticdownload:1.0.+'
     compile 'com.google.maps.android:android-maps-utils:0.4.+'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.robertlevonyan.view:CustomFloatingActionButton:1.0.3'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     apt 'com.jakewharton:butterknife-compiler:8.5.1'
     provided 'com.siimkinks.sqlitemagic:sqlitemagic:<latest version>'
     provided 'javax.annotation:jsr250-api:1.0'
-    compile 'com.robertlevonyan.view:CustomFloatingActionButton:1.0.3'
-
 }

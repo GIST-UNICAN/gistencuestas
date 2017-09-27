@@ -2,6 +2,7 @@ package gist.unican.com.encuestaapp.data.encuesta;
 
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
+import gist.unican.com.encuestaapp.domain.model.RankingObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
@@ -17,6 +18,8 @@ public interface ResourcesSurvey {
     Observable<BusStopObject> getBusStops(String url);
 
     Observable<SurveyGeneralVariables> getSurveyGeneral();
+
+    Observable<RankingObject> getRanking();
 
     Observable<SurveyQualityVariables> getSurveyQuality();
 

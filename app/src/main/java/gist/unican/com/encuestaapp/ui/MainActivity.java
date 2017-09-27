@@ -26,13 +26,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
+import gist.unican.com.encuestaapp.domain.model.RankingObjectItem;
 import gist.unican.com.encuestaapp.ui.MainScreen.MainScreenFragment;
+import gist.unican.com.encuestaapp.ui.Survey.Ranking.RankingFragment;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 import gist.unican.com.encuestaapp.ui.login.LoginFragment;
 import gist.unican.com.encuestaapp.ui.map.LoopSensorFragment;
 import gist.unican.com.encuestaapp.ui.map.TransportMapFragment;
 
-public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey, LoginFragment.OnUserLogged {
+public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey, LoginFragment.OnUserLogged, RankingFragment.OnListFragmentInteractionListener {
 
 
     private FragmentManager fragmentManager;
@@ -135,6 +137,11 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
     }
 
     @Override
+    public void onListFragmentInteraction(RankingObjectItem item) {
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -217,6 +224,14 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
                                     fragmentTransaction = fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.main_content, new LoopSensorFragment()).addToBackStack("tag").commit();
                                     break;
+                                case R.id.menu_opcion_4:
+                                    fragment = "ranking";
+                                    setToolbar();
+                                    menuHamburguesa();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.main_content, new RankingFragment()).addToBackStack("tag").commit();
+                                    break;
 
                             }
 
@@ -228,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
                     });
         }
     }
+
 
 
 }
