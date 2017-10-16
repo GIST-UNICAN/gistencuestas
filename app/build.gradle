@@ -20,7 +20,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.1'
     defaultConfig {
-        applicationId "gist.unican.com.encuestaapp"
+        applicationId "gist.unican.com.gistapp"
         minSdkVersion 19
         targetSdkVersion 19
         versionCode 1
