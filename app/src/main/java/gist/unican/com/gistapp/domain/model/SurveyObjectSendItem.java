@@ -47,9 +47,13 @@ public class SurveyObjectSendItem {
     @Expose
     private Integer edad5564;
     @Column(useAccessMethods = true)
-    @SerializedName("edad_65")
+    @SerializedName("edad_6574")
     @Expose
-    private Integer edad65;
+    private Integer edad6574;
+    @Column(useAccessMethods = true)
+    @SerializedName("edad_74")
+    @Expose
+    private Integer edad74;
     @Column(useAccessMethods = true)
     @SerializedName("trabajo_trabajador")
     @Expose
@@ -67,21 +71,29 @@ public class SurveyObjectSendItem {
     @Expose
     private Integer trabajoJubilado;
     @Column(useAccessMethods = true)
-    @SerializedName("carnet_si")
+    @SerializedName("trabajo_labores")
     @Expose
-    private Integer carnetSi;
+    private Integer trabajoLabores;
     @Column(useAccessMethods = true)
-    @SerializedName("carnet_no")
+    @SerializedName("alternativo_conductor")
     @Expose
-    private Integer carnetNo;
+    private Integer alternativoConductor;
     @Column(useAccessMethods = true)
-    @SerializedName("vehiculo_si")
+    @SerializedName("alternativo_acompanante")
     @Expose
-    private Integer vehiculoSi;
+    private Integer alternativoAcompanante;
     @Column(useAccessMethods = true)
-    @SerializedName("vehiculo_no")
+    @SerializedName("alternativo_bicicleta")
     @Expose
-    private Integer vehiculoNo;
+    private Integer alternativoBicicleta;
+    @Column(useAccessMethods = true)
+    @SerializedName("alternativo_moto")
+    @Expose
+    private Integer alternativoMoto;
+    @Column(useAccessMethods = true)
+    @SerializedName("alternativo_otros")
+    @Expose
+    private Integer alternativoOtros;
     @Column(useAccessMethods = true)
     @SerializedName("linea")
     @Expose
@@ -111,14 +123,6 @@ public class SurveyObjectSendItem {
     @Expose
     private Integer viajes30;
     @Column(useAccessMethods = true)
-    @SerializedName("pago_tarjeta")
-    @Expose
-    private Integer pagoTarjeta;
-    @Column(useAccessMethods = true)
-    @SerializedName("pago_efectivo")
-    @Expose
-    private Integer pagoEfectivo;
-    @Column(useAccessMethods = true)
     @SerializedName("ingreso_900")
     @Expose
     private Integer ingreso900;
@@ -138,26 +142,6 @@ public class SurveyObjectSendItem {
     @SerializedName("ingreso_nsnc")
     @Expose
     private Integer ingresoNsnc;
-    @Column(useAccessMethods = true)
-    @SerializedName("valoriacion_muymal")
-    @Expose
-    private Integer valoracionMuymal;
-    @Column(useAccessMethods = true)
-    @SerializedName("valoracion_mal")
-    @Expose
-    private Integer valoracionMal;
-    @Column(useAccessMethods = true)
-    @SerializedName("valoracion_normal")
-    @Expose
-    private Integer valoracionNormal;
-    @Column(useAccessMethods = true)
-    @SerializedName("valoracion_bien")
-    @Expose
-    private Integer valoracionBien;
-    @Column(useAccessMethods = true)
-    @SerializedName("valoracion_muybien")
-    @Expose
-    private Integer valoracionMuybien;
     @Column(useAccessMethods = true)
     @SerializedName("thp_mm")
     @Expose
@@ -1520,12 +1504,20 @@ public class SurveyObjectSendItem {
         this.edad5564 = edad5564;
     }
 
-    public Integer getEdad65() {
-        return edad65;
+    public Integer getEdad6574() {
+        return edad6574;
     }
 
-    public void setEdad65(Integer edad65) {
-        this.edad65 = edad65;
+    public void setEdad6574(Integer edad6574) {
+        this.edad6574 = edad6574;
+    }
+
+    public Integer getEdad74() {
+        return edad74;
+    }
+
+    public void setEdad74(Integer edad74) {
+        this.edad74 = edad74;
     }
 
     public Integer getTrabajoTrabajador() {
@@ -1560,36 +1552,52 @@ public class SurveyObjectSendItem {
         this.trabajoJubilado = trabajoJubilado;
     }
 
-    public Integer getCarnetSi() {
-        return carnetSi;
+    public Integer getTrabajoLabores() {
+        return trabajoLabores;
     }
 
-    public void setCarnetSi(Integer carnetSi) {
-        this.carnetSi = carnetSi;
+    public void setTrabajoLabores(Integer trabajoLabores) {
+        this.trabajoLabores = trabajoLabores;
     }
 
-    public Integer getCarnetNo() {
-        return carnetNo;
+    public Integer getAlternativoConductor() {
+        return alternativoConductor;
     }
 
-    public void setCarnetNo(Integer carnetNo) {
-        this.carnetNo = carnetNo;
+    public void setAlternativoConductor(Integer alternativoConductor) {
+        this.alternativoConductor = alternativoConductor;
     }
 
-    public Integer getVehiculoSi() {
-        return vehiculoSi;
+    public Integer getAlternativoAcompanante() {
+        return alternativoAcompanante;
     }
 
-    public void setVehiculoSi(Integer vehiculoSi) {
-        this.vehiculoSi = vehiculoSi;
+    public void setAlternativoAcompanante(Integer alternativoAcompanante) {
+        this.alternativoAcompanante = alternativoAcompanante;
     }
 
-    public Integer getVehiculoNo() {
-        return vehiculoNo;
+    public Integer getAlternativoBicicleta() {
+        return alternativoBicicleta;
     }
 
-    public void setVehiculoNo(Integer vehiculoNo) {
-        this.vehiculoNo = vehiculoNo;
+    public void setAlternativoBicicleta(Integer alternativoBicicleta) {
+        this.alternativoBicicleta = alternativoBicicleta;
+    }
+
+    public Integer getAlternativoMoto() {
+        return alternativoMoto;
+    }
+
+    public void setAlternativoMoto(Integer alternativoMoto) {
+        this.alternativoMoto = alternativoMoto;
+    }
+
+    public Integer getAlternativoOtros() {
+        return alternativoOtros;
+    }
+
+    public void setAlternativoOtros(Integer alternativoOtros) {
+        this.alternativoOtros = alternativoOtros;
     }
 
     public String getLinea() {
@@ -1648,22 +1656,6 @@ public class SurveyObjectSendItem {
         this.viajes30 = viajes30;
     }
 
-    public Integer getPagoTarjeta() {
-        return pagoTarjeta;
-    }
-
-    public void setPagoTarjeta(Integer pagoTarjeta) {
-        this.pagoTarjeta = pagoTarjeta;
-    }
-
-    public Integer getPagoEfectivo() {
-        return pagoEfectivo;
-    }
-
-    public void setPagoEfectivo(Integer pagoEfectivo) {
-        this.pagoEfectivo = pagoEfectivo;
-    }
-
     public Integer getIngreso900() {
         return ingreso900;
     }
@@ -1702,46 +1694,6 @@ public class SurveyObjectSendItem {
 
     public void setIngresoNsnc(Integer ingresoNsnc) {
         this.ingresoNsnc = ingresoNsnc;
-    }
-
-    public Integer getValoracionMuymal() {
-        return valoracionMuymal;
-    }
-
-    public void setValoracionMuymal(Integer valoriacionMuymal) {
-        this.valoracionMuymal = valoriacionMuymal;
-    }
-
-    public Integer getValoracionMal() {
-        return valoracionMal;
-    }
-
-    public void setValoracionMal(Integer valoracionMal) {
-        this.valoracionMal = valoracionMal;
-    }
-
-    public Integer getValoracionNormal() {
-        return valoracionNormal;
-    }
-
-    public void setValoracionNormal(Integer valoracionNormal) {
-        this.valoracionNormal = valoracionNormal;
-    }
-
-    public Integer getValoracionBien() {
-        return valoracionBien;
-    }
-
-    public void setValoracionBien(Integer valoracionBien) {
-        this.valoracionBien = valoracionBien;
-    }
-
-    public Integer getValoracionMuybien() {
-        return valoracionMuybien;
-    }
-
-    public void setValoracionMuybien(Integer valoracionMuybien) {
-        this.valoracionMuybien = valoracionMuybien;
     }
 
     public Integer getThpMm() {
@@ -3784,6 +3736,46 @@ public class SurveyObjectSendItem {
         this.vgsMb = vgsMb;
     }
 
+    public Integer getVgsNs() {
+        return vgsNs;
+    }
+
+    public void setVgsNs(Integer vgsNs) {
+        this.vgsNs = vgsNs;
+    }
+
+    public Integer getVgsBe() {
+        return vgsBe;
+    }
+
+    public void setVgsBe(Integer vgsBe) {
+        this.vgsBe = vgsBe;
+    }
+
+    public Integer getVgsWo() {
+        return vgsWo;
+    }
+
+    public void setVgsWo(Integer vgsWo) {
+        this.vgsWo = vgsWo;
+    }
+
+    public Integer getVgsMi() {
+        return vgsMi;
+    }
+
+    public void setVgsMi(Integer vgsMi) {
+        this.vgsMi = vgsMi;
+    }
+
+    public Integer getVgsLi() {
+        return vgsLi;
+    }
+
+    public void setVgsLi(Integer vgsLi) {
+        this.vgsLi = vgsLi;
+    }
+
     public Integer getThpGroup() {
         return thpGroup;
     }
@@ -4278,45 +4270,5 @@ public class SurveyObjectSendItem {
 
     public void setDmrGroup(Integer dmrGroup) {
         this.dmrGroup = dmrGroup;
-    }
-
-    public Integer getVgsNs() {
-        return vgsNs;
-    }
-
-    public void setVgsNs(Integer vgsNs) {
-        this.vgsNs = vgsNs;
-    }
-
-    public Integer getVgsBe() {
-        return vgsBe;
-    }
-
-    public void setVgsBe(Integer vgsBe) {
-        this.vgsBe = vgsBe;
-    }
-
-    public Integer getVgsWo() {
-        return vgsWo;
-    }
-
-    public void setVgsWo(Integer vgsWo) {
-        this.vgsWo = vgsWo;
-    }
-
-    public Integer getVgsMi() {
-        return vgsMi;
-    }
-
-    public void setVgsMi(Integer vgsMi) {
-        this.vgsMi = vgsMi;
-    }
-
-    public Integer getVgsLi() {
-        return vgsLi;
-    }
-
-    public void setVgsLi(Integer vgsLi) {
-        this.vgsLi = vgsLi;
     }
 }

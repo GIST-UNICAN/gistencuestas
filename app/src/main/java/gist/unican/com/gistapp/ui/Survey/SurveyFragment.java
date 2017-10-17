@@ -10,6 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -17,9 +20,11 @@ import android.widget.RelativeLayout;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -138,11 +143,13 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_survey, null);
         ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
         //se oculta el boton de siguiente
         nextButton.setVisibility(View.GONE);
         //motivos de viaje
@@ -153,7 +160,6 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
         listaMotivos.add("compras");
         listaMotivos.add("ocio");
         listaMotivos.add("otros");
-
 
 
         //recuperar de la local db las preguntas
@@ -215,16 +221,48 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save:
+                saveCurrent();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveCurrent() {
+        //savve in local database
+        try {
+            surveyObjectSendItem.setEncuestador(utilidades.getUserFromPreference(getContext()));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            String format = simpleDateFormat.format(new Date());
+            surveyObjectSendItem.setHora(format);
+            saveInLocalDatabase.saveUserAaswers(surveyObjectSendItem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        onFinishSurveyListener.loadMainScreen();
+
+    }
+
     private void showList(List<SurveyGeneralVariablesItem> generalVariablesItemList) {
         //en primer lugar las variables generales
 
         if (variablesGenerales) {
             listaLineasString.add(0, "Seleccione");
-            listaLineasString.add(1,"No uso lineas adicionales");
+            listaLineasString.add(1, "No uso lineas adicionales");
             listaMotivos.add(0, "Seleccione");
             listaParadasString.add(0, "Seleccione");
-            listaParadasString.add(1,"No sabe / No contexta");
-            BusLinesObjectItem add= new BusLinesObjectItem();
+            listaParadasString.add(1, "No sabe / No contexta");
+            BusLinesObjectItem add = new BusLinesObjectItem();
             List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
             for (SurveyGeneralVariablesItem generalVariableItem : generalVariablesItemList) {
                 SurveyVariablesObjectCard tarjeta = null;
@@ -265,34 +303,50 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
 
     public void showQualityVariablesList() {
         showLoading();
-        nextButton.setVisibility(View.GONE);
-        ventana = "qualityVariables";
-        List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
-        SurveyVariablesObjectCard tarjeta = null;
-        List<String> nombres = new ArrayList<>();
-        for (int i = numeroElementosMostrados; i < numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN; i++) {
+        if (grupo == Constants.NUMBER_SCREENS) { //en el ultimo caso se hace diferente porque solo se muestra la valoración general del servicio
+            List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
+            SurveyVariablesObjectCard tarjeta = null;
             List<List<String>> listaRadios = getListaRadios();
-            // Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
             List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
-            tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, listaRadios.size(), listaRadios, surveyQualityVariablesItemsUnordered.get(i).getAbreviatura(), false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
+            tarjeta = new SurveyVariablesObjectCard("Valoración general del servicio", true, listaRadios.size(), listaRadios, "vgs", false, null, chechedButtons, 0);
             tarjetasParaMostrar.add(tarjeta);
-            nombres.add(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE());
+            adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this, this);
+            surveyRecyclerView.setAdapter(adapterList);
+            adapterList.notifyDataSetChanged();
+            showContent();
+
+
+        } else {
+            nextButton.setVisibility(View.GONE);
+            ventana = "qualityVariables";
+            List<SurveyVariablesObjectCard> tarjetasParaMostrar = new ArrayList<>();
+            SurveyVariablesObjectCard tarjeta = null;
+            List<String> nombres = new ArrayList<>();
+            for (int i = numeroElementosMostrados; i < numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN; i++) {
+                List<List<String>> listaRadios = getListaRadios();
+                // Log.d("ITEMS", generalVariableItem.getNOMBRE() + " items:" + String.valueOf(Integer.valueOf(generalVariableItem.getITEMS())));
+                List chechedButtons = Arrays.asList(false, false, false, false, false, false, false);
+                tarjeta = new SurveyVariablesObjectCard(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE(), true, listaRadios.size(), listaRadios, surveyQualityVariablesItemsUnordered.get(i).getAbreviatura(), false, null, chechedButtons, surveyQualityVariablesItemsUnordered.get(i).getColor());
+                tarjetasParaMostrar.add(tarjeta);
+                nombres.add(surveyQualityVariablesItemsUnordered.get(i).getNOMBRE());
+            }
+            //añadimos los spinner de opinion
+            nombres.add(0, "Seleccione");
+            tarjeta = new SurveyVariablesObjectCard("Mejor", false, 0, null, "none", true, nombres, null, 999);
+            tarjetasParaMostrar.add(tarjeta);
+            tarjeta = new SurveyVariablesObjectCard("Peor", false, 0, null, "none", true, nombres, null, 999);
+            tarjetasParaMostrar.add(tarjeta);
+            tarjeta = new SurveyVariablesObjectCard("Mas Importante", false, 0, null, "none", true, nombres, null, 999);
+            tarjetasParaMostrar.add(tarjeta);
+            tarjeta = new SurveyVariablesObjectCard("Menos Importante", false, 0, null, "none", true, nombres, null, 999);
+            tarjetasParaMostrar.add(tarjeta);
+            adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this, this);
+            surveyRecyclerView.setAdapter(adapterList);
+            adapterList.notifyDataSetChanged();
+            numeroElementosMostrados = numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN;
+            showContent();
+
         }
-        //añadimos los spinner de opinion
-        nombres.add(0, "Seleccione");
-        tarjeta = new SurveyVariablesObjectCard("Mejor", false, 0, null, "none", true, nombres, null, 999);
-        tarjetasParaMostrar.add(tarjeta);
-        tarjeta = new SurveyVariablesObjectCard("Peor", false, 0, null, "none", true, nombres, null, 999);
-        tarjetasParaMostrar.add(tarjeta);
-        tarjeta = new SurveyVariablesObjectCard("Mas Importante", false, 0, null, "none", true, nombres, null, 999);
-        tarjetasParaMostrar.add(tarjeta);
-        tarjeta = new SurveyVariablesObjectCard("Menos Importante", false, 0, null, "none", true, nombres, null, 999);
-        tarjetasParaMostrar.add(tarjeta);
-        adapterList = new SurveyAdapter(getContext(), tarjetasParaMostrar, this, this);
-        surveyRecyclerView.setAdapter(adapterList);
-        adapterList.notifyDataSetChanged();
-        numeroElementosMostrados = numeroElementosMostrados + Constants.NUMBER_ITEMS_SCREEN;
-        showContent();
         //coje de x en x
     }
 
@@ -404,8 +458,6 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                     int contador = 0;
                     elementoInicial++;
                     elementoFinal = elementoInicial + objeto.getNumeroRadios();
-                    Log.d("inicio", String.valueOf(elementoInicial));
-                    Log.d("fin", String.valueOf(elementoFinal));
                     //para elementos tipo radiobutton
                     for (int i = elementoInicial; i < elementoFinal; i++) {//se obtiene la abreviatura y se llama al método que lo mete en la clase del objeto a subir posteriormente
                         String abreviatura = generalVariablesItemList.get(i).getAbreviatura();
@@ -477,15 +529,10 @@ public class SurveyFragment extends Fragment implements OnItemsSelectedInListene
                 }
 
             }
-            if (grupo == Constants.NUMBER_SCREENS) { //a la constante hay que restarle 1
+
+            if (grupo == Constants.NUMBER_SCREENS + 1) { //a la constante hay que restarle 1
                 //savve in local database
-                try {
-                    surveyObjectSendItem.setEncuestador(utilidades.getUserFromPreference(getContext()));
-                    saveInLocalDatabase.saveUserAaswers(surveyObjectSendItem);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                onFinishSurveyListener.loadMainScreen();
+                saveCurrent();
             } else {
                 showQualityVariablesList();
             }

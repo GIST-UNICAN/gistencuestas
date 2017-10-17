@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -141,25 +140,13 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            //...
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void setToolbar() {
         if (!fragment.equalsIgnoreCase("login")) {
             toolbar.setVisibility(View.VISIBLE);
             menuUser.setText("Logueado como: " + utilidades.getUserFromPreference(getApplicationContext()));
             menuUser.setTextSize(20);
             setSupportActionBar(toolbar);
+
             final ActionBar ab = getSupportActionBar();
             if (ab != null) {
                 // Poner ícono del drawer toggle
@@ -243,7 +230,6 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
                     });
         }
     }
-
 
 
 }
