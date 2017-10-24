@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gist.unican.com.gistapp.ui.Survey.Ranking.RankingFragment"
+    tools:context="gist.unican.com.encuestaapp.ui.Survey.Ranking.RankingFragment"
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp"
     tools:listitem="@layout/fragment_ranking">
