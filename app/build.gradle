@@ -8,10 +8,11 @@ buildscript {
     }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    google()
 }
 
 apply plugin: 'com.siimkinks.sqlitemagic'
@@ -28,7 +29,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "int", "DB_VERSION", "1"
         // Optional (defaults to "database.db")
-        buildConfigField "String", "DB_NAME", '"samplev2.db"'
+        buildConfigField "String", "DB_NAME", '"samplev4.db"'
     }
     buildTypes {
         release {
@@ -51,16 +52,13 @@ android {
     }
 
 }
+def AAVersion = '4.4.0'
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     //varios
-    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
-        transitive = true;
-    }
-
-
+    /*compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+            transitive = true;
+        }*/
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'zlc.season:rxdownload2:2.0.4'
@@ -76,15 +74,18 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.8'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.race604.waveloading:library:1.1.1'
     compile 'com.github.tibolte:elasticdownload:1.0.+'
     compile 'com.google.maps.android:android-maps-utils:0.4.+'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.robertlevonyan.view:CustomFloatingActionButton:1.0.3'
     compile 'com.android.support:recyclerview-v7:25.3.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     provided 'com.siimkinks.sqlitemagic:sqlitemagic:<latest version>'
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.artemzin.rxjava:proguard-rules:1.1.8.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+
 }

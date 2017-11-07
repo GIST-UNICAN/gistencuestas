@@ -15,37 +15,38 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
 import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.Login.LoginUserUseCase;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
 import gist.unican.com.encuestaapp.domain.model.UserObject;
 import rx.Subscriber;
 
-
+@EFragment
 public class LoginFragment extends Fragment {
     @Nullable
-    @BindView(R.id.UsuarioLogin)
+    @ViewById(R.id.UsuarioLogin)
     EditText usuario;
     @Nullable
-    @BindView(R.id.Password)
+    @ViewById(R.id.Password)
     EditText password;
     @Nullable
-    @BindView(R.id.LoginFalse)
+    @ViewById(R.id.LoginFalse)
     TextView loginFalse;
     @Nullable
-    @BindView(R.id.LoginButton)
+    @ViewById(R.id.LoginButton)
     Button loginButton;
     @Nullable
-    @BindView(R.id.loginLayout)
+    @ViewById(R.id.loginLayout)
     ScrollView content;
     @Nullable
-    @BindView(R.id.error_layout)
+    @ViewById(R.id.error_layout)
     LinearLayout errorLayout;
     @Nullable
-    @BindView(R.id.loading_layout)
+    @ViewById(R.id.loading_layout)
     LinearLayout loadingLayout;
 
     //utilidades para guardar usuario en preferencias
@@ -78,7 +79,14 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login, null);
-        ButterKnife.bind(this, view);
+        usuario=(EditText)view.findViewById(R.id.UsuarioLogin);
+        password=(EditText)view.findViewById(R.id.Password);
+        loginFalse= (TextView) view.findViewById(R.id.LoginFalse);
+        loginButton =(Button) view.findViewById(R.id.LoginButton);
+        content=(ScrollView) view.findViewById(R.id.loginLayout);
+        errorLayout=(LinearLayout) view.findViewById(R.id.error_layout);
+        loadingLayout=(LinearLayout) view.findViewById(R.id.loading_layout);
+
         Log.d("Bind Fragment", "true");
         try {
             if (utilidades.getUserFromPreference(getContext()) != null) {
@@ -86,12 +94,16 @@ public class LoginFragment extends Fragment {
             }
         } catch (Exception e) {
         }
-showContent();
+
         return view;
     }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-    @OnClick(R.id.LoginButton)
-    void onLoginClicked() {
+        showContent();
+    }
+    @Click
+    void LoginButton() {
         userObject = new UserObject(usuario.getText().toString(), password.getText().toString());
         showLoading();
         new LoginUserUseCase(userObject).execute(new LoginFragment.SetUser());
