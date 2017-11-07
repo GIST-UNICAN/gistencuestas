@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gist.unican.com.encuestaapp.R;
@@ -32,6 +34,7 @@ import gist.unican.com.encuestaapp.ui.Survey.SurveyFragment;
 import gist.unican.com.encuestaapp.ui.login.LoginFragment;
 import gist.unican.com.encuestaapp.ui.map.LoopSensorFragment;
 import gist.unican.com.encuestaapp.ui.map.TransportMapFragment;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements MainScreenFragment.OnNewSurveyClicked, SurveyFragment.onFinishSurvey, LoginFragment.OnUserLogged, RankingFragment.OnListFragmentInteractionListener {
 
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
         super.onCreate(savedInstanceState);
         Log.d("PATH", this.getFilesDir().getAbsolutePath());
         setContentView(R.layout.navigationdrawer);
+        Fabric.with(this, new Crashlytics());
         ButterKnife.bind(this);
         if (!fragment.equalsIgnoreCase("login")) {
             setToolbar();

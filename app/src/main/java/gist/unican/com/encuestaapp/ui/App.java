@@ -2,8 +2,9 @@ package gist.unican.com.encuestaapp.ui;
 
 import android.app.Application;
 
-import com.siimkinks.sqlitemagic.SqliteMagic;
 import com.crashlytics.android.Crashlytics;
+import com.siimkinks.sqlitemagic.SqliteMagic;
+
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -14,7 +15,7 @@ public final  class App  extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+
         SqliteMagic.init(this);
     }
 }
