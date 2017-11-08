@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements MainScreenFragmen
             setToolbar();
             menuHamburguesa();
         } else {
+
+            toolbar=(Toolbar)findViewById(R.id.toolbar);
             toolbar.setVisibility(View.GONE);
         }
         Context context = getApplicationContext();
