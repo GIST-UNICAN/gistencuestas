@@ -15,15 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import butterknife.OnClick;
 import gist.unican.com.encuestaapp.R;
 import gist.unican.com.encuestaapp.domain.Login.LoginUserUseCase;
 import gist.unican.com.encuestaapp.domain.Utils.Utils;
+import gist.unican.com.encuestaapp.domain.model.CorrectResponse;
 import gist.unican.com.encuestaapp.domain.model.UserObject;
-import rx.Subscriber;
+import io.reactivex.observers.DisposableObserver;
 
 @EFragment
 public class LoginFragment extends Fragment {
@@ -101,8 +102,16 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         showContent();
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userObject = new UserObject(usuario.getText().toString(), password.getText().toString());
+                showLoading();
+                new LoginUserUseCase(userObject).execute(new LoginFragment.SetUser());
+            }
+        });
     }
-    @Click
+    @OnClick(R.id.LoginButton)
     void LoginButton() {
         userObject = new UserObject(usuario.getText().toString(), password.getText().toString());
         showLoading();
@@ -110,12 +119,19 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private final class SetUser extends Subscriber<UserObject> {
+    private final class SetUser extends DisposableObserver<CorrectResponse> {
         //3 callbacks
         @Override
-        public void onCompleted() {
+        public void onComplete() {
             utilidades.saveUserInPreference(getContext(), userObject.getUser());
             listener.onCorrectedLoged();
+        }
+
+
+
+        @Override
+        public void onNext(CorrectResponse aVoid) {
+
         }
 
         //Show the error
@@ -127,9 +143,7 @@ public class LoginFragment extends Fragment {
             showContent();
         }
 
-        @Override
-        public void onNext(UserObject userObject) {
-        }
+
     }
 
     /**

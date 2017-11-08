@@ -2,11 +2,12 @@ package gist.unican.com.encuestaapp.data.encuesta;
 
 import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
+import gist.unican.com.encuestaapp.domain.model.CorrectResponse;
 import gist.unican.com.encuestaapp.domain.model.RankingObject;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by andres on 08/05/2017.
@@ -23,5 +24,5 @@ public interface ResourcesSurvey {
 
     Observable<SurveyQualityVariables> getSurveyQuality();
 
-    Observable<Void> setSurveyFinished(SurveyObjectSend body);
+    Observable<CorrectResponse> setSurveyFinished(SurveyObjectSend body);
 }

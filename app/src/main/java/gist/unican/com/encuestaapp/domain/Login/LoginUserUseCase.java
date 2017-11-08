@@ -4,7 +4,7 @@ import gist.unican.com.encuestaapp.data.login.ResourcesDataLogin;
 import gist.unican.com.encuestaapp.data.login.ResourcesLogin;
 import gist.unican.com.encuestaapp.domain.UseCase;
 import gist.unican.com.encuestaapp.domain.model.UserObject;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by andres on 08/05/2017.

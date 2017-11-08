@@ -1,32 +1,27 @@
 package gist.unican.com.encuestaapp.domain;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.Subscriptions;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by andres on 08/05/2017.
  */
 
 public abstract class UseCase {
-    private Subscription subscription = Subscriptions.empty();
 
     protected  abstract Observable buildUseCaseObservable();
 
     @SuppressWarnings("unchecked")
-    public void execute(Subscriber useCaseSubscriber) {
-        this.subscription = this.buildUseCaseObservable()
+    public void execute(DisposableObserver useCaseSubscriber) {
+        this.buildUseCaseObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(useCaseSubscriber);
+                .subscribeWith(useCaseSubscriber);
     }
 
-    public void unsubscribe() {
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
-    }
+
+
 }

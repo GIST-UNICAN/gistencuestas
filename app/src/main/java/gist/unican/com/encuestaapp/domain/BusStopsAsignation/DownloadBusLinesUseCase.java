@@ -3,7 +3,8 @@ package gist.unican.com.encuestaapp.domain.BusStopsAsignation;
 import gist.unican.com.encuestaapp.data.encuesta.ResourcesDataSurvey;
 import gist.unican.com.encuestaapp.data.encuesta.ResourcesSurvey;
 import gist.unican.com.encuestaapp.domain.UseCase;
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by andres on 09/05/2017.

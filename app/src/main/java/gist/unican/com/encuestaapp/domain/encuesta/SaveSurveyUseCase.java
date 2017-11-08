@@ -4,7 +4,7 @@ import gist.unican.com.encuestaapp.data.encuesta.ResourcesDataSurvey;
 import gist.unican.com.encuestaapp.data.encuesta.ResourcesSurvey;
 import gist.unican.com.encuestaapp.domain.UseCase;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by andres on 08/05/2017.

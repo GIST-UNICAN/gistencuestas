@@ -23,7 +23,8 @@ import gist.unican.com.encuestaapp.domain.encuesta.DownloadRankingUseCase;
 import gist.unican.com.encuestaapp.domain.model.RankingObject;
 import gist.unican.com.encuestaapp.domain.model.RankingObjectItem;
 import gist.unican.com.encuestaapp.ui.Survey.SurveyList.SurveyAdapter;
-import rx.Subscriber;
+import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * A fragment representing a list of Items.
@@ -111,11 +112,11 @@ public class RankingFragment extends Fragment {
         void onListFragmentInteraction(RankingObjectItem item);
     }
 
-    private final class GetRanking extends Subscriber<RankingObject> {
+    private final class GetRanking extends DisposableObserver<RankingObject> implements Consumer {
         //3 callbacks
         //Show the listView
         @Override
-        public void onCompleted() {
+        public void onComplete() {
 
         }
 
@@ -146,6 +147,10 @@ public class RankingFragment extends Fragment {
 
         }
 
+        @Override
+        public void accept(Object o) throws Exception {
+
+        }
     }
 
     /**

@@ -49,16 +49,21 @@ import gist.unican.com.encuestaapp.domain.model.BusLinesObject;
 import gist.unican.com.encuestaapp.domain.model.BusLinesObjectItem;
 import gist.unican.com.encuestaapp.domain.model.BusStopObject;
 import gist.unican.com.encuestaapp.domain.model.BusStopObjectItem;
+import gist.unican.com.encuestaapp.domain.model.CorrectResponse;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariables;
 import gist.unican.com.encuestaapp.domain.model.SurveyGeneralVariablesItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSend;
 import gist.unican.com.encuestaapp.domain.model.SurveyObjectSendItem;
 import gist.unican.com.encuestaapp.domain.model.SurveyQualityVariables;
-import rx.Observable;
-import rx.Observer;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 import static gist.unican.com.encuestaapp.domain.Utils.Constants.AYTO_URL_LINES;
 import static gist.unican.com.encuestaapp.domain.Utils.Constants.AYTO_URL_STOPS;
@@ -271,11 +276,11 @@ public class MainScreenFragment extends Fragment {
     }
 
     //SUSCRIBERS
-    private final class GetBusLines extends Subscriber<BusLinesObject> {
+    private final class GetBusLines extends DisposableObserver<BusLinesObject> implements Consumer {
         //3 callbacks
         //Show the listView
         @Override
-        public void onCompleted() {
+        public void onComplete() {
             //se guarda en preferencias la sincronizacion
             Utils utilidades = new Utils();
             Calendar now = Calendar.getInstance();
@@ -318,14 +323,18 @@ public class MainScreenFragment extends Fragment {
             //generar el spinner con las lineas
         }
 
+        @Override
+        public void accept(Object o) throws Exception {
+
+        }
     }
 
-    private final class GetBusStops extends Subscriber<BusStopObject> {
+    private final class GetBusStops extends DisposableObserver<BusStopObject> implements Consumer {
         //3 callbacks
         //Show the listView
 
         @Override
-        public void onCompleted() {
+        public void onComplete() {
             //guardar bus stops en bd local
 
         }
@@ -351,34 +360,39 @@ public class MainScreenFragment extends Fragment {
                 e.printStackTrace();
             }
             //vamos a usar programacion reactiva para guardar en la base de datos
-            Observable<Long> observable = Observable.create(new Observable.OnSubscribe<Long>() {
-
+            Observable observable = Observable.create(new ObservableOnSubscribe() {
                 @Override
-                public void call(Subscriber<? super Long> subscriber) {
+                public void subscribe(ObservableEmitter e) throws Exception {
                     Long contador = Long.valueOf(0);
                     for (BusStopObjectItem busStopObjectItem : busStopObject.getResources()) {
                         long id;
                         id = busStopObjectItem.persist().execute();
                         contador++;
-                        subscriber.onNext(contador);
+                        e.onNext(contador);
                     }
-                    subscriber.onCompleted();
+                    e.onComplete();
                 }
             });
 
             Observer<Long> observer = new Observer<Long>() {
 
+
+
                 @Override
-                public void onCompleted() {
-                    Log.d("ESTADO", "save_finis");
-                    generateLinesSpinner(busLinesObject1);
-                    showContent();
-                    Toast.makeText(getContext(), getString(R.string.STOPS_SYNCRHONIZED), Toast.LENGTH_LONG).show();
+                public void onError(Throwable e) {
 
                 }
 
                 @Override
-                public void onError(Throwable e) {
+                public void onComplete() {
+                    Log.d("ESTADO", "save_finis");
+                    generateLinesSpinner(busLinesObject1);
+                    showContent();
+                    Toast.makeText(getContext(), getString(R.string.STOPS_SYNCRHONIZED), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onSubscribe(Disposable d) {
 
                 }
 
@@ -394,13 +408,17 @@ public class MainScreenFragment extends Fragment {
 
         }
 
+        @Override
+        public void accept(Object o) throws Exception {
+
+        }
     }
 
-    private final class GetGeneralVariables extends Subscriber<SurveyGeneralVariables> {
+    private final class GetGeneralVariables extends DisposableObserver<SurveyGeneralVariables> implements Consumer {
         //3 callbacks
         //Show the listView
         @Override
-        public void onCompleted() {
+        public void onComplete() {
         }
 
         //Show the error
@@ -432,13 +450,17 @@ public class MainScreenFragment extends Fragment {
             }
         }
 
+        @Override
+        public void accept(Object o) throws Exception {
+
+        }
     }
 
-    private final class GetQualityVariables extends Subscriber<SurveyQualityVariables> {
+    private final class GetQualityVariables extends DisposableObserver<SurveyQualityVariables> implements Consumer {
         //3 callbacks
         //Show the listView
         @Override
-        public void onCompleted() {
+        public void onComplete() {
 
         }
 
@@ -465,19 +487,24 @@ public class MainScreenFragment extends Fragment {
             }
         }
 
+        @Override
+        public void accept(Object o) throws Exception {
+
+        }
     }
 
-    private final class SetStoragedSurveys extends Subscriber<SurveyObjectSendItem> {
+    private final class SetStoragedSurveys extends DisposableObserver<CorrectResponse> implements Consumer {
         //3 callbacks
         //Show the listView
         @Override
-        public void onCompleted() {
+        public void onComplete() {
             showContent();
             try {
                 deleteLocalDatabase.deleteUserAnswerTable();
                 enviarDatosBoton.setVisibility(View.GONE);
             } catch (Exception e) {
                 e.printStackTrace();
+                showError();
             }
         }
 
@@ -490,11 +517,15 @@ public class MainScreenFragment extends Fragment {
         }
 
         @Override
-        public void onNext(SurveyObjectSendItem surveyObjectSendItem) {
+        public void onNext(CorrectResponse surveyObjectSendItem) {
 
         }
 
 
+        @Override
+        public void accept(Object o) throws Exception {
+
+        }
     }
 
     //methods
